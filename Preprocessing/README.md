@@ -14,6 +14,7 @@ git clone https://github.com/RUCAIBox/RecommenderSystems-Datasets.git
 
 ```
 cd RecommenderSystems-Datasets/Preprocessing
+
 python main.py --dataset [dataset_name] --input_path [input_path] --output_path [output_path]
 ```
 
