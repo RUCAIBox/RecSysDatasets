@@ -16,9 +16,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 常规数据集
 
-SN    | Dataset   | #User    | #Item | #Inteaction | Sparsity | Interaction Type| User Context | User Context | Interaction Context | Review | Temporal |
-| :-----: | :---------: | :--------: | :-----: | :-----------: | :--------: | :---------: | :------------: | :------------: | :-------------------: | :------: | :--------: |
-| 1 | ML-1M   |     6,040     |   3,952    |      1,000,209       |   95.81%  |   Rating [1-5]    |      √        |        √      |                     |        |    √      |
+   SN |Dataset|#User|#Item|#Inteaction|Sparsity|Interaction Type|TimeStamp|User Context| Item Context|Interaction Context|Review|
+|:---:|:----: |:---:|:---:|:--------:| :----: | :------------: |  :--------: |:--------: | :----------: | :---------------: | :---: |
+| 1   |ML-1M  |6,040|3,952|1,000,209|95.81%  |Rating <br> [1-5]  |    √      |    √     |        √     |                   |       |
 
 
 
