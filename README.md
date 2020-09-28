@@ -14,12 +14,14 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 ## 数据集信息统计
 
-常规数据集
+常规推荐数据集
 
    SN |Dataset|#User|#Item|#Inteaction|Sparsity|Interaction Type|TimeStamp|User Context| Item Context|Interaction Context|
 |:---:|:----: |:---:|:---:|:--------:| :----: | :------------: |  :--------: |:--------: | :----------: | :---------------: |
 | 1   |ML-1M  |6,040|3,952|1,000,209|95.81%  |Rating <br> [1-5]  |    √      |    √     |        √     |                   |
 
+
+KG-aware推荐数据集
 
 
 ## 简单使用
@@ -27,6 +29,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 General, Context, Sequential, Knowledge 类模型的推荐系统库，模型涵盖范围广，使用便利。
 
 如果想把上述介绍的数据集应用到RecBox中，您只需要简单两步操作就可以测试这些数据集在不同模型下的效果，首先您需要安装[RecBox](https://github.com/RUCAIBox/RecBox),
-接着需要把原始的数据格式，转换成RecBox规定的数据格式，为此我们提供便捷的脚本，只需执行一下，即可转换完成，具体方式请参照 [Public dataset向RecBox dataset的转换]()。
+接着需要把原始的数据格式，转换成RecBox规定的数据格式。
 
-如果您不想下载这些原始数据集，我们也把小部分经典的数据集处理好并共享出来了，您可以通过 [国内](), [国外]() 网盘连接进行获取。
+针对如何获取RecBox规定的数据格式，我们提供两种处理方式：
+1. 下载原始数据，使用便捷的脚本进行处理，具体方式请参照 [Public dataset向RecBox dataset的转换](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/Preprocessing)。
+
+2. 直接下载已处理为RecBox格式的数据集（只包含部分数据集），您可以通过 [国内](), [国外]() 网盘连接进行获取。
