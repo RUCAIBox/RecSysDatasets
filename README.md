@@ -16,6 +16,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 ### Shopping
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
+- [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
 
 ### Advertisng
 
@@ -35,6 +36,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 1   |ML-1M  |6,040|3,952|1,000,209|95.81%  |Rating <br> [1-5]  |    √      |    √     |        √     |                   |
 | 1   |Anime  |73,515|11,200|7,813,737|99.05%  |Rating <br> [-1, 1-10]  |          |         |        √     |                   |
 | 1   |Epinions  |116,260|41,269|188,478|99.99%  |Rating <br> [1-5]  |    √      |         |             |      √             |
+| 1   |Yelp  |1,968,703|209,393|8,021,122|99.99%  |Rating <br> [1-5]  |    √      |    √   |      √      |      √             |
 
 KG-aware推荐数据集
 
