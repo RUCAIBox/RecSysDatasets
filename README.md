@@ -17,14 +17,20 @@ This is a repository of public data sources for Recommender Systems (RS).
 ### Shopping
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
 - [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
+- [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
 
 ### Advertisng
 
 * [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data): This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
+* [Avazu](https://www.kaggle.com/c/avazu-ctr-prediction/data): This dataset is used in avazu ctr prediction contest.
 
 ### Check-in
 
 * [FourSquare](kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset): This dataset contains check-ins in NYC and Tokyo collected for about 10 month. Each check-in is associated with its time stamp, its GPS coordinates and its semantic meaning.
+
+### Adult
+
+* [Adult](http://archive.ics.uci.edu/ml/datasets/Adult): This dataset is extracted by Barry Becker from the 1994 Census database, which consists of a list of people's attributes and whether they make over 50k a year.
 
 
 
@@ -39,6 +45,10 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 1   |Anime  |73,515|11,200|7,813,737|99.05%  |Rating <br> [-1, 1-10]  |          |         |        √     |                   |
 | 1   |Epinions  |116,260|41,269|188,478|99.99%  |Rating <br> [1-5]  |    √      |         |             |      √             |
 | 1   |Yelp  |1,968,703|209,393|8,021,122|99.99%  |Rating <br> [1-5]  |    √      |    √   |      √      |      √             |
+| 1   |Avazu  |     |    |40,428,967|        |Click <br> [0, 1]  |    √      |       |            |      √             |
+| 1   |Netflix  |480,190|17,771|100,480,507|98.99%  |Rating <br> [1-5]  |    √      |       |            |                   |
+| 1   |Tmall  |963,924|2,353,208|31,955,771|99.99%  |Click or Buy <br> [0, 1]  |    √      |       |            |      √             |
+| 1   |Adult  |     |    |32,561|        |income>=50k <br> [0, 1]  |          |       |            |                   |
 
 KG-aware推荐数据集
 
