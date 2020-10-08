@@ -34,7 +34,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 常规推荐数据集
 
    SN |Dataset|#User|#Item|#Inteaction|Sparsity|Interaction Type|TimeStamp|User Context| Item Context|Interaction Context| Reference (Paper/Competition/Website) |
-|:---:|:----: |:---:|:---:|:--------:| :----: | :------------: |  :--------: |:--------: | :----------: | :---------------: |                                    |
+|:---:|:----: |:---:|:---:|:--------:| :----: | :------------: |  :--------: |:--------: | :----------: | :---------------: | :---------------------------------:|
 | 1   |ML-1M  |6,040|3,952|1,000,209|95.81%  |Rating <br> [1-5]  |    √      |    √     |        √     |                   |                                     |
 | 1   |Anime  |73,515|11,200|7,813,737|99.05%  |Rating <br> [-1, 1-10]  |          |         |        √     |                   |                                |
 | 1   |Epinions  |116,260|41,269|188,478|99.99%  |Rating <br> [1-5]  |    √      |         |             |      √             |                                  |
