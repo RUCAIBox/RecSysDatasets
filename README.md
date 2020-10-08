@@ -12,10 +12,18 @@ This is a repository of public data sources for Recommender Systems (RS).
 - [LastFM](https://grouplens.org/datasets/hetrec-2011/): This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
 
 ### Anime
-- [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This data set contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
+- [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
 
 ### Shopping
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
+
+### Advertisng
+
+* [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data): This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
+
+
+
+
 
 
 ## 数据集信息统计
