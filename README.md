@@ -39,8 +39,12 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 1   |Anime  |73,515|11,200|7,813,737|99.05%  |Rating <br> [-1, 1-10]  |          |         |        √     |                   |
 | 1   |Epinions  |116,260|41,269|188,478|99.99%  |Rating <br> [1-5]  |    √      |         |             |      √             |
 | 1   |Yelp  |1,968,703|209,393|8,021,122|99.99%  |Rating <br> [1-5]  |    √      |    √   |      √      |      √             |
+| 1   |FourSquare_NYC  |1,083|38,333|227,428|  |Click  |    √      |       |      √      |                   |
+| 1   |FourSquare_TKY  |2,293|61,858|537,703|  |Click  |    √      |       |      √      |                   |
 
 KG-aware推荐数据集
+
+
 
 
 ## 简单使用
