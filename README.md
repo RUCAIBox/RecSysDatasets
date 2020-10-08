@@ -22,7 +22,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data): This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
 
+### Check-in
 
+* [FourSquare](kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset): This dataset contains check-ins in NYC and Tokyo collected for about 10 month. Each check-in is associated with its time stamp, its GPS coordinates and its semantic meaning.
 
 
 
