@@ -40,18 +40,23 @@ This is a repository of public data sources for Recommender Systems (RS).
 常规推荐数据集
 
 
-   SN |Dataset|#User|#Item|#Inteaction|Sparsity|Interaction Type|TimeStamp|User Context| Item Context|Interaction Context| Reference (Paper/Competition/Website) |
-|:---:|:----: |:---:|:---:|:--------:| :----: | :------------: |  :--------: |:--------: | :----------: | :---------------: | :---------------------------------:|
-| 1   |ML-1M  |6,040|3,952|1,000,209|95.81%  |Rating <br> [1-5]  |    √      |    √     |        √     |                   |                                     |
-| 1   |Anime  |73,515|11,200|7,813,737|99.05%  |Rating <br> [-1, 1-10]  |          |         |        √     |                   |                                |
-| 1   |Epinions  |116,260|41,269|188,478|99.99%  |Rating <br> [1-5]  |    √      |         |             |      √             |                                  |
-| 1   |Yelp  |1,968,703|209,393|8,021,122|99.99%  |Rating <br> [1-5]  |    √      |    √   |      √      |      √             |                                  |
-| 1   |FourSquare_NYC  |1,083|38,333|227,428|99.45%  |Click  |    √      |       |      √      |                   |                                             |
-| 1   |FourSquare_TKY  |2,293|61,858|537,703|99.62%  |Click  |    √      |       |      √      |                   |                                             |
-| 1   |Avazu  |     |    |40,428,967|        |Click <br> [0, 1]  |    √      |       |            |      √             |                                         |
-| 1   |Netflix  |480,190|17,771|100,480,507|98.99%  |Rating <br> [1-5]  |    √      |       |            |                   |                                   |
-| 1   |Tmall  |963,924|2,353,208|31,955,771|99.99%  |Click or Buy <br> [0, 1]  |    √      |       |            |      √             |                           |
-| 1   |Adult  |     |    |32,561|        |income>=50k <br> [0, 1]  |          |       |            |                   |                                         |
+| SN | Dataset         | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type                    | TimeStamp | User Context | Item Context | Interaction Context | Reference \(Paper/Competition/Website\)       |
+|----|-----------------|-----------|-----------|--------------|----------|-------------------------------------|-----------|--------------|--------------|---------------------|-----------------------------------------------|
+| 1  | ml\-100k        | 943       | 1,682     | 100,000      | 93\.70%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     | The MovieLens Datasets: History and Context\. |
+| 2  | ml\-1m          | 6,040     | 3,952     | 1,000,209    | 95\.81%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     | The MovieLens Datasets: History and Context\. |
+| 3  | ml\-10m         | 69,878    | 10,681    | 10,000,054   | 98\.69%  | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
+| 4  | ml\-20m         | 138,493   | 27,278    | 20,000,263   | 99\.47   | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
+| 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     |                                               |
+| 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √                   |                                               |
+| 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   |                                               |
+| 8  | FourSquare\_NYC | 1,083     | 38,333    | 227,428      | 99\.45%  | Click                               | √         |              | √            |                     |                                               |
+| 9  | FourSquare\_TKY | 2,293     | 61,858    | 537,703      | 99\.62%  | Click                               | √         |              | √            |                     |                                               |
+| 10 | Avazu           |           |           | 40,428,967   |          | Click <br> \[0, 1\]                 | √         |              |              | √                   |                                               |
+| 11 | Netflix         | 480,190   | 17,771    | 100,480,507  | 98\.99%  | Rating <br> \[1\-5\]                | √         |              |              |                     |                                               |
+| 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
+| 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
+
+
 
 
 KG-aware推荐数据集
