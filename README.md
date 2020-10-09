@@ -27,6 +27,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 ### Check-in
 
 * [FourSquare](kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset): This dataset contains check-ins in NYC and Tokyo collected for about 10 month. Each check-in is associated with its time stamp, its GPS coordinates and its semantic meaning.
+* [Gowalla](https://snap.stanford.edu/data/loc-gowalla.html): This dataset is from a location-based social networking website where users share their locations by checking-in, and contains a total of 6,442,890 check-ins of these users over the period of Feb. 2009 - Oct. 2010.
 
 ### Adult
 
@@ -55,6 +56,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 11 | Netflix         | 480,190   | 17,771    | 100,480,507  | 98\.99%  | Rating <br> \[1\-5\]                | √         |              |              |                     |                                               |
 | 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
+| 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
 
 
 
