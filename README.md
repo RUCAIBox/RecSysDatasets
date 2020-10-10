@@ -10,7 +10,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 ### Music
 - [LastFM](https://grouplens.org/datasets/hetrec-2011/): This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
-
+- [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/): This dataset contains more than one billion music listening events created by more than 120,000 users of Last.fm. Each listening event is characterized by artist, album, and track name, and includes a timestamp.
+- 
 ### Anime
 - [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
 
@@ -58,8 +59,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
 | 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
 | 15 | LastFM          |1,892      | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                  |                                               |
-
-
+| 16 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |                                               |
+| 17 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  |    
+| 18 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
 
 
 KG-aware推荐数据集
