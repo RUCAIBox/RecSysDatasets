@@ -57,6 +57,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
 | 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
+| 15 | LastFM          |1,892      | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                  |                                               |
 
 
 
