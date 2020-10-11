@@ -18,6 +18,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
 - [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
+- [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
 
 ### Advertisng
 
@@ -57,7 +58,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
 | 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
-| 15 | LastFM          |1,892      | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                  |                                               |
+| 15   | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √15                 | LastFM |
+| 16   | DIGINETICA      | 600,684   | 184,047   | 993,483      | 99.99%   | Click                               | √         |              | √            |                     |  |
 
 
 
