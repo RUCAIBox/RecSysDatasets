@@ -69,7 +69,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  ||
 | 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
 | 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | Kaggle: https://www.kaggle.com/c/criteo-display-ad-challenge/data |
-|  | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ | | √ | √ | Self-Attentive Sequential Recommendation. |
+| 21 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ | | √ | √ | Self-Attentive Sequential Recommendation. |
 
 
 
