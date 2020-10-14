@@ -11,7 +11,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 ### Music
 - [LastFM](https://grouplens.org/datasets/hetrec-2011/): This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
 - [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/): This dataset contains more than one billion music listening events created by more than 120,000 users of Last.fm. Each listening event is characterized by artist, album, and track name, and includes a timestamp.
-- 
+- [Yahoo Music](https://webscope.sandbox.yahoo.com/catalog.php?datatype=r): This dataset represents a snapshot of the Yahoo! Music community's preferences for various musical artists.
 ### Anime
 - [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
 
@@ -20,6 +20,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 - [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
+- [YOOCHOOSE](https://2015.recsyschallenge.com/challenge.html): This dataset was constructed by YOOCHOOSE GmbH to support participants in the RecSys Challenge 2015.
 
 ### Advertisng
 
@@ -55,7 +56,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 4  | ml\-20m         | 138,493   | 27,278    | 20,000,263   | 99\.47   | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
 | 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     |                                               |
 | 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √                   |                                               |
-| 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   |                                               |
+| 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   | Yelp Dataset: https://www.yelp.com/dataset |
 | 8  | FourSquare\_NYC | 1,083     | 38,333    | 227,428      | 99\.45%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
 | 9  | FourSquare\_TKY | 2,293     | 61,858    | 537,703      | 99\.62%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
 | 10 | Avazu           |           |           | 40,428,967   |          | Click <br> \[0, 1\]                 | √         |              |              | √                   |                                               |
@@ -63,7 +64,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
 | 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
-| 15   | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                   |  |
+| 15   | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                   | HetRec 2011 Dataset: https://grouplens.org/datasets/hetrec-2011/ |
 | 16   | DIGINETICA      | 600,684   | 184,047   | 993,483      | 99.99%   | Click                               | √         |              | √            |                     | CIKM Cup 2016 Track 2: Personalized E-Commerce Search Challenge<br>https://competitions.codalab.org/competitions/11161 |
 | 17 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |                                               |
 | 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  ||
@@ -71,6 +72,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
 | 21 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
 | 22 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
+| 23 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
+| 24 | YOOCHOOSE Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 25 | YOOCHOOSE Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
 
 
 
