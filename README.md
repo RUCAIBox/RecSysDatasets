@@ -70,7 +70,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
 | 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
 | 21 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
-| 21 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
+| 22 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
 
 
 
