@@ -65,6 +65,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  ||
 | 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
 | 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
+| 21 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
 
 
 
