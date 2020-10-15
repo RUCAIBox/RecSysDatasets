@@ -69,7 +69,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 | SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
 |----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
-| 1  | [MovieLens](https://github.com/RUCAIBox/RecommenderSystems-Datasets/dataset_info/MovieLens)         | \-        | \-        | \-           | \-       | Rating                     | √         | √            | √            |                     |
+| 1  | [MovieLens](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/MovieLens)         | \-        | \-        | \-           | \-       | Rating                     | √         | √            | √            |                     |
 | 2  | Anime             | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\] |           |              | √            |                     |
 | 3  | Epinions          | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]       | √         |              |              | √                   |
 | 4  | Yelp              | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]       | √         | √            | √            | √                   |
@@ -78,20 +78,20 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 7  | Jester            | 73,421    | 101       | 4,136,360    | 44\.22%  | Rating <br> \[\-10, 10\]   |           |              |              |                     |
 | 8  | Douban            | 738,701   | 28        | 2,125,056    | 89\.73%  | Rating <br> \[0,5\]        | √         |              |              | √                   |
 | 9  | Yahoo Music       | 1,948,882 | 98,211    | 11,557,943   | 99\.99%  | Rating <br> \[0, 100\]     |           |              | √            |                     |
-| 10 | KDD2010           | \-        | \-        | \-           | \-       | Rating                     |           |              |              | √                   |
-| 11 | Amazon            | \-        | \-        | \-           | \-       | Rating                     | √         |              | √            |                     |
+| 10 | [KDD2010](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/KDD2010)           | \-        | \-        | \-           | \-       | Rating                     |           |              |              | √                   |
+| 11 | [Amazon](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Amazon)            | \-        | \-        | \-           | \-       | Rating                     | √         |              | √            |                     |
 | 12 | Pinterest         | 55,187    | 9,911     | 1,445,622    | 99\.74%  | \-                         |           |              |              |                     |
-| 13 | Gowalla           | 107,092   | 1,280,969 | 3,981,334    | 99\.99%  | Check-in                   | √         |              |              | √                   |
+| 13 | [Gowalla](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Gowalla)           | 107,092   | 1,280,969 | 3,981,334    | 99\.99%  | Check-in                   | √         |              |              | √                   |
 | 14 | LastFM            | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                      |           |              |              | √                   |
-| 15 | DIGINETICA        | 600,684   | 184,047   | 993,483      | 99\.99%  | Click                      | √         |              | √            |                     |
-| 16 | Steam             | 2,567,538 | 32,135    | 7,793,069    | 99\.99%  | Buy                        | √         |              | √            | √                   |
-| 17 | Ta Feng           | 32,266    | 23,812    | 817,741      | 99\.89%  | Click                      | √         | √            | √            | √                   |
-| 18 | FourSquare        | \-        | \-        | \-           | \-       | Check-in                   | √         |              | √            |                     |
-| 19 | Tmall             | \-        | \-        | \-           | \-       | Click/Buy                  | √         |              |              | √                   |
-| 20 | YOOCHOOSE         | \-        | \-        | \-           | \-       | Click/Buy                  | √         |              |              | √                   |
-| 21 | IPinyou           | \-        | \-        | \-           | \-       | View/Click                 |           | √            | √            | √                   |
-| 22 | Retailrocket      | \-        | \-        | \-           | \-       | view/Addtocart/Transaction | √         |              |              |                     |
-| 23 | LFM-1b            | 120,322   | 3,123,496 | 65,133,026   | 99\.98%  | Click                      | √         | √            | √            | √                   |
+| 15 | [DIGINETICA](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/DIGINETICA)        | 600,684   | 184,047   | 993,483      | 99\.99%  | Click                      | √         |              | √            |                     |
+| 16 | [Steam](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Steam)             | 2,567,538 | 32,135    | 7,793,069    | 99\.99%  | Buy                        | √         |              | √            | √                   |
+| 17 | [Ta Feng](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/TaFeng)           | 32,266    | 23,812    | 817,741      | 99\.89%  | Click                      | √         | √            | √            | √                   |
+| 18 | [FourSquare](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/FourSquare)        | \-        | \-        | \-           | \-       | Check-in                   | √         |              | √            |                     |
+| 19 | [Tmall](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Tmall)             | \-        | \-        | \-           | \-       | Click/Buy                  | √         |              |              | √                   |
+| 20 | [YOOCHOOSE](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/YOOCHOOSE)         | \-        | \-        | \-           | \-       | Click/Buy                  | √         |              |              | √                   |
+| 21 | [IPinyou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/IPInyou)           | \-        | \-        | \-           | \-       | View/Click                 |           | √            | √            | √                   |
+| 22 | [Retailrocket](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Retailrocket)      | \-        | \-        | \-           | \-       | view/Addtocart/Transaction | √         |              |              |                     |
+| 23 | [LFM-1b](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/LFM-1b)            | 120,322   | 3,123,496 | 65,133,026   | 99\.98%  | Click                      | √         | √            | √            | √                   |
 | 24 | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 25 | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
 | 26 | Phishing\-website | \-        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
