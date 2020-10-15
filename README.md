@@ -40,7 +40,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Steam](http://cseweb.ucsd.edu/~wckang/steam_reviews.json.gz): This dataset is reviews and game information from Steam, which contains 7,793,069 reviews, 2,567,538 users, and 32,135 games. In addition to the review text, the data also includes the users' play hours in each review.
 
+### Website
 
+* [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites): This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not. The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based features and 7 domain based features.
 
 
 ## 数据集信息统计
@@ -54,8 +56,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 2  | ml\-1m          | 6,040     | 3,952     | 1,000,209    | 95\.81%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     | The MovieLens Datasets: History and Context\. |
 | 3  | ml\-10m         | 69,878    | 10,681    | 10,000,054   | 98\.69%  | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
 | 4  | ml\-20m         | 138,493   | 27,278    | 20,000,263   | 99\.47   | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
-| 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     |                                               |
-| 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √                   |                                               |
+| 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     | Kaggle: https://www.kaggle.com/CooperUnion/anime-recommendations-database |
+| 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √        | Leveraging Social Connections to Improve Personalized Ranking for Collaborative Filtering.|
 | 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   | Yelp Dataset: https://www.yelp.com/dataset |
 | 8  | FourSquare\_NYC | 1,083     | 38,333    | 227,428      | 99\.45%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
 | 9  | FourSquare\_TKY | 2,293     | 61,858    | 537,703      | 99\.62%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
@@ -63,19 +65,19 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 11 | Netflix         | 480,190   | 17,771    | 100,480,507  | 98\.99%  | Rating <br> \[1\-5\]                | √         |              |              |                     |                                               |
 | 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
 | 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
-| 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
+| 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  | Friendship and Mobility: User Movement in Location-Based Social Networks.|
 | 15   | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                   | HetRec 2011 Dataset: https://grouplens.org/datasets/hetrec-2011/ |
 | 16   | DIGINETICA      | 600,684   | 184,047   | 993,483      | 99.99%   | Click                               | √         |              | √            |                     | CIKM Cup 2016 Track 2: Personalized E-Commerce Search Challenge<br>https://competitions.codalab.org/competitions/11161 |
-| 17 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |                                               |
-| 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  ||
-| 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
+| 17 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
+| 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
+| 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
 | 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
 | 21 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
 | 22 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
 | 23 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
 | 24 | YOOCHOOSE Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
 | 25 | YOOCHOOSE Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
-
+| 26 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
 
 
 KG-aware推荐数据集
