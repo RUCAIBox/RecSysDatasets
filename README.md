@@ -23,6 +23,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
 - [YOOCHOOSE](https://2015.recsyschallenge.com/challenge.html): This dataset was constructed by YOOCHOOSE GmbH to support participants in the RecSys Challenge 2015.
 - [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset): The data has been collected from a real-world ecommerce website. It is raw data, i.e. without any content transformations, however, all values are hashed due to confidential issues.
+- [Ta Feng](https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset): The dataset contains a Chinese grocery store transaction data from November 2000 to February 2001.
 
 ### Advertisng
 
@@ -92,19 +93,20 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 24 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
 | 25 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
 | 26 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
-| 27 | YOOCHOOSE-Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
-| 28 | YOOCHOOSE-Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 27 | YOOCHOOSE-Buys | 509,696 | 19,949 | 1,150,753 | 99.99% | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 28 | YOOCHOOSE-Clicks | 9,249,729 | 52,739 | 33,003,944 | 99.99% | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
 | 29 | Pinterest | 55,187 | 9,911 | 1,445,622 | 99.74% |  |  | |  |  | Neural Collaborative Filtering |
 | 30 | IPinyou-View | 12,930,288 | 131 | 15,354,629 | 99.09% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 31 | IPinyou-Click | 11,597 | 118 | 12,683 | 99.07% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 32 | IPinyou-View-Sums | 12,930,288 | 131 | 14,697,046 | 99.13% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 33 | IPinyou-Click-Sums | 11,597 | 118 | 11,615 | 99.15% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 34 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
-| 35 | Retailrocket-View | | | 2,664,312 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
-| 36 | Retailrocket-Addtocart | | | 69,332 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
-| 37 | Retailrocket-Transaction | | | 22,457 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
-| 38 | Jester | 73,421 | 101 | 4,136,360 | 44.22% | rating<br>[-10, 10] |  | | | | [Eigentaste: A Constant Time Collaborative Filtering Algorithm](http://www.ieor.berkeley.edu/~goldberg/pubs/eigentaste.pdf) |
-| 39 | douban | 738,701 | 28 | 2,125,056 | 89.73% | rating<br>[0,5] | √ | | | √ | Kaggle: https://www.kaggle.com/utmhikari/doubanmovieshortcomments |
+| 35 | Retailrocket-View | 1,404,179 | 234,838 | 2,664,312 | 99.99% | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 36 | Retailrocket-Addtocart | 37,722 | 23,903 | 69,332 | 99.99% | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 37 | Retailrocket-Transaction | 11,719 | 12,025 | 22,457 | 99.98% | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 38 | Ta Feng | 32,266 | 23,812 | 817,741 | 99.89% | Click | √ | √ | √ | √ | Kaggle: https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset |
+| 39 | Jester | 73,421 | 101 | 4,136,360 | 44.22% | rating<br>[-10, 10] |  | | | | [Eigentaste: A Constant Time Collaborative Filtering Algorithm](http://www.ieor.berkeley.edu/~goldberg/pubs/eigentaste.pdf) |
+| 40 | douban | 738,701 | 28 | 2,125,056 | 89.73% | rating<br>[0,5] | √ | | | √ | Kaggle: https://www.kaggle.com/utmhikari/doubanmovieshortcomments |
 
 
 KG-aware推荐数据集
