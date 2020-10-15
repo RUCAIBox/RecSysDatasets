@@ -19,13 +19,22 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 ### Shopping
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
+
 - [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
+
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
+
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
+
 - [YOOCHOOSE](https://2015.recsyschallenge.com/challenge.html): This dataset was constructed by YOOCHOOSE GmbH to support participants in the RecSys Challenge 2015.
+
 - [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset): The data has been collected from a real-world ecommerce website. It is raw data, i.e. without any content transformations, however, all values are hashed due to confidential issues.
+
 - [Ta Feng](https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset): The dataset contains a Chinese grocery store transaction data from November 2000 to February 2001.
-- [Amazon](http://jmcauley.ucsd.edu/data/amazon/): 
+
+- [Amazon](http://jmcauley.ucsd.edu/data/amazon/): This dataset contains product reviews and metadata from Amazon, including 142.8 million reviews spanning May 1996 - July 2014.
+
+  This dataset includes only-rating data (ratings), product metadata (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
 
 ### Advertisng
 
@@ -42,7 +51,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Adult](http://archive.ics.uci.edu/ml/datasets/Adult): This dataset is extracted by Barry Becker from the 1994 Census database, which consists of a list of people's attributes and whether they make over 50k a year.
 
-### Game
+### Games
 
 * [Steam](https://github.com/kang205/SASRec): This dataset is reviews and game information from Steam, which contains 7,793,069 reviews, 2,567,538 users, and 32,135 games. In addition to the review text, the data also includes the users' play hours in each review.
 
@@ -50,16 +59,21 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Pinterest](https://github.com/hexiangnan/neural_collaborative_filtering/tree/master/Data): This dataset is originally constructed by paper Learning image and user features for recommendations in social networks for evaluating content-based image recommendation, and processed by paper Neural Collaborative Filtering.
 
-### Website
+### Websites
 
 * [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites): This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not. The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based features and 7 domain based features.
 
-### Joke
+### Jokes
 
 * [Jester](http://eigentaste.berkeley.edu/dataset/): This dataset contains anonymous ratings of jokes by users of the Jester Joke Recommender System.
 
+### Books
 
+* [Book-Crossing](http://www2.informatik.uni-freiburg.de/~cziegler/BX/): This dataset was collected by Cai-Nicolas Ziegler in a 4-week crawl (August / September 2004) from the [Book-Crossing](http://www.bookcrossing.com/) community with kind permission from Ron Hornbaker, CTO of [Humankind Systems](http://www.humankindsystems.com/). Contains 278,858 users (anonymized but with demographic information) providing 1,149,780 ratings (explicit / implicit) about 271,379 books.
 
+### Exercises
+
+* [KDD2010-bridge](https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp): This dataset was released in KDD Cup 2010 Educational Data Mining Challenge,  which contains the situations of students submitting exercises on the systems.
 
 
 ## 数据集信息统计
