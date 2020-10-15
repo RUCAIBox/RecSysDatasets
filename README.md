@@ -69,7 +69,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 | SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
 |----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
-| 1  | [MovieLens](https://github.com/RUCAIBox/RecommenderSystems-Datasets/dataset_info/Movielens)         | \-        | \-        | \-           | \-       | Rating                     | √         | √            | √            |                     |
+| 1  | [MovieLens](https://github.com/RUCAIBox/RecommenderSystems-Datasets/dataset_info/MovieLens)         | \-        | \-        | \-           | \-       | Rating                     | √         | √            | √            |                     |
 | 2  | Anime             | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\] |           |              | √            |                     |
 | 3  | Epinions          | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]       | √         |              |              | √                   |
 | 4  | Yelp              | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]       | √         | √            | √            | √                   |
