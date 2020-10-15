@@ -7,6 +7,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 ### Movies
 - [MovieLens](https://grouplens.org/datasets/movielens/): GroupLens Research has collected and made available rating datasets from their movie web site.
 - [Netflix](https://www.kaggle.com/netflix-inc/netflix-prize-data): This is the official data set used in the Netflix Prize competition.
+- [douban](https://www.kaggle.com/utmhikari/doubanmovieshortcomments):  Douban Movie is a Chinese website that allows Internet users to share their comments and viewpoints about movies. This dataset contains more than 2 million short comments of 28 movies in Douban Movie website. 
 
 ### Music
 - [LastFM](https://grouplens.org/datasets/hetrec-2011/): This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
@@ -49,6 +50,12 @@ This is a repository of public data sources for Recommender Systems (RS).
 ### Website
 
 * [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites): This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not. The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based features and 7 domain based features.
+
+### Joke
+
+* [Jester](http://eigentaste.berkeley.edu/dataset/): This dataset contains anonymous ratings of jokes by users of the Jester Joke Recommender System.
+
+
 
 
 
@@ -96,6 +103,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 35 | Retailrocket-View | | | 2,664,312 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
 | 36 | Retailrocket-Addtocart | | | 69,332 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
 | 37 | Retailrocket-Transaction | | | 22,457 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 38 | Jester | 73,421 | 101 | 4,136,360 | 44.22% | rating<br>[-10, 10] |  | | | | [Eigentaste: A Constant Time Collaborative Filtering Algorithm](http://www.ieor.berkeley.edu/~goldberg/pubs/eigentaste.pdf) |
+| 39 | douban | 738,701 | 28 | 2,125,056 | 89.73% | rating<br>[0,5] | √ | | | √ | Kaggle: https://www.kaggle.com/utmhikari/doubanmovieshortcomments |
 
 
 KG-aware推荐数据集
