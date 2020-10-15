@@ -26,6 +26,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data): This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
 * [Avazu](https://www.kaggle.com/c/avazu-ctr-prediction/data): This dataset is used in avazu ctr prediction contest.
+* [Ipinyou](https://pan.baidu.com/s/1kTwX2mF#list/path=%2F): This dataset was provided by iPinYou, which contains all training datasets and leaderboard testing datasets of the three seasons iPinYou Global RTB(Real-Time Bidding) Bidding Algorithm Competition.
 
 ### Check-in
 
@@ -40,9 +41,14 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [Steam](http://cseweb.ucsd.edu/~wckang/steam_reviews.json.gz): This dataset is reviews and game information from Steam, which contains 7,793,069 reviews, 2,567,538 users, and 32,135 games. In addition to the review text, the data also includes the users' play hours in each review.
 
+### Pinterest
+
+* [pinterest](https://github.com/hexiangnan/neural_collaborative_filtering/tree/master/Data): This dataset is originally constructed by paper Learning image and user features for recommendations in social networks for evaluating content-based image recommendation, and processed by paper Neural Collaborative Filtering.
+
 ### Website
 
 * [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites): This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not. The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based features and 7 domain based features.
+
 
 
 ## 数据集信息统计
@@ -61,23 +67,31 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   | Yelp Dataset: https://www.yelp.com/dataset |
 | 8  | FourSquare\_NYC | 1,083     | 38,333    | 227,428      | 99\.45%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
 | 9  | FourSquare\_TKY | 2,293     | 61,858    | 537,703      | 99\.62%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
-| 10 | Avazu           |           |           | 40,428,967   |          | Click <br> \[0, 1\]                 | √         |              |              | √                   |                                               |
-| 11 | Netflix         | 480,190   | 17,771    | 100,480,507  | 98\.99%  | Rating <br> \[1\-5\]                | √         |              |              |                     |                                               |
-| 12 | Tmall           | 963,924   | 2,353,208 | 31,955,771   | 99\.99%  | Click or Buy <br> \[0, 1\]          | √         |              |              | √                   |                                               |
-| 13 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              |                     |                                               |
-| 14 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  | Friendship and Mobility: User Movement in Location-Based Social Networks.|
-| 15   | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                   | HetRec 2011 Dataset: https://grouplens.org/datasets/hetrec-2011/ |
-| 16   | DIGINETICA      | 600,684   | 184,047   | 993,483      | 99.99%   | Click                               | √         |              | √            |                     | CIKM Cup 2016 Track 2: Personalized E-Commerce Search Challenge<br>https://competitions.codalab.org/competitions/11161 |
-| 17 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
-| 18 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
-| 19 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |The LFM-1b Dataset for Music Retrieval and Recommendation.|
-| 20 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
-| 21 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
-| 22 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
-| 23 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
-| 24 | YOOCHOOSE Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
-| 25 | YOOCHOOSE Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
-| 26 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
+| 10 | Avazu           |           |           | 40,428,967   |          | Click <br> \[0, 1\]                 | √         |              |              | √                   | Kaggle: https://www.kaggle.com/c/avazu-ctr-prediction/data |
+| 11 | Netflix         | 480,189 | 17,770   | 100,480,507  | 98\.82% | Rating <br> \[1\-5\]                | √         |              |              |                     | Kaggle: https://www.kaggle.com/netflix-inc/netflix-prize-data |
+| 12 | Tmall-Buy       | 885,759 | 1,144,124 | 9,348,756 | 99\.99%  | Buy          | √         |              |              |                    | IJCAI16 Contest: https://tianchi.aliyun.com/dataset/dataDetail?dataId=53 |
+| 13 | Tmall-Click     | 626,041 | 2,200,291 | 35,179,371 | 99\.99%  | Click         | √         |              |              |                    | IJCAI16 Contest: https://tianchi.aliyun.com/dataset/dataDetail?dataId=53 |
+| 14 | Tmall-Buy-Sums  | 885,759 | 1,144,124 | 7,592,214 | 99\.99%  | Buy         | √         |              |              | √                   | IJCAI16 Contest: https://tianchi.aliyun.com/dataset/dataDetail?dataId=53 |
+| 15 | Tmall-Click-Sums | 626,041 | 2,200,291 | 24,363,557 | 99\.99%  | Click          | √         |              |              | √                   | IJCAI16 Contest: https://tianchi.aliyun.com/dataset/dataDetail?dataId=53 |
+| 16 | Adult           |           |           | 32,561       |          | income>=50k <br> \[0, 1\]           |           |              |              | √ | Adult Dataset: http://archive.ics.uci.edu/ml/datasets/Adult |
+| 17 | Gowalla         |107,092    | 1,280,969  | 3,981,334   | 99\.99%  | Click                               | √         |              |              | √                  |                                               |
+| 18  | LastFM          | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                               |           |              |              | √                   | HetRec 2011 Dataset: https://grouplens.org/datasets/hetrec-2011/ |
+| 19  | DIGINETICA      | 600,684   | 184,047   | 993,483      | 99.99%   | Click                               | √         |              | √            |                     | CIKM Cup 2016 Track 2: Personalized E-Commerce Search Challenge<br>https://competitions.codalab.org/competitions/11161 |
+| 20 | lfm1b-artists   |120,322    | 3,123,496  | 65,133,026  | 99\.98%  | Click                               | √         | √            | √            | √                  |                                               |
+| 21 | lfm1b-albums    |120,322    | 15,641,432  | 117,997,821  | 99\.99%  | Click                             | √         | √            | √            | √                  ||
+| 22 | lfm1b-tracks    |120,322    | 31,634,450  | 319,951,294  | 99\.99%  | Click                             | √         | √            | √            | √                  |                                              |
+| 23 | criteo | |  | 45,850,617 |  | Click |  |  |  | √ | |
+| 24 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
+| 25 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
+| 26 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
+| 27 | YOOCHOOSE Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 28 | YOOCHOOSE Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 29 | Pinterest | 55,187 | 9,911 | 1,445,622 | 99.74% |  |  | |  |  | Neural Collaborative Filtering |
+| 30 | IPinyou-View | 12,930,288 | 131 | 15,354,629 | 99.09% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
+| 31 | IPinyou-Click | 11,597 | 118 | 12,683 | 99.07% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
+| 32 | IPinyou-View-Sums | 12,930,288 | 131 | 14,697,046 | 99.13% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
+| 33 | IPinyou-Click-Sums | 11,597 | 118 | 11,615 | 99.15% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
+| 34 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
 
 
 KG-aware推荐数据集
