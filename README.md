@@ -45,6 +45,11 @@ This is a repository of public data sources for Recommender Systems (RS).
 
 * [pinterest](https://github.com/hexiangnan/neural_collaborative_filtering/tree/master/Data): This dataset is originally constructed by paper Learning image and user features for recommendations in social networks for evaluating content-based image recommendation, and processed by paper Neural Collaborative Filtering.
 
+### Website
+
+* [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites): This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not. The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based features and 7 domain based features.
+
+
 
 ## 数据集信息统计
 
@@ -57,8 +62,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 2  | ml\-1m          | 6,040     | 3,952     | 1,000,209    | 95\.81%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     | The MovieLens Datasets: History and Context\. |
 | 3  | ml\-10m         | 69,878    | 10,681    | 10,000,054   | 98\.69%  | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
 | 4  | ml\-20m         | 138,493   | 27,278    | 20,000,263   | 99\.47   | Rating <br> \[0\.5\-5\] half\-stars | √         |              | √            |                     | The MovieLens Datasets: History and Context\. |
-| 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     |                                               |
-| 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √                   |                                               |
+| 5  | Anime           | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\]          |           |              | √            |                     | Kaggle: https://www.kaggle.com/CooperUnion/anime-recommendations-database |
+| 6  | Epinions        | 116,260   | 41,269    | 188,478      | 99\.99%  | Rating <br> \[1\-5\]                | √         |              |              | √        | Leveraging Social Connections to Improve Personalized Ranking for Collaborative Filtering.|
 | 7  | Yelp            | 1,968,703 | 209,393   | 8,021,122    | 99\.99%  | Rating <br> \[1\-5\]                | √         | √            | √            | √                   | Yelp Dataset: https://www.yelp.com/dataset |
 | 8  | FourSquare\_NYC | 1,083     | 38,333    | 227,428      | 99\.45%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
 | 9  | FourSquare\_TKY | 2,293     | 61,858    | 537,703      | 99\.62%  | Click                               | √         |              | √            |                     | Kaggle: https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset |
@@ -86,6 +91,8 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 31 | IPinyou-Click | 11,597 | 118 | 12,683 | 99.07% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 32 | IPinyou-View-Sums | 12,930,288 | 131 | 14,697,046 | 99.13% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 33 | IPinyou-Click-Sums | 11,597 | 118 | 11,615 | 99.15% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
+| 34 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
+
 
 KG-aware推荐数据集
 
