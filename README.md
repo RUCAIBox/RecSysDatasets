@@ -107,9 +107,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 38 | Ta Feng | 32,266 | 23,812 | 817,741 | 99.89% | Click | √ | √ | √ | √ | Kaggle: https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset |
 | 39 | Jester | 73,421 | 101 | 4,136,360 | 44.22% | rating<br>[-10, 10] |  | | | | [Eigentaste: A Constant Time Collaborative Filtering Algorithm](http://www.ieor.berkeley.edu/~goldberg/pubs/eigentaste.pdf) |
 | 40 | douban | 738,701 | 28 | 2,125,056 | 89.73% | rating<br>[0,5] | √ | | | √ | Kaggle: https://www.kaggle.com/utmhikari/doubanmovieshortcomments |
-| 41 | KDD2010-bridge-algebra2006_2007 | 1840 | 584946 | 2289726 | 99.79% |  |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
-| 42 | KDD2010-bridge-algebra2008_2009 | 3310 | 1259272 | 8918054 | 99.79% |  |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
-| 43 | KDD2010-bridge-bridge-to-algebra2006_2007 | 1146 | 208232 | 3686871 | 98.46% |  |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
+| 41 | KDD2010-bridge-algebra2006_2007 | 1840 | 584946 | 2289726 | 99.79% | rating<br>[0,1] |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
+| 42 | KDD2010-bridge-algebra2008_2009 | 3310 | 1259272 | 8918054 | 99.79% | rating<br/>[0,1] |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
+| 43 | KDD2010-bridge-bridge-to-algebra2006_2007 | 1146 | 208232 | 3686871 | 98.46% | rating<br/>[0,1] |  | | | √ | KDD Cup 2010: https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp |
 
 
 KG-aware推荐数据集
