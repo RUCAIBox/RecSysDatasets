@@ -21,6 +21,7 @@ This is a repository of public data sources for Recommender Systems (RS).
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
 - [YOOCHOOSE](https://2015.recsyschallenge.com/challenge.html): This dataset was constructed by YOOCHOOSE GmbH to support participants in the RecSys Challenge 2015.
+- [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset): The data has been collected from a real-world ecommerce website. It is raw data, i.e. without any content transformations, however, all values are hashed due to confidential issues.
 
 ### Advertisng
 
@@ -84,14 +85,17 @@ This is a repository of public data sources for Recommender Systems (RS).
 | 24 | Book-crossing | 105284 | 340557 | 1149780 | 99.99% | Rating<br>[0-10] | | √ | √ |  | Improving Recommendation Lists Through Topic Diversification |
 | 25 | steam | 2,567,538 | 32,135 | 7,793,069 | 99\.99% | Buy | √ |  | √ | √ | Self-Attentive Sequential Recommendation. |
 | 26 | Yahoo Music | 1,948,882 | 98,211 | 11,557,943 | 99.99% | Rating<br>[0, 100] |  | | √ |  | Yahoo Rating and Classification Data: https://webscope.sandbox.yahoo.com/catalog.php?datatype=r |
-| 27 | YOOCHOOSE Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
-| 28 | YOOCHOOSE Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 27 | YOOCHOOSE-Buys |  |  | 1,150,753 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
+| 28 | YOOCHOOSE-Clicks |  |  | 33,003,944 |  | Click | √ | |  | √ | RecSys Challenge 2015: https://2015.recsyschallenge.com/challenge.html |
 | 29 | Pinterest | 55,187 | 9,911 | 1,445,622 | 99.74% |  |  | |  |  | Neural Collaborative Filtering |
 | 30 | IPinyou-View | 12,930,288 | 131 | 15,354,629 | 99.09% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 31 | IPinyou-Click | 11,597 | 118 | 12,683 | 99.07% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 32 | IPinyou-View-Sums | 12,930,288 | 131 | 14,697,046 | 99.13% | View |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 33 | IPinyou-Click-Sums | 11,597 | 118 | 11,615 | 99.15% | Click |  | √ | √ | √ | iPinYou Global RTB Bidding Algorithm Competition: http://contest.ipinyou.com |
 | 34 | Phishing-website |  |  | 11,055 |  |  |  | |  | √ | An Assessment of Features Related to Phishing Websites using an Automated Technique. |
+| 35 | Retailrocket-View | | | 2,664,312 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 36 | Retailrocket-Addtocart | | | 69,332 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
+| 37 | Retailrocket-Transaction | | | 22,457 | | Click | √ | | |  | Kaggle: https://www.kaggle.com/retailrocket/ecommerce-dataset |
 
 
 KG-aware推荐数据集
