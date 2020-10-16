@@ -132,9 +132,8 @@ people's attributes and whether they make over 50k a year.
 | 18 | [FourSquare](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/FourSquare)        | \-        | \-        | \-           | \-       | Check-in                   | √         |              | √            |                     |
 | 19 | [Tmall](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Tmall)             | 963,923 | 2,353,207 | 44,528,127 | 99.99% | Click/Buy                  | √         |              |              | √                   |
 | 20 | [YOOCHOOSE](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/YOOCHOOSE)         | 9,249,729  | 52,739    | 34,154,697    | 99.99%   | Click/Buy                  | √         |              |              | √                   |
-| 21 | [IPinyou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/IPinyou)           | 12,931,430 | 131 | 15,367,312 | 99.09% | View/Click                 |           | √            | √            | √                   |
-| 22 | [Retailrocket](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Retailrocket)      | 1,407,580  | 247,085   | 2,756,101     | 99.99%   | View/Addtocart/Transaction | √         |              |              |                     |
-| 23 | [LFM-1b](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/LFM-1b)            | 120,322   | 3,123,496 | 1,088,161,692   | 99\.71%  | Click                      | √         | √            | √            | √                   |
+| 21 | [Retailrocket](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Retailrocket)      | 1,407,580  | 247,085   | 2,756,101     | 99.99%   | View/Addtocart/Transaction | √         |              |              |                     |
+| 22 | [LFM-1b](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/LFM-1b)            | 120,322   | 3,123,496 | 1,088,161,692   | 99\.71%  | Click                      | √         | √            | √            | √                   |
 
 
 ### CTR Datasets
@@ -143,8 +142,9 @@ people's attributes and whether they make over 50k a year.
 |----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 2  | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
-| 3  | Phishing\-website | \-        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
-| 4  | Adult             | \-        | \-        | 32,561       | \-       | income>=50k <br> \[0, 1\]  |           |              |              | √                   |
+| 3  | [IPinyou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/IPinyou)           | 12,931,430 | 131 | 15,367,312 | 99.09% | View/Click                 |           | √            | √            | √                   |
+| 4  | Phishing\-website | \-        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
+| 5  | Adult             | \-        | \-        | 32,561       | \-       | income>=50k <br> \[0, 1\]  |           |              |              | √                   |
 
 
 ### Knowledge-aware Datasets
