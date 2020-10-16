@@ -2,39 +2,45 @@
 
 This is a repository of public data sources for Recommender Systems (RS). 
 
-## 数据集链接和简单介绍
+## Datasets link and brief introduction
 
 ### Movies
-- [MovieLens](https://grouplens.org/datasets/movielens/): GroupLens Research has collected and made available rating datasets from their movie web site.
-- [Netflix](https://www.kaggle.com/netflix-inc/netflix-prize-data): This is the official data set used in the Netflix Prize competition.
-- [Douban](https://www.kaggle.com/utmhikari/doubanmovieshortcomments):  Douban Movie is a Chinese website that allows Internet users to share their comments and viewpoints about movies. This dataset contains more than 2 million short comments of 28 movies in Douban Movie website. 
+- [MovieLens](https://grouplens.org/datasets/movielens/):
+GroupLens Research has collected and made available rating datasets from their movie web site.
+- [Netflix](https://www.kaggle.com/netflix-inc/netflix-prize-data):
+This is the official data set used in the Netflix Prize competition.
+- [Douban](https://www.kaggle.com/utmhikari/doubanmovieshortcomments):
+Douban Movie is a Chinese website that allows Internet users to share their comments and viewpoints about movies.
+This dataset contains more than 2 million short comments of 28 movies in Douban Movie website.
 
 ### Music
-- [LastFM](https://grouplens.org/datasets/hetrec-2011/): This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
-- [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/): This dataset contains more than one billion music listening events created by more than 120,000 users of Last.fm. Each listening event is characterized by artist, album, and track name, and includes a timestamp.
-- [Yahoo Music](https://webscope.sandbox.yahoo.com/catalog.php?datatype=r): This dataset represents a snapshot of the Yahoo! Music community's preferences for various musical artists.
-
-### Anime
-- [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
+- [LastFM](https://grouplens.org/datasets/hetrec-2011/):
+This dataset contains social networking, tagging, and music artist listening information
+from a set of 2K users from Last.fm online music system.
+- [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/):
+This dataset contains more than one billion music listening events created by more than 120,000 users of Last.fm.
+Each listening event is characterized by artist, album, and track name, and includes a timestamp.
+- [Yahoo Music](https://webscope.sandbox.yahoo.com/catalog.php?datatype=r): 
+This dataset represents a snapshot of the Yahoo! Music community's preferences for various musical artists.
 
 ### Shopping
+- [Amazon](http://jmcauley.ucsd.edu/data/amazon/): This dataset contains product reviews and metadata from Amazon, including 142.8 million reviews spanning May 1996 - July 2014.
+This dataset includes only-rating data (ratings), product metadata (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data): This dataset was collected from Epinions.com, a popular online consumer review website.
-
 - [Yelp](https://www.yelp.com/dataset): This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes.
-
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53): This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
-
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids, hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
-
 - [YOOCHOOSE](https://2015.recsyschallenge.com/challenge.html): This dataset was constructed by YOOCHOOSE GmbH to support participants in the RecSys Challenge 2015.
 
 - [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset): The data has been collected from a real-world ecommerce website. It is raw data, i.e. without any content transformations, however, all values are hashed due to confidential issues.
 
 - [Ta Feng](https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset): The dataset contains a Chinese grocery store transaction data from November 2000 to February 2001.
 
-- [Amazon](http://jmcauley.ucsd.edu/data/amazon/): This dataset contains product reviews and metadata from Amazon, including 142.8 million reviews spanning May 1996 - July 2014.
 
-  This dataset includes only-rating data (ratings), product metadata (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
+
+### Anime
+- [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database): This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to their completed list and give it a rating and this data set is a compilation of those ratings.
+
 
 ### Advertisng
 
@@ -76,9 +82,9 @@ This is a repository of public data sources for Recommender Systems (RS).
 * [KDD2010-bridge](https://pslcdatashop.web.cmu.edu/KDDCup/downloads.jsp): This dataset was released in KDD Cup 2010 Educational Data Mining Challenge,  which contains the situations of students submitting exercises on the systems.
 
 
-## 数据集信息统计
+## Datasets information statistics
 
-常规推荐数据集
+General Datasets
 
 
 | SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
