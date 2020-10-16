@@ -140,6 +140,7 @@ people's attributes and whether they make over 50k a year.
 ### CTR Datasets
 
 | SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
+|----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 2  | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
 | 3  | Phishing\-website | \-        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
