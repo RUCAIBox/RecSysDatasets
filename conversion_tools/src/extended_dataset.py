@@ -122,10 +122,15 @@ class AVAZUDataset(BaseDataset):
                              22: 'C20:token',
                              23: 'C21:token'}
 
-    def load_inter_data(self):
-        table = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        # remove head line
-        return table.iloc[1:]
+    def convert_inter(self):
+        try:
+            with open(self.output_inter_file, 'w') as fp, open(self.inter_file, encoding='utf-8') as rp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                lines = rp.readlines()[1:]
+                for line in tqdm(lines):
+                    fp.write('\t'.join(line.strip().split(self.sep)) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class ADULTDataset(BaseDataset):
@@ -289,9 +294,6 @@ class NETFLIXDataset(BaseDataset):
         super(NETFLIXDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'netflix'
 
-        # input pathgit
-        self.inter_file = os.path.join(self.input_path, 'netflix_data')
-
         self.sep = ','
 
         # output path
@@ -304,25 +306,34 @@ class NETFLIXDataset(BaseDataset):
                              2: 'rating:float',
                              3: 'timestamp:float'}
 
+    def load_inter_data(self):
         # preprocess raw data file
+        words_list = list()
         raw_file_list = ['combined_data_1.txt', 'combined_data_2.txt', 'combined_data_3.txt', 'combined_data_4.txt']
-        raw_path_list = [os.path.join(self.input_path, raw_file) for raw_file in raw_file_list]
+        raw_path_list = [os.path.join(self.input_path, 'archive', raw_file) for raw_file in raw_file_list]
         lines_list = [open(raw_path, encoding='utf-8').read().strip().split('\n') for raw_path in raw_path_list]
         time_format = '%Y-%m-%d'
-        with open(self.inter_file, 'w') as fp:
-            for lines in lines_list:
-                i = 0
-                while i < len(lines):
-                    u_id = lines[i].replace(':', ',')
+        for lines in tqdm(lines_list):
+            i = 0
+            while i < len(lines):
+                u_id = lines[i][:-1]
+                i += 1
+                while i < len(lines) and lines[i][-1] != ':':
+                    words = lines[i].strip().split(',')
+                    words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
+                    words_list.append([u_id] + words)
                     i += 1
-                    while i < len(lines) and lines[i][-1] != ':':
-                        words = lines[i].strip().split(',')
-                        words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
-                        fp.write(u_id + ','.join(words) + '\n')
-                        i += 1
+        return words_list
 
-    def load_inter_data(self):
-        return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
+    def convert_inter(self):
+        try:
+            words_list = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                for words in tqdm(words_list):
+                    fp.write('\t'.join(words) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class CRITEODataset(BaseDataset):
