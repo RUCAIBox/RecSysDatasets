@@ -26,7 +26,8 @@ and run the following command to get the Atomic files of YOOCHOOSE dataset.
 ```
 python run.py --dataset yoochoose \ 
 --input_path yoochoose-data --output_path output_data/yoochoose-data \
---interaction_type buy --duplicate_removal
+--interaction_type buy --duplicate_removal \ 
+--convert_inter
 ```
 
 `input_path` is the path of the input decompressed yoochoose file
@@ -41,3 +42,5 @@ You can choose one of them to generate the corresponding atomic file. Range in [
  keep only the most recent interaction between user and item and 
  record the number of interactions between the user and the item. 
  If you do not want to do this, please ignore this parameter.
+ 
+ `convert_inter` YOOCHOOSE only can be converted to '*.inter' atomic file

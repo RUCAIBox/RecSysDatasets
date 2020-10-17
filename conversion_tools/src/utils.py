@@ -26,10 +26,10 @@ dataset2class = {
     'pinterest': 'PINTERESTDataset',
     'jester': 'JESTERDataset',
     'douban': 'DOUBANDataset',
-    'kdd2010-bridge-algebra2006':'KDD2010BridgeAlgebra2006Dataset',
-    'kdd2010-bridge-algebra2008':'KDD2010BridgeAlgebra2008Dataset',
-    'kdd2010-bridge-bridge-to-algebra2006':'KDD2010BridgeBridgeToAlgebra2006Dataset',
-    'amazon_apps_for_android':'AmazonAppsForAndroidDataset',
+    'kdd2010-bridge-algebra2006': 'KDD2010BridgeAlgebra2006Dataset',
+    'kdd2010-bridge-algebra2008': 'KDD2010BridgeAlgebra2008Dataset',
+    'kdd2010-bridge-bridge-to-algebra2006': 'KDD2010BridgeBridgeToAlgebra2006Dataset',
+    'amazon_apps_for_android': 'AmazonAppsForAndroidDataset',
     'amazon_beauty': 'AmazonBeautyDataset',
     'amazon_tools_and_home_improvement': 'AmazonToolsAndHomeImprovementDataset',
     'amazon_books': 'AmazonBooksDataset',
@@ -45,7 +45,7 @@ dataset2class = {
     'amazon_home_and_kitchen': 'AmazonHomeAndKitchenDataset',
     'amazon_grocery_and_gourmet_food': 'AmazonGroceryAndGourmetFoodDataset',
     'amazon_health_and_personal_care': 'AmazonHealthAndPersonalCareDataset',
-    'amazon_pet_supplies':'AmazonPetSuppliesDataset',
+    'amazon_pet_supplies': 'AmazonPetSuppliesDataset',
     'amazon_sports_and_outdoors': 'AmazonSportsAndOutdoorsDataset',
     'amazon_toys_and_games': 'AmazonToysAndGamesDataset',
     'amazon_electronics': 'AmazonElectronicsDataset',
@@ -60,4 +60,10 @@ dataset2class = {
     'retailrocket': 'RETAILROCKETDataset'
 }
 
+click_dataset = {
+    'YOOCHOOSEDataset'
+}
 
+multiple_dataset = {
+    'YOOCHOOSEDataset'
+}
