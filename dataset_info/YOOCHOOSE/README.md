@@ -1,8 +1,8 @@
 ## YOOCHOOSE
 
-| SN   | Dataset                                      | \#User  | \#Item | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
-| ---- | -------------------------------------------- | ------- | ------ | ------------ | -------- | ---------------- | --------- | ------------ | ------------ | ------------------- |
-| 1    | YOOCHOOSE\_Buy                               | 509696  | 19949  | 1150753      | 0\.9999  | Buy              | √         |              |              | √                   |
-| 2    | YOOCHOOSE\_Buy  <br> \(duplicate removal\)   | 509696  | 19949  | 1102955      | 0.9999   | Buy              | √         |              |              | √                   |
-| 3    | YOOCHOOSE\_Click                             | 9249729 | 52739  | 33003944     | 0\.9999  | Click            | √         |              |              | √                   |
-| 4    | YOOCHOOSE\_Click  <br> \(duplicate removal\) | 9249729 | 52739  | 28971544     | 0.9999   | Click            | √         |              |              | √                   |
+| SN | Dataset                                      | \#User    | \#Item | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
+|----|----------------------------------------------|-----------|--------|--------------|----------|------------------|-----------|--------------|--------------|---------------------|
+| 1  | YOOCHOOSE\_Buy                               | 509,696   | 19,949 | 1,150,753    | 99\.99%  | Buy              | √         |              |              | √                   |
+| 2  | YOOCHOOSE\_Buy  <br> \(duplicate removal\)   | 509,696   | 19,949 | 1,102,955    | 99\.99%  | Buy              | √         |              |              | √                   |
+| 3  | YOOCHOOSE\_Click                             | 9,249,729 | 52,739 | 33,003,944   | 99\.99%  | Click            | √         |              |              | √                   |
+| 4  | YOOCHOOSE\_Click  <br> \(duplicate removal\) | 9,249,729 | 52,739 | 28,971,544   | 99\.99%  | Click            | √         |              |              | √                   |
