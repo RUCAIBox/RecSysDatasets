@@ -784,7 +784,7 @@ class GOWALLADataset(BaseDataset):
 
 
 class LFM1bDataset(BaseDataset):
-    def __init__(self, input_path, output_path, interaction_type, duplicate_removal=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(LFM1bDataset, self).__init__(input_path, output_path)
         self.input_path = input_path
         self.output_path = output_path
