@@ -32,7 +32,7 @@ The dataset contains a Chinese grocery store transaction data from November 2000
 This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
 * [Avazu](https://www.kaggle.com/c/avazu-ctr-prediction/data):
 This dataset is used in avazu ctr prediction contest.
-* [Ipinyou](http://contest.ipinyou.com):
+* [iinYou](http://contest.ipinyou.com):
 This dataset was provided by iPinYou, which contains all training datasets and leaderboard testing datasets of the
 three seasons iPinYou Global RTB(Real-Time Bidding) Bidding Algorithm Competition.
 
@@ -54,7 +54,7 @@ Douban Movie is a Chinese website that allows Internet users to share their comm
 This dataset contains more than 2 million short comments of 28 movies in Douban Movie website.
 
 ### Music
-- [LastFM](https://grouplens.org/datasets/hetrec-2011/):
+- [Last.FM](https://grouplens.org/datasets/hetrec-2011/):
 This dataset contains social networking, tagging, and music artist listening information
 from a set of 2K users from Last.fm online music system.
 - [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/):
@@ -95,7 +95,7 @@ This dataset was released in KDD Cup 2010 Educational Data Mining Challenge,
 which contains the situations of students submitting exercises on the systems.
 
 ### Websites
-* [Phishing-website](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites):
+* [Phishing websites](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites):
 This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not.
 The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based
 features and 7 domain based features.
@@ -125,7 +125,7 @@ people's attributes and whether they make over 50k a year.
 | 11 | [Amazon](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Amazon)            | \-        | \-        | \-           | \-       | Rating                     | √         |              | √            |                     |
 | 12 | Pinterest         | 55,187    | 9,911     | 1,445,622    | 99\.74%  | \-                         |           |              |              |                     |
 | 13 | [Gowalla](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Gowalla)           | 107,092   | 1,280,969 | 6,442,892   | 99\.99%  | Check-in                   | √         |              |              | √                   |
-| 14 | LastFM            | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                      |           |              |              | √                   |
+| 14 | Last.FM           | 1,892     | 17,632    | 92,834       | 99\.72%  | Click                      |           |              |              | √                   |
 | 15 | [DIGINETICA](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/DIGINETICA)        | 204,789 | 184,047   | 993,483      | 99\.99%  | Click                      | √         |              | √            |                     |
 | 16 | [Steam](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Steam)             | 2,567,538 | 32,135    | 7,793,069    | 99\.99%  | Buy                        | √         |              | √            | √                   |
 | 17 | [Ta Feng](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/TaFeng)           | 32,266    | 23,812    | 817,741      | 99\.89%  | Click                      | √         | √            | √            | √                   |
@@ -139,11 +139,11 @@ people's attributes and whether they make over 50k a year.
 ### CTR Datasets
 
 | SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
-|----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
+|----|:------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 2  | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
-| 3  | [IPinyou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/IPinyou)           | 12,931,430 | 131 | 15,367,312 | 99.09% | View/Click                 |           | √            | √            | √                   |
-| 4  | Phishing\-website | \-        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
+| 3  | [iPinYou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/IPinyou)     | 12,931,430 | 131 | 15,367,312 | 99.09% | View/Click                 |           | √            | √            | √                   |
+| 4  | Phishing websites | -        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
 | 5  | Adult             | \-        | \-        | 32,561       | \-       | income>=50k <br> \[0, 1\]  |           |              |              | √                   |
 
 
