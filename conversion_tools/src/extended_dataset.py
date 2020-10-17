@@ -16,7 +16,7 @@ import pandas as pd
 from datetime import datetime
 from tqdm import tqdm
 
-from conversion_tools.src.base_dataset import BaseDataset
+from src.base_dataset import BaseDataset
 
 
 class ML1MDataset(BaseDataset):
@@ -4250,53 +4250,55 @@ class YAHOOMUSICDataset(BaseDataset):
 
 
 class YOOCHOOSEDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(YOOCHOOSEDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'yoochoose'
-        self.repeat = repeat  # merge repeat interactions if 'repeat' is True
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['click', 'buy'], 'interaction_type must be in [click, buy]'
+        self.duplicate_removal = duplicate_removal
 
-        # input file
-        self.inter_buys_file = os.path.join(self.input_path, 'yoochoose-buys.dat')
-        self.inter_clicks_file = os.path.join(self.input_path, 'yoochoose-clicks.dat')
         self.sep = ','
-
-        # output file
-        self.output_inter_buys_file = os.path.join(self.output_path, 'yoochoose-buys.inter')
-        self.output_inter_clicks_file = os.path.join(self.output_path, 'yoochoose-clicks.inter')
-
-        # selected feature fields
-        if self.repeat:
-            self.inter_buys_fields = {0: 'session_id:token',
-                                      1: 'item_id:token',
-                                      2: 'count:float',
-                                      3: 'timestamp:float'}
-            self.inter_clicks_fields = {0: 'session_id:token',
-                                        1: 'item_id:token',
-                                        3: 'count:float',
-                                        4: 'timestamp:float'}
+        if self.duplicate_removal:
+            if self.interaction_type == 'click':
+                self.inter_fields = {0: 'session_id:token',
+                                     1: 'item_id:token',
+                                     3: 'count:float',
+                                     4: 'timestamp:float'}
+            elif self.interaction_type == 'buy':
+                self.inter_fields = {0: 'session_id:token',
+                                     1: 'item_id:token',
+                                     2: 'count:float',
+                                     3: 'timestamp:float'}
         else:
-            self.inter_buys_fields = {0: 'session_id:token',
-                                      1: 'timestamp:float',
-                                      2: 'item_id:token',
-                                      3: 'price:float',
-                                      4: 'quantity:float'}
-            self.inter_clicks_fields = {0: 'session_id:token',
-                                        1: 'timestamp:float',
-                                        2: 'item_id:token',
-                                        3: 'category:token'}
+            if self.interaction_type == 'click':
+                self.inter_fields = {0: 'session_id:token',
+                                     1: 'timestamp:float',
+                                     2: 'item_id:token',
+                                     3: 'category:token'}
+            elif self.interaction_type == 'buy':
+                self.inter_fields = {0: 'session_id:token',
+                                     1: 'timestamp:float',
+                                     2: 'item_id:token',
+                                     3: 'price:float',
+                                     4: 'quantity:float'}
+        if self.interaction_type == 'click':
+            self.inter_file = os.path.join(self.input_path, 'yoochoose-clicks.dat')
+            self.output_inter_file = os.path.join(self.output_path, 'yoochoose-clicks.inter')
+        elif self.interaction_type == 'buy':
+            self.inter_file = os.path.join(self.input_path, 'yoochoose-buys.dat')
+            self.output_inter_file = os.path.join(self.output_path, 'yoochoose-buys.inter')
 
     def convert_inter(self):
-        if self.repeat:
-            # buys inter file
-            fin = open(self.inter_buys_file, "r")
-            fout = open(self.output_inter_buys_file, "w")
+        if self.duplicate_removal:
+            fin = open(self.inter_file, "r")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout.write('\t'.join([self.inter_buys_fields[column] for column in self.inter_buys_fields.keys()]) + '\n')
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
             current_list = []
             for i in tqdm(range(lines_count)):
@@ -4322,73 +4324,16 @@ class YOOCHOOSEDataset(BaseDataset):
             fin.close()
             fout.close()
 
-            # clicks inter file
-            fin = open(self.inter_clicks_file, "r")
-            fout = open(self.output_inter_clicks_file, "w")
-
-            lines_count = 0
-            for _ in fin:
-                lines_count += 1
-            fin.seek(0, 0)
-
-            fout.write(
-                '\t'.join([self.inter_clicks_fields[column] for column in self.inter_clicks_fields.keys()]) + '\n')
-
-            current_list = []
-            for i in tqdm(range(lines_count)):
-                line = fin.readline()
-                line_list = line.split(',')
-                if i == 0:
-                    current_list.append(line_list[0])
-                    current_list.append(line_list[2])
-                    current_list.append(1)
-                    current_list.append(int(time.mktime(time.strptime(line_list[1][0:19], "%Y-%m-%dT%H:%M:%S"))))
-                elif line_list[0] == current_list[0] and line_list[2] == current_list[1]:
-                    current_list[2] += 1
-                    current_list[3] = int(time.mktime(time.strptime(line_list[1][0:19], "%Y-%m-%dT%H:%M:%S")))
-                else:
-                    fout.write('\t'.join([str(current_list[i]) for i in range(len(current_list))]) + '\n')
-                    current_list.clear()
-                    current_list.append(line_list[0])
-                    current_list.append(line_list[2])
-                    current_list.append(1)
-                    current_list.append(int(time.mktime(time.strptime(line_list[1][0:19], "%Y-%m-%dT%H:%M:%S"))))
-
-            fout.write('\t'.join([str(current_list[i]) for i in range(len(current_list))]))
-            fin.close()
-            fout.close()
         else:
-            # buys inter file
-            fin = open(self.inter_buys_file, "r")
-            fout = open(self.output_inter_buys_file, "w")
+            fin = open(self.inter_file, "r")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout.write('\t'.join([self.inter_buys_fields[column] for column in self.inter_buys_fields.keys()]) + '\n')
-
-            for i in tqdm(range(lines_count)):
-                line = fin.readline()
-                line_list = line.split(',')
-                line_list[1] = int(time.mktime(time.strptime(line_list[1][0:19], "%Y-%m-%dT%H:%M:%S")))
-                fout.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]))
-
-            fin.close()
-            fout.close()
-
-            # clicks inter file
-            fin = open(self.inter_clicks_file, "r")
-            fout = open(self.output_inter_clicks_file, "w")
-
-            lines_count = 0
-            for _ in fin:
-                lines_count += 1
-            fin.seek(0, 0)
-
-            fout.write(
-                '\t'.join([self.inter_clicks_fields[column] for column in self.inter_clicks_fields.keys()]) + '\n')
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
             for i in tqdm(range(lines_count)):
                 line = fin.readline()
