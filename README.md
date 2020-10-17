@@ -39,7 +39,7 @@ The dataset contains a Chinese grocery store transaction data from November 2000
 This dataset was provided by iPinYou, which contains all training datasets and leaderboard testing datasets of the three seasons iPinYou Global RTB(Real-Time Bidding) Bidding Algorithm Competition.
 
 ### Check-in
-* [FourSquare](kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset):
+* [Foursquare](kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset):
 This dataset contains check-ins in NYC and Tokyo collected for about 10 month. Each check-in is associated with
 its time stamp, its GPS coordinates and its semantic meaning.
 * [Gowalla](https://snap.stanford.edu/data/loc-gowalla.html):
