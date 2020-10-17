@@ -93,7 +93,7 @@ This dataset was released in KDD Cup 2010 Educational Data Mining Challenge,
 which contains the situations of students submitting exercises on the systems.
 
 ### Websites
-* [Phishing websites](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites):
+* [Phishing Websites](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites):
 This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not.
 The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based
 features and 7 domain based features.
