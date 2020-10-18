@@ -4036,9 +4036,9 @@ class YELPDataset(BaseDataset):
         self.dataset_name = 'yelp'
 
         # input file
-        self.inter_file = os.path.join(self.input_path, 'review.json')
-        self.item_file = os.path.join(self.input_path, 'business.json')
-        self.user_file = os.path.join(self.input_path, 'user.json')
+        self.inter_file = os.path.join(self.input_path, 'yelp_academic_dataset_review.json')
+        self.item_file = os.path.join(self.input_path, 'yelp_academic_dataset_business.json')
+        self.user_file = os.path.join(self.input_path, 'yelp_academic_dataset_user.json')
 
         # output_file
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
@@ -4346,10 +4346,12 @@ class YOOCHOOSEDataset(BaseDataset):
 
 
 class RETAILROCKETDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(RETAILROCKETDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'retailrocket'
-        self.repeat = repeat  # merge repeat interactions if 'repeat' is True
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['view', 'addtocart', 'transaction'], 'interaction_type must be in [view, addtocart, transaction]'
+        self.duplicate_removal = duplicate_removal
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'events.csv')
@@ -4358,63 +4360,62 @@ class RETAILROCKETDataset(BaseDataset):
         self.sep = ','
 
         # output file
-        self.output_inter_view_file = os.path.join(self.output_path, 'retailrocket-view.inter')
-        self.output_inter_addtocart_file = os.path.join(self.output_path, 'retailrocket-addtocart.inter')
-        self.output_inter_transaction_file = os.path.join(self.output_path, 'retailrocket-transaction.inter')
+        if self.interaction_type == 'view':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-view.inter')
+        elif self.interaction_type == 'addtocart':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-addtocart.inter')
+        elif self.interaction_type == 'transaction':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-transaction.inter')
         self.output_item_file = os.path.join(self.output_path, 'retailrocket.item')
 
         # selected feature fields
-        if self.repeat:
-            self.inter_view_fields = {0: 'timestamp:float',
-                                      1: 'visitor_id:token',
-                                      2: 'item_id:token',
-                                      3: 'count:float'}
-            self.inter_addtocart_fields = {0: 'timestamp:float',
-                                           1: 'visitor_id:token',
-                                           2: 'item_id:token',
-                                           3: 'count:float'}
-            self.inter_transaction_fields = {0: 'timestamp:float',
-                                             1: 'visitor_id:token',
-                                             2: 'item_id:token',
-                                             3: 'count:float'}
+        if self.duplicate_removal:
+            if self.interaction_type == 'view':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
+            elif self.interaction_type == 'addtocart':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
+            elif self.interaction_type == 'transaction':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
         else:
-            self.inter_view_fields = {0: 'timestamp:float',
-                                      1: 'visitor_id:token',
-                                      2: 'item_id:token'}
-            self.inter_addtocart_fields = {0: 'timestamp:float',
-                                           1: 'visitor_id:token',
-                                           2: 'item_id:token'}
-            self.inter_transaction_fields = {0: 'timestamp:float',
-                                             1: 'visitor_id:token',
-                                             2: 'item_id:token',
-                                             3: 'transaction_id:token'}
+            if self.interaction_type == 'view':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token'}
+            elif self.interaction_type == 'addtocart':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token'}
+            elif self.interaction_type == 'transaction':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'transaction_id:token'}
         self.item_fields = {0: 'timestamp:float',
                             1: 'item_id:token',
                             2: 'property:token',
                             3: 'value:token_seq'}
 
     def convert_inter(self):
-        if self.repeat:
+        if self.duplicate_removal:
             fin = open(self.inter_file, "r")
-            fout_view = open(self.output_inter_view_file, "w")
-            fout_addtocart = open(self.output_inter_addtocart_file, "w")
-            fout_transaction = open(self.output_inter_transaction_file, "w")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout_view.write(
-                '\t'.join([self.inter_view_fields[column] for column in self.inter_view_fields.keys()]) + '\n')
-            fout_addtocart.write('\t'.join(
-                [self.inter_addtocart_fields[column] for column in self.inter_addtocart_fields.keys()]) + '\n')
-            fout_transaction.write('\t'.join(
-                [self.inter_transaction_fields[column] for column in self.inter_transaction_fields.keys()]) + '\n')
-
-            dic_view = {}
-            dic_addtocart = {}
-            dic_transaction = {}
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
+            dic = {}
 
             for i in tqdm(range(lines_count)):
                 if i == 0:
@@ -4423,63 +4424,30 @@ class RETAILROCKETDataset(BaseDataset):
                 line = fin.readline()
                 line_list = line.split(',')
                 key = (line_list[1], line_list[3])
-                if line_list[2] == "view":
-                    if key not in dic_view:
-                        dic_view[key] = (line_list[0], 1)
+                if line_list[2] == self.interaction_type:
+                    if key not in dic:
+                        dic[key] = (line_list[0], 1)
                     else:
-                        if line_list[0] > dic_view[key][0]:
-                            dic_view[key] = (line_list[0], dic_view[key][1] + 1)
+                        if line_list[0] > dic[key][0]:
+                            dic[key] = (line_list[0], dic[key][1] + 1)
                         else:
-                            dic_view[key] = (dic_view[key][0], dic_view[key][1] + 1)
-                elif line_list[2] == "addtocart":
-                    if key not in dic_addtocart:
-                        dic_addtocart[key] = (line_list[0], 1)
-                    else:
-                        if line_list[0] > dic_addtocart[key][0]:
-                            dic_addtocart[key] = (line_list[0], dic_addtocart[key][1] + 1)
-                        else:
-                            dic_addtocart[key] = (dic_addtocart[key][0], dic_addtocart[key][1] + 1)
-                elif line_list[2] == "transaction":
-                    if key not in dic_transaction:
-                        dic_transaction[key] = (line_list[0], 1)
-                    else:
-                        if line_list[0] > dic_transaction[key][0]:
-                            dic_transaction[key] = (line_list[0], dic_transaction[key][1] + 1)
-                        else:
-                            dic_transaction[key] = (dic_transaction[key][0], dic_transaction[key][1] + 1)
+                            dic[key] = (dic[key][0], dic[key][1] + 1)
 
-            for key in dic_view.keys():
-                fout_view.write(dic_view[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic_view[key][1]) + '\n')
-
-            for key in dic_addtocart.keys():
-                fout_addtocart.write(
-                    dic_addtocart[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic_addtocart[key][1]) + '\n')
-
-            for key in dic_transaction.keys():
-                fout_transaction.write(dic_transaction[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(
-                    dic_transaction[key][1]) + '\n')
+            for key in dic.keys():
+                fout.write(dic[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic[key][1]) + '\n')
 
             fin.close()
-            fout_view.close()
-            fout_addtocart.close()
-            fout_transaction.close()
+            fout.close()
         else:
             fin = open(self.inter_file, "r")
-            fout_view = open(self.output_inter_view_file, "w")
-            fout_addtocart = open(self.output_inter_addtocart_file, "w")
-            fout_transaction = open(self.output_inter_transaction_file, "w")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout_view.write(
-                '\t'.join([self.inter_view_fields[column] for column in self.inter_view_fields.keys()]) + '\n')
-            fout_addtocart.write('\t'.join(
-                [self.inter_addtocart_fields[column] for column in self.inter_addtocart_fields.keys()]) + '\n')
-            fout_transaction.write('\t'.join(
-                [self.inter_transaction_fields[column] for column in self.inter_transaction_fields.keys()]) + '\n')
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
             for i in tqdm(range(lines_count)):
                 if i == 0:
@@ -4487,22 +4455,14 @@ class RETAILROCKETDataset(BaseDataset):
                     continue
                 line = fin.readline()
                 line_list = line.split(',')
-                if line_list[2] == "view":
-                    del line_list[4]
+                if line_list[2] == self.interaction_type:
+                    if self.interaction_type != 'transaction':
+                        del line_list[4]
                     del line_list[2]
-                    fout_view.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
-                elif line_list[2] == "addtocart":
-                    del line_list[4]
-                    del line_list[2]
-                    fout_addtocart.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
-                elif line_list[2] == "transaction":
-                    del line_list[2]
-                    fout_transaction.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]))
+                    fout.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
 
             fin.close()
-            fout_view.close()
-            fout_addtocart.close()
-            fout_transaction.close()
+            fout.close()
 
     def convert_item(self):
         fin1 = open(self.item_file1, "r")
@@ -4543,10 +4503,10 @@ class RETAILROCKETDataset(BaseDataset):
 
 
 class TAFENGDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(TAFENGDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ta-feng'
-        self.repeat = repeat  # merge repeat interactions if 'repeat' is True
+        self.duplicate_removal = duplicate_removal
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'ta_feng_all_months_merged.csv')
@@ -4556,7 +4516,7 @@ class TAFENGDataset(BaseDataset):
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
 
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'transaction_date:float',
                                  1: 'customer_id:token',
                                  2: 'product_id:token',
@@ -4573,7 +4533,7 @@ class TAFENGDataset(BaseDataset):
                                  8: 'sales_price:float'}
 
     def convert_inter(self):
-        if self.repeat:
+        if self.duplicate_removal:
             fin = open(self.inter_file, "r")
             fout = open(self.output_inter_file, "w")
 
