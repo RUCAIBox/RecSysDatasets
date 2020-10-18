@@ -710,10 +710,10 @@ class EPINIONSDataset(BaseDataset):
 
 
 class GOWALLADataset(BaseDataset):
-    def __init__(self, input_path, output_path, merge_repeat=False):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(GOWALLADataset, self).__init__(input_path, output_path)
         self.dataset_name = 'gowalla'
-        self.merge_repeat = merge_repeat  # merge repeat interactions if 'repeat' is True
+        self.duplicate_removal = duplicate_removal  # merge repeat interactions if 'repeat' is True
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'loc-gowalla_totalCheckins.txt')
@@ -725,7 +725,7 @@ class GOWALLADataset(BaseDataset):
         self.output_inter_file = output_files[0]
 
         # selected feature fields
-        if self.merge_repeat == True:
+        if self.duplicate_removal == True:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'item_id:token',
                                  2: 'timestamp:float',
@@ -740,8 +740,8 @@ class GOWALLADataset(BaseDataset):
                                  4: 'longitude:float'}
 
     def load_inter_data(self):
-        if self.merge_repeat == True:
-            processed_data = self.merge_repeat_lines()
+        if self.duplicate_removal == True:
+            processed_data = self.run_duplicate_removal()
         else:
             origin_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
             order = [0, 4, 1, 2, 3]
@@ -750,7 +750,7 @@ class GOWALLADataset(BaseDataset):
             processed_data[1] = origin_data[1].apply(lambda x: time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M:%SZ')))
         return processed_data
 
-    def merge_repeat_lines(self):
+    def run_duplicate_removal(self):
         cnt_row = 0
         all_user = {}
         a_user = {}
@@ -761,8 +761,6 @@ class GOWALLADataset(BaseDataset):
                 if not line:
                     for key, value in a_user[pre_userid].items():
                         all_user[cnt_row] = [pre_userid, key, value[0], value[1], value[2], value[3]]
-                        cnt_row += 1
-                    pre_userid = userid
                     break
                 line = line.strip().split('\t')
                 userid, timestamp, lati, longi, itemid = line[0], line[1], line[2], line[3], line[4]
@@ -786,18 +784,18 @@ class GOWALLADataset(BaseDataset):
 
 
 class LFM1bDataset(BaseDataset):
-    def __init__(self, input_path, output_path, item_type='tracks', merge_repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(LFM1bDataset, self).__init__(input_path, output_path)
         self.input_path = input_path
         self.output_path = output_path
 
-        self.merge_repeat = merge_repeat  # merge repeat interactions if 'merge_repeat' is True
-        self.item_type = item_type  # artists, albums, tracks
-        self.dataset_name = 'lfm1b-' + self.item_type
+        self.duplicate_removal = duplicate_removal  # merge repeat interactions if 'duplicate_removal' is True
+        self.interaction_type = interaction_type  # artists, albums, tracks
+        self.dataset_name = 'lfm1b-' + self.interaction_type
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'LFM-1b_LEs.txt')
-        self.item_file = os.path.join(self.input_path, 'LFM-1b_' + self.item_type + '.txt')
+        self.item_file = os.path.join(self.input_path, 'LFM-1b_' + self.interaction_type + '.txt')
         self.user_file = os.path.join(self.input_path, 'LFM-1b_users.txt')
         self.user_file_add = os.path.join(self.input_path, 'LFM-1b_users_additional.txt')
 
@@ -807,24 +805,24 @@ class LFM1bDataset(BaseDataset):
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
 
         # selected feature fields
-        if self.merge_repeat == True:
+        if self.duplicate_removal == True:
             self.inter_fields = {0: 'user_id:token',
-                                 1: self.item_type + '_id:token',
+                                 1: self.interaction_type + '_id:token',
                                  2: 'timestamp:float',
                                  3: 'num_repeat:float'
                                  }
         else:
             self.inter_fields = {0: 'user_id:token',
-                                 1: self.item_type + '_id:token',
+                                 1: self.interaction_type + '_id:token',
                                  2: 'timestamp:float'
                                  }
 
-        if self.item_type == 'artists':
-            self.item_fields = {0: self.item_type + '_id:token',
+        if self.interaction_type == 'artists':
+            self.item_fields = {0: self.interaction_type + '_id:token',
                                 1: 'name:token_seq'
                                 }
         else:
-            self.item_fields = {0: self.item_type + '_id:token',
+            self.item_fields = {0: self.interaction_type + '_id:token',
                                 1: 'name:token_seq',
                                 2: 'artists_id:token'
                                 }
@@ -881,13 +879,10 @@ class LFM1bDataset(BaseDataset):
 
     def convert_inter(self):
         fout = open(self.output_inter_file, 'w')
-        for i in range(len(self.inter_fields)):
-            v = self.inter_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
 
-        if self.repeat == True:
-            self.merge_repeat_lines(fout)
+        if self.duplicate_removal == True:
+            self.run_duplicate_removal(fout)
         else:
             with open(self.inter_file, 'r') as f:
                 line = f.readline()
@@ -897,9 +892,9 @@ class LFM1bDataset(BaseDataset):
 
                     line = line.strip().split('\t')
                     userid, artistid, albumid, trackid, timestamp = line[0], line[1], line[2], line[3], line[4]
-                    if self.item_type == 'artists':
+                    if self.interaction_type == 'artists':
                         itemid = artistid
-                    elif self.item_type == 'albums':
+                    elif self.interaction_type == 'albums':
                         itemid = albumid
                     else:
                         itemid = trackid
@@ -911,10 +906,7 @@ class LFM1bDataset(BaseDataset):
 
     def convert_item(self):
         fout = open(self.output_item_file, 'w')
-        for i in range(len(self.item_fields)):
-            v = self.item_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.item_fields[i] for i in range(len(self.item_fields))]) + '\n')
 
         cnt_row = 0
         dict_all_items = {}
@@ -930,10 +922,7 @@ class LFM1bDataset(BaseDataset):
 
     def convert_user(self):
         fout = open(self.output_user_file, 'w')
-        for i in range(len(self.user_fields)):
-            v = self.user_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.user_fields[i] for i in range(len(self.user_fields))]) + '\n')
 
         with open(self.user_file, 'r') as f1:
             with open(self.user_file_add, 'r') as f2:
@@ -952,7 +941,7 @@ class LFM1bDataset(BaseDataset):
         print(self.output_user_file + ' is done!')
         fout.close()
 
-    def merge_repeat_lines(self, fout):
+    def run_duplicate_removal(self, fout):
         a_user = {}
         pre_userid = '31435741'
         user_order = []
@@ -969,9 +958,9 @@ class LFM1bDataset(BaseDataset):
                     break
                 line = line.strip().split('\t')
                 userid, artistid, albumid, trackid, timestamp = line[0], line[1], line[2], line[3], line[4]
-                if self.item_type == 'artists':
+                if self.interaction_type == 'artists':
                     itemid = artistid
-                elif self.item_type == 'albums':
+                elif self.interaction_type == 'albums':
                     itemid = albumid
                 else:
                     itemid = trackid
@@ -988,7 +977,6 @@ class LFM1bDataset(BaseDataset):
                         user_order.append(pre_userid)
                     pre_userid = userid
                 line = f.readline()
-
 
 class PHISHINGWEBDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -1041,10 +1029,7 @@ class PHISHINGWEBDataset(BaseDataset):
 
     def convert_inter(self):
         fout = open(self.output_inter_file, 'w')
-        for i in range(len(self.inter_fields)):
-            v = self.inter_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
 
         with open(self.inter_file, 'r') as f:
             line = f.readline()
@@ -1056,10 +1041,8 @@ class PHISHINGWEBDataset(BaseDataset):
                     line = f.readline()
                     continue
                 line = line.strip().split(',')
-                fout.write(str(line[-1]))
-                for i in range(len(line) - 1):
-                    fout.write('\t' + str(line[i]))
-                fout.write('\n')
+                fout.write(str(line[-1])+'\t')
+                fout.write('\t'.join([str(line[i]) for i in range(len(line)-1)]) + '\n')
                 line = f.readline()
         fout.close()
 
