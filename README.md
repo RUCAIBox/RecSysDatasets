@@ -32,7 +32,7 @@ The dataset contains a Chinese grocery store transaction data from November 2000
 * [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data):
   This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
 * [Avazu](https://www.kaggle.com/c/avazu-ctr-prediction/data):
-  This dataset is used in avazu ctr prediction contest.
+  This dataset is used in Avazu CTR prediction contest.
 * [iPinYou](http://contest.ipinyou.com): This dataset was provided by iPinYou, which contains all training datasets and leaderboard testing datasets of the three seasons iPinYou Global RTB(Real-Time Bidding) Bidding Algorithm Competition.
 
 ### Check-in

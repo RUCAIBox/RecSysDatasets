@@ -122,10 +122,15 @@ class AVAZUDataset(BaseDataset):
                              22: 'C20:token',
                              23: 'C21:token'}
 
-    def load_inter_data(self):
-        table = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        # remove head line
-        return table.iloc[1:]
+    def convert_inter(self):
+        try:
+            with open(self.output_inter_file, 'w') as fp, open(self.inter_file, encoding='utf-8') as rp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                lines = rp.readlines()[1:]
+                for line in tqdm(lines):
+                    fp.write('\t'.join(line.strip().split(self.sep)) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class ADULTDataset(BaseDataset):
@@ -168,27 +173,28 @@ class ADULTDataset(BaseDataset):
 
 
 class TMALLDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(TMALLDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'tmall'
-        self.repeat = repeat
-        if self.repeat:
-            postfix = '-sums'
-        else:
-            postfix = ''
-        self.buy_dataset_name = self.dataset_name + '-buy' + postfix
-        self.click_dataset_name = self.dataset_name + '-click' + postfix
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['click', 'buy'], 'interaction_type must be in [click, buy]'
+        self.duplicate_removal = duplicate_removal
 
-        # input path
+        # output file
+        interact = '-buy' if self.interaction_type == 'buy' else '-click'
+        repeat = '-sums' if self.duplicate_removal else ''
+        self.dataset_name = self.dataset_name + interact + repeat
+        self.output_path = os.path.join(self.output_path, self.dataset_name)
+        self.check_output_path()
+        self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '.inter')
+
+        # input file
         self.inter_file = os.path.join(self.input_path, 'ijcai2016_taobao.csv')
 
         self.sep = ','
 
-        # output path
-        self.output_inter_file = self.get_output_paths()
-
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'seller_id:token',
                                  2: 'item_id:token',
@@ -202,95 +208,54 @@ class TMALLDataset(BaseDataset):
                                  3: 'category_id:token',
                                  4: 'timestamp:float'}
 
-    def get_output_paths(self):
-        buy_output_path = os.path.join(self.output_path, self.buy_dataset_name)
-        click_output_path = os.path.join(self.output_path, self.click_dataset_name)
-
-        if not os.path.isdir(buy_output_path):
-            os.makedirs(buy_output_path)
-        if not os.path.isdir(click_output_path):
-            os.makedirs(click_output_path)
-
-        buy_inter_file = os.path.join(buy_output_path, self.buy_dataset_name + '.inter')
-        click_inter_file = os.path.join(click_output_path, self.click_dataset_name + '.inter')
-        output_inter_file = (click_inter_file, buy_inter_file)
-
-        return output_inter_file
-
     def load_inter_data(self):
-        click_table, buy_table = [], []
+        table = list()
         f = '%Y%m%d'
         with open(self.inter_file, encoding='utf-8') as fp:
             lines = fp.readlines()[1:]
             for line in tqdm(lines):
                 words = line.strip().split(self.sep)
-                time = int(datetime.strptime(words[5], f).timestamp())
-                words[5] = str(time)
+                t = int(datetime.strptime(words[5], f).timestamp())
+                words[5] = str(t)
                 label = words.pop(4)
-                if label == '0':
-                    click_table.append(words)
-                else:
-                    buy_table.append(words)
-        return click_table, buy_table
+                if label == '0' and self.interaction_type == 'click':
+                    table.append(words)
+                elif label == '1' and self.interaction_type == 'buy':
+                    table.append(words)
+        return table
 
     def convert_inter(self):
         try:
-            click_table, buy_table = self.load_inter_data()
-            click_output_path, buy_output_path = self.output_inter_file
-            if self.repeat:
-                click_dict, buy_dict = self.merge_repeat(click_table, buy_table)
-                # write -click file
-                with open(click_output_path, 'w') as cf:
-                    cf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for k, v in tqdm(click_dict.items()):
-                        cf.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
-                # write -buy file
-                with open(buy_output_path, 'w') as bf:
-                    bf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for k, v in tqdm(buy_dict.items()):
-                        bf.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
-            else:
-                # write -click file
-                with open(click_output_path, 'w') as cf:
-                    cf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for line in tqdm(click_table):
-                        cf.write('\t'.join(line) + '\n')
-                # write -buy file
-                with open(buy_output_path, 'w') as bf:
-                    bf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for line in tqdm(buy_table):
-                        bf.write('\t'.join(line) + '\n')
+            inter_table = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
+                fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
+                if self.duplicate_removal:
+                    inter_dict = self.merge_duplicate(inter_table)
+                    for k, v in tqdm(inter_dict.items()):
+                        fp.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
+                else:
+                    for line in tqdm(inter_table):
+                        fp.write('\t'.join(line) + '\n')
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
-    def merge_repeat(self, click_table, buy_table):
-        click_dict, buy_dict = {}, {}
-        for line in click_table:
+    def merge_duplicate(self, inter_table):
+        inter_dict = {}
+        for line in inter_table:
             key = tuple(line[:-1])
-            time = line[-1]
-            if key in click_dict:
-                click_dict[key][0] = time
-                click_dict[key][1] += 1
+            t = line[-1]
+            if key in inter_dict:
+                inter_dict[key][0] = t
+                inter_dict[key][1] += 1
             else:
-                click_dict[key] = [time, 1]
-        for line in buy_table:
-            key = tuple(line[:-1])
-            time = line[-1]
-            if key in buy_dict:
-                buy_dict[key][0] = time
-                buy_dict[key][1] += 1
-            else:
-                buy_dict[key] = [time, 1]
-        return click_dict, buy_dict
+                inter_dict[key] = [t, 1]
+        return inter_dict
 
 
 class NETFLIXDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(NETFLIXDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'netflix'
-
-        # input pathgit
-        self.inter_file = os.path.join(self.input_path, 'netflix_data')
 
         self.sep = ','
 
@@ -304,25 +269,34 @@ class NETFLIXDataset(BaseDataset):
                              2: 'rating:float',
                              3: 'timestamp:float'}
 
+    def load_inter_data(self):
         # preprocess raw data file
+        words_list = list()
         raw_file_list = ['combined_data_1.txt', 'combined_data_2.txt', 'combined_data_3.txt', 'combined_data_4.txt']
-        raw_path_list = [os.path.join(self.input_path, raw_file) for raw_file in raw_file_list]
+        raw_path_list = [os.path.join(self.input_path, 'archive', raw_file) for raw_file in raw_file_list]
         lines_list = [open(raw_path, encoding='utf-8').read().strip().split('\n') for raw_path in raw_path_list]
         time_format = '%Y-%m-%d'
-        with open(self.inter_file, 'w') as fp:
-            for lines in lines_list:
-                i = 0
-                while i < len(lines):
-                    u_id = lines[i].replace(':', ',')
+        for lines in tqdm(lines_list):
+            i = 0
+            while i < len(lines):
+                u_id = lines[i][:-1]
+                i += 1
+                while i < len(lines) and lines[i][-1] != ':':
+                    words = lines[i].strip().split(',')
+                    words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
+                    words_list.append([u_id] + words)
                     i += 1
-                    while i < len(lines) and lines[i][-1] != ':':
-                        words = lines[i].strip().split(',')
-                        words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
-                        fp.write(u_id + ','.join(words) + '\n')
-                        i += 1
+        return words_list
 
-    def load_inter_data(self):
-        return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
+    def convert_inter(self):
+        try:
+            words_list = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                for words in tqdm(words_list):
+                    fp.write('\t'.join(words) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class CRITEODataset(BaseDataset):
@@ -1130,17 +1104,24 @@ class BOOKCROSSINGDataset(BaseDataset):
 
 
 class IPINYOUDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(IPINYOUDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ipinyou'
-        self.repeat = repeat
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['click', 'view'], 'interaction_type must be in [click, view]'
+        self.duplicate_removal = duplicate_removal
+
         self.record_id = 1
-        if self.repeat:
-            postfix = '-sums'
-        else:
-            postfix = ''
-        self.view_dataset_name = self.dataset_name + '-view' + postfix
-        self.click_dataset_name = self.dataset_name + '-click' + postfix
+
+        # output file
+        interact = '-click' if self.interaction_type == 'click' else '-view'
+        repeat = '-sums' if self.duplicate_removal else ''
+        self.dataset_name = self.dataset_name + interact + repeat
+        self.output_path = os.path.join(self.output_path, self.dataset_name)
+        self.check_output_path()
+        self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '.inter')
+        self.output_item_file = os.path.join(self.output_path, self.dataset_name + '.item')
+        self.output_user_file = os.path.join(self.output_path, self.dataset_name + '.user')
 
         self.sep = '\t'
 
@@ -1163,17 +1144,13 @@ class IPINYOUDataset(BaseDataset):
                 for data in iter(lambda: file.read(100 * 1024), b''):
                     new_file.write(data)
 
-        self.input_view_files = [file[:-4] for file in self.input_view_files]
-        self.input_click_files = [file[:-4] for file in self.input_click_files]
-
-        # output path
-        output_file = self.get_output_paths()
-        self.output_inter_file = output_file[0]
-        self.output_item_file = output_file[1]
-        self.output_user_file = output_file[2]
+        if self.interaction_type == 'view':
+            self.input_files = [file[:-4] for file in self.input_view_files]
+        else:
+            self.input_files = [file[:-4] for file in self.input_click_files]
 
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'item_id:token',
                                  2: 'season:token',
@@ -1198,78 +1175,59 @@ class IPINYOUDataset(BaseDataset):
                             1: 'user_profile:token_seq'}
 
     def load_inter_data(self):
-        total_clk_output, total_imp_output = {}, {}
+        total_output = {}
         # Process view and click inter files
-        for imp, clk in zip(self.input_view_files, self.input_click_files):
-            clk_output, imp_output = self.load_inter_file(imp, clk)
-            total_clk_output.update(clk_output)
-            total_imp_output.update(imp_output)
-        return total_imp_output, total_clk_output
+        for input_file in self.input_files:
+            output = self.load_inter_file(input_file)
+            total_output.update(output)
+        return total_output
 
     def load_item_data(self):
         total_item_data = set()
-        for imp in self.input_view_files:
-            total_item_data |= self.load_item_file(imp)
+        for input_file in self.input_files:
+            total_item_data |= self.load_item_file(input_file)
         return total_item_data
 
     def load_user_data(self):
         total_user_data = set()
-        for imp in self.input_view_files:
-            total_user_data |= self.load_user_file(imp)
+        for input_file in self.input_files:
+            total_user_data |= self.load_user_file(input_file)
         return total_user_data
 
-    def load_inter_file(self, input_imp_file, input_clk_file):
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
-        clk_lines = open(input_clk_file, encoding='utf-8').readlines()
-        if input_imp_file[-8:-6] == '06':
+    def load_inter_file(self, input_file):
+        lines = open(input_file, encoding='utf-8').readlines()
+        if input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
 
-        clk_output = {}
-        for line in clk_lines:
+        output = {}
+        for line in lines:
             words = line.strip().split(self.sep)
             if len(words) != 24:
                 continue
-            if self.repeat:
+            if self.duplicate_removal:
                 k = [words[3], words[18], words[6], words[7], words[12]]
             else:
                 k = [words[3], words[18], words[6], words[7], self.record_id]
                 self.record_id += 1
             k.insert(2, season)
             k = tuple(k)
-            if k in clk_output:
-                clk_output[k] += 1
+            if k in output:
+                output[k] += 1
             else:
-                clk_output[k] = 1
+                output[k] = 1
+        return output
 
-        imp_output = {}
-        for line in imp_lines:
-            words = line.strip().split(self.sep)
-            if len(words) != 24:
-                continue
-            if self.repeat:
-                k = [words[3], words[18], words[6], words[7], words[12]]
-            else:
-                k = [words[3], words[18], words[6], words[7], self.record_id]
-                self.record_id += 1
-            k.insert(2, season)
-            k = tuple(k)
-            if k in imp_output:
-                imp_output[k] += 1
-            else:
-                imp_output[k] = 1
-        return clk_output, imp_output
-
-    def load_item_file(self, input_imp_file):
-        if input_imp_file[-8:-6] == '06':
+    def load_item_file(self, input_file):
+        if input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
+        lines = open(input_file, encoding='utf-8').readlines()
         item_output = set()
         index = [18, 13, 14, 20, 22, 12]
-        for line in imp_lines:
+        for line in lines:
             words = line.strip().split(self.sep)
             if len(words) != 24:
                 continue
@@ -1278,8 +1236,8 @@ class IPINYOUDataset(BaseDataset):
             item_output.add(tuple(filed_list))
         return item_output
 
-    def load_user_file(self, input_imp_file):
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
+    def load_user_file(self, input_file):
+        imp_lines = open(input_file, encoding='utf-8').readlines()
         user_output = set()
         for line in imp_lines:
             words = line.strip().split(self.sep)
@@ -1288,46 +1246,14 @@ class IPINYOUDataset(BaseDataset):
             user_output.add((words[3], words[23]))
         return user_output
 
-    def get_output_paths(self):
-        view_output_path = os.path.join(self.output_path, self.view_dataset_name)
-        click_output_path = os.path.join(self.output_path, self.click_dataset_name)
-
-        if not os.path.isdir(view_output_path):
-            os.makedirs(view_output_path)
-        if not os.path.isdir(click_output_path):
-            os.makedirs(click_output_path)
-
-        view_inter_file = os.path.join(view_output_path, self.view_dataset_name + '.inter')
-        click_inter_file = os.path.join(click_output_path, self.click_dataset_name + '.inter')
-        output_inter_file = (view_inter_file, click_inter_file)
-
-        view_item_file = os.path.join(view_output_path, self.view_dataset_name + '.item')
-        click_item_file = os.path.join(click_output_path, self.click_dataset_name + '.item')
-        output_item_file = (view_item_file, click_item_file)
-
-        view_user_file = os.path.join(view_output_path, self.view_dataset_name + '.user')
-        click_user_file = os.path.join(click_output_path, self.click_dataset_name + '.user')
-        output_user_file = (view_user_file, click_user_file)
-
-        return output_inter_file, output_item_file, output_user_file
-
     def convert_inter(self):
         try:
-            view_inter, click_inter = self.load_inter_data()
-            view_file, click_file = self.output_inter_file
-            with open(view_file, 'w') as fp:
+            inter_data = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
                 fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                for k, v in tqdm(view_inter.items()):
+                for k, v in tqdm(inter_data.items()):
                     k = k[:-1]
-                    if self.repeat:
-                        fp.write('\t'.join([str(item) for item in list(k) + [v]]) + '\n')
-                    else:
-                        fp.write('\t'.join([str(item) for item in list(k)]) + '\n')
-            with open(click_file, 'w') as fp:
-                fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                for k, v in tqdm(click_inter.items()):
-                    k = k[:-1]
-                    if self.repeat:
+                    if self.duplicate_removal:
                         fp.write('\t'.join([str(item) for item in list(k) + [v]]) + '\n')
                     else:
                         fp.write('\t'.join([str(item) for item in list(k)]) + '\n')
@@ -1337,31 +1263,25 @@ class IPINYOUDataset(BaseDataset):
     def convert_item(self):
         try:
             item_data = self.load_item_data()
-            view_file, click_file = self.output_item_file
-            with open(view_file, 'w') as vf, open(click_file, 'w') as cf:
+            with open(self.output_item_file, 'w') as fp:
                 title = '\t'.join([self.item_fields[i] for i in range(len(self.item_fields))]) + '\n'
-                vf.write(title)
-                cf.write(title)
+                fp.write(title)
                 for item in tqdm(item_data):
                     item = item[:-1]
                     record = '\t'.join([str(field) for field in item]) + '\n'
-                    vf.write(record)
-                    cf.write(record)
+                    fp.write(record)
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
     def convert_user(self):
         try:
             user_data = self.load_user_data()
-            view_file, click_file = self.output_user_file
-            with open(view_file, 'w') as vf, open(click_file, 'w') as cf:
+            with open(self.output_user_file, 'w') as fp:
                 title = '\t'.join([self.user_fields[i] for i in range(len(self.user_fields))]) + '\n'
-                vf.write(title)
-                cf.write(title)
+                fp.write(title)
                 for user in tqdm(user_data):
                     record = '\t'.join([user[0], user[1].replace(',', ' ')]) + '\n'
-                    vf.write(record)
-                    cf.write(record)
+                    fp.write(record)
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
