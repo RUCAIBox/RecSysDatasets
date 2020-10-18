@@ -10,7 +10,8 @@ This dataset contains product reviews and metadata from Amazon, including 142.8 
 May 1996 - July 2014. This dataset includes only-rating data (ratings), product metadata
 (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data):
-This dataset was collected from Epinions.com, a popular online consumer review website.
+This dataset was collected from Epinions.com, a popular online consumer review website. It contains trust relationships 
+amongst users and spans more than a decade, from January 2001 to November 2013.
 - [Yelp](https://www.yelp.com/dataset):
 This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews,
 and user data for use in personal, educational, and academic purposes.
@@ -76,7 +77,7 @@ and 32,135 games. In addition to the review text, the data also includes the use
 ### Anime
 - [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database):
 This dataset contains information on user preference data from myanimelist.net. Each user is able to add anime to
-their completed list and give it a rating and this data set is a compilation of those ratings.
+their completed list and give it a rating and this dataset is a compilation of those ratings.
 
 ### Pictures
 * [Pinterest](https://github.com/hexiangnan/neural_collaborative_filtering/tree/master/Data):
@@ -94,7 +95,7 @@ which contains the situations of students submitting exercises on the systems.
 
 ### Websites
 * [Phishing Websites](http://archive.ics.uci.edu/ml/datasets/Phishing+Websites):
-This dataset contains 30 features of 11,055 websites and labels of whether they are phishing websites or not.
+This dataset contains 30 kinds of features of 11,055 websites and labels of whether they are phishing websites or not.
 The websites' features includes 12 address-bar based features, 6 abnormal based features, 5 HTML-and-JavaScript based
 features and 7 domain based features.
 
