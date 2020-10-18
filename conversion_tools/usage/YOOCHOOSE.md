@@ -30,17 +30,17 @@ python run.py --dataset yoochoose \
 --convert_inter
 ```
 
-`input_path` is the path of the input decompressed yoochoose file
+`input_path` is the path of the input decompressed yoochoose files
 
 `output_path` is the path to store converted atomic files
 
-`interaction_type` YOOCHOOSE data contains two type interactions: click and buy.
+`interaction_type` YOOCHOOSE data contains two types of interaction: click and buy.
 You can choose one of them to generate the corresponding atomic file. Range in [click, buy]
- 
+
  `dupliacte_removal` The interaction type in YOOCHOOSE data is click/buy, 
  there may be multiple interaction records for the same user-item pair. Add `--dupliacte_removal` can 
  keep only the most recent interaction between user and item and 
  record the number of interactions between the user and the item. 
  If you do not want to do this, please ignore this parameter.
- 
+
  `convert_inter` YOOCHOOSE only can be converted to '*.inter' atomic file

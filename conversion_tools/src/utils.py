@@ -62,11 +62,11 @@ dataset2class = {
 
 click_dataset = {
     'YOOCHOOSEDataset',
-    'RETAILROCKETDataset'
+    'RETAILROCKETDataset',
+    'TAFENGDataset'
 }
 
 multiple_dataset = {
     'YOOCHOOSEDataset',
-    'RETAILROCKETDataset',
-    'TAFENGDataset'
+    'RETAILROCKETDataset'
 }
