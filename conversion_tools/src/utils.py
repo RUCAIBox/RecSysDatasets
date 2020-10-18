@@ -64,7 +64,10 @@ click_dataset = {
     'YOOCHOOSEDataset',
     'RETAILROCKETDataset',
     'TMALLDataset',
-    'IPINYOUDataset'
+    'IPINYOUDataset',
+    'TAFENGDataset',
+    'LFM1bDataset',
+    'GOWALLADataset'
 }
 
 multiple_dataset = {
@@ -72,5 +75,6 @@ multiple_dataset = {
     'RETAILROCKETDataset',
     'TAFENGDataset',
     'TMALLDataset',
-    'IPINYOUDataset'
+    'IPINYOUDataset',
+    'LFM1bDataset'
 }
