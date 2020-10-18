@@ -31,7 +31,7 @@ python run.py --dataset yelp \
 --convert_inter --convert_item --convert_user
 ```
 
-`input_path` is the path of the input decompressed yelp file
+`input_path` is the path of the input decompressed yelp files
 
 `output_path` is the path to store converted atomic files
 

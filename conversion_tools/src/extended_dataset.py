@@ -4458,6 +4458,7 @@ class RETAILROCKETDataset(BaseDataset):
                 if line_list[2] == self.interaction_type:
                     if self.interaction_type != 'transaction':
                         del line_list[4]
+                    else: line_list[4] = line_list[4].strip()
                     del line_list[2]
                     fout.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
 
