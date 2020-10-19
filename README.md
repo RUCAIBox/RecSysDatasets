@@ -57,7 +57,7 @@ This dataset contains more than 2 million short comments of 28 movies in Douban 
 This dataset contains social networking, tagging, and music artist listening information
 from a set of 2K users from Last.fm online music system.
 - [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/):
-This dataset contains more than one billion music listening events created by more than 120,000 users of Last.fm.
+This dataset contains more than one billion music listening events created by more than 120,000 users of Last.FM.
 Each listening event is characterized by artist, album, and track name, and includes a timestamp.
 - [Yahoo Music](https://webscope.sandbox.yahoo.com/catalog.php?datatype=r):
 This dataset represents a snapshot of the Yahoo! Music community's preferences for various musical artists.
