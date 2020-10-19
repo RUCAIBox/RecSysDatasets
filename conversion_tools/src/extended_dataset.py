@@ -344,10 +344,10 @@ class CRITEODataset(BaseDataset):
 
 
 class FOURSQUAREDataset(BaseDataset):
-    def __init__(self, input_path, output_path, merge_repeat=True):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(FOURSQUAREDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'foursquare'
-        self.merge_repeat = merge_repeat
+        self.merge_repeat = duplicate_removal
 
         # input file
         # self.input_file_NYC="../raw_data/foursquare/formytest.csv"
@@ -376,7 +376,7 @@ class FOURSQUAREDataset(BaseDataset):
         timeStamp = int(time.mktime(timeArray))
         return timeStamp
 
-    def click_count_process(self, data_without_count, info_len=2):
+    def convert_inter_with_merge(self, data_without_count, fout, info_len=2):
         result = pd.DataFrame(columns=data_without_count.columns)
         result['click_times'] = ''
 
@@ -398,51 +398,44 @@ class FOURSQUAREDataset(BaseDataset):
 
         for key, value in tqdm(info_dict.items()):
             key_list = list(key)
-            key_list.extend(info_dict[key])
+            key_list.extend(value)
             key_list.append(n_dict[key])
-            result.loc[len(result)] = key_list
-
-        return result
+            fout.write('\t'.join([str(key_list[i]) for i in range(len(key_list))]) + '\n')
 
     def convert_inter(self):
         # load data
         data_NYC = pd.read_csv(self.input_file_NYC, header=0, engine='python')
         data_TKY = pd.read_csv(self.input_file_TKY, header=0, engine='python')
 
-        # print(1)
-        # data process
-        fout_NYC = open(self.output_file_NYC, "w")
-        fout_TKY = open(self.output_file_TKY, "w")
-        fout_NYC.write('\t'.join([self.fields.get(i) for i in self.fields.keys()]) + '\n')
-        fout_TKY.write('\t'.join([self.fields.get(i) for i in self.fields.keys()]) + '\n')
-
         # utc time to timestamp
         data_NYC.iloc[:, -1] = [self.utc_to_timestamp(x[-1]) for x in data_NYC.values.tolist()]
         data_TKY.iloc[:, -1] = [self.utc_to_timestamp(x[-1]) for x in data_TKY.values.tolist()]
 
-        # count
+        fout_NYC = open(self.output_file_NYC, "w")
+        fout_TKY = open(self.output_file_TKY, "w")
+        fout_NYC.write('\t'.join([self.fields.get(i) for i in self.fields.keys()]) + '\n')
+        fout_TKY.write('\t'.join([self.fields.get(i) for i in self.fields.keys()]) + '\n')
+        
         if self.merge_repeat == True:
-            data_NYC = self.click_count_process(data_NYC)
-            data_TKY = self.click_count_process(data_TKY)
+            data_NYC = self.convert_inter_with_merge(data_NYC, fout_NYC)
+            data_TKY = self.convert_inter_with_merge(data_TKY, fout_TKY)
+        else:
+            for i in tqdm(range(data_NYC.shape[0])):
+                fout_NYC.write('\t'.join([str(data_NYC.iloc[i, j])
+                                        for j in range(data_NYC.shape[1])]) + '\n')
+            for i in tqdm(range(data_TKY.shape[0])):
+                fout_TKY.write('\t'.join([str(data_TKY.iloc[i, j])
+                                        for j in range(data_TKY.shape[1])]) + '\n')
 
-        for i in tqdm(range(data_NYC.shape[0])):
-            fout_NYC.write('\t'.join([str(data_NYC.iloc[i, j])
-                                      for j in range(data_NYC.shape[1])]) + '\n')
         fout_NYC.close()
-        print("The NYC part of Dataset FOURSQUARE has finished.")
-
-        for i in tqdm(range(data_TKY.shape[0])):
-            fout_TKY.write('\t'.join([str(data_TKY.iloc[i, j])
-                                      for j in range(data_TKY.shape[1])]) + '\n')
         fout_TKY.close()
-        print("The TKY part of Dataset FOURSQUARE has finished.")
 
 
 class DIGINETICADataset(BaseDataset):
-    def __init__(self, input_path, output_path, merge_repeat=True):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(DIGINETICADataset, self).__init__(input_path, output_path)
         self.dataset_name = 'DIGINETICA'
-        self.merge_repeat = merge_repeat
+        self.merge_repeat = duplicate_removal
         # 'item' part
         self.fields_item = {0: 'item_id:token',
                             1: 'item_priceLog2:float',
@@ -502,9 +495,6 @@ class DIGINETICADataset(BaseDataset):
         print("The 'item' part of dataset DIGINETICA has finished.")
 
     def convert_inter(self):
-        # the part of 'item'
-        self.convert_item()
-
         with open(self.input_file_item_views, "r") as f:
             reader = csv.DictReader(f, delimiter=';')
             sess_clicks = {}
@@ -1292,7 +1282,7 @@ class STEAMDataset(BaseDataset):
         self.dataset_name = 'steam'
 
         # input file
-        self.inter_file = os.path.join(self.input_path, 'steam_new.json')
+        self.inter_file = os.path.join(self.input_path, 'steam_reviews.json')
         self.item_file = os.path.join(self.input_path, 'steam_games.json')
         #        self.sep = '::'
 
@@ -1570,7 +1560,7 @@ class JESTERDataset(BaseDataset):
 class DOUBANDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(DOUBANDataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'steam'
+        self.dataset_name = 'douban'
         #
         #        # input file
         self.input_file = os.path.join(input_path, 'DMSC.csv')
