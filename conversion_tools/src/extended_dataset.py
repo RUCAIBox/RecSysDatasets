@@ -122,10 +122,15 @@ class AVAZUDataset(BaseDataset):
                              22: 'C20:token',
                              23: 'C21:token'}
 
-    def load_inter_data(self):
-        table = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        # remove head line
-        return table.iloc[1:]
+    def convert_inter(self):
+        try:
+            with open(self.output_inter_file, 'w') as fp, open(self.inter_file, encoding='utf-8') as rp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                lines = rp.readlines()[1:]
+                for line in tqdm(lines):
+                    fp.write('\t'.join(line.strip().split(self.sep)) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class ADULTDataset(BaseDataset):
@@ -168,27 +173,28 @@ class ADULTDataset(BaseDataset):
 
 
 class TMALLDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(TMALLDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'tmall'
-        self.repeat = repeat
-        if self.repeat:
-            postfix = '-sums'
-        else:
-            postfix = ''
-        self.buy_dataset_name = self.dataset_name + '-buy' + postfix
-        self.click_dataset_name = self.dataset_name + '-click' + postfix
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['click', 'buy'], 'interaction_type must be in [click, buy]'
+        self.duplicate_removal = duplicate_removal
 
-        # input path
+        # output file
+        interact = '-buy' if self.interaction_type == 'buy' else '-click'
+        repeat = '-sums' if self.duplicate_removal else ''
+        self.dataset_name = self.dataset_name + interact + repeat
+        self.output_path = os.path.join(self.output_path, self.dataset_name)
+        self.check_output_path()
+        self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '.inter')
+
+        # input file
         self.inter_file = os.path.join(self.input_path, 'ijcai2016_taobao.csv')
 
         self.sep = ','
 
-        # output path
-        self.output_inter_file = self.get_output_paths()
-
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'seller_id:token',
                                  2: 'item_id:token',
@@ -202,95 +208,54 @@ class TMALLDataset(BaseDataset):
                                  3: 'category_id:token',
                                  4: 'timestamp:float'}
 
-    def get_output_paths(self):
-        buy_output_path = os.path.join(self.output_path, self.buy_dataset_name)
-        click_output_path = os.path.join(self.output_path, self.click_dataset_name)
-
-        if not os.path.isdir(buy_output_path):
-            os.makedirs(buy_output_path)
-        if not os.path.isdir(click_output_path):
-            os.makedirs(click_output_path)
-
-        buy_inter_file = os.path.join(buy_output_path, self.buy_dataset_name + '.inter')
-        click_inter_file = os.path.join(click_output_path, self.click_dataset_name + '.inter')
-        output_inter_file = (click_inter_file, buy_inter_file)
-
-        return output_inter_file
-
     def load_inter_data(self):
-        click_table, buy_table = [], []
+        table = list()
         f = '%Y%m%d'
         with open(self.inter_file, encoding='utf-8') as fp:
             lines = fp.readlines()[1:]
             for line in tqdm(lines):
                 words = line.strip().split(self.sep)
-                time = int(datetime.strptime(words[5], f).timestamp())
-                words[5] = str(time)
+                t = int(datetime.strptime(words[5], f).timestamp())
+                words[5] = str(t)
                 label = words.pop(4)
-                if label == '0':
-                    click_table.append(words)
-                else:
-                    buy_table.append(words)
-        return click_table, buy_table
+                if label == '0' and self.interaction_type == 'click':
+                    table.append(words)
+                elif label == '1' and self.interaction_type == 'buy':
+                    table.append(words)
+        return table
 
     def convert_inter(self):
         try:
-            click_table, buy_table = self.load_inter_data()
-            click_output_path, buy_output_path = self.output_inter_file
-            if self.repeat:
-                click_dict, buy_dict = self.merge_repeat(click_table, buy_table)
-                # write -click file
-                with open(click_output_path, 'w') as cf:
-                    cf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for k, v in tqdm(click_dict.items()):
-                        cf.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
-                # write -buy file
-                with open(buy_output_path, 'w') as bf:
-                    bf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for k, v in tqdm(buy_dict.items()):
-                        bf.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
-            else:
-                # write -click file
-                with open(click_output_path, 'w') as cf:
-                    cf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for line in tqdm(click_table):
-                        cf.write('\t'.join(line) + '\n')
-                # write -buy file
-                with open(buy_output_path, 'w') as bf:
-                    bf.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                    for line in tqdm(buy_table):
-                        bf.write('\t'.join(line) + '\n')
+            inter_table = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
+                fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
+                if self.duplicate_removal:
+                    inter_dict = self.merge_duplicate(inter_table)
+                    for k, v in tqdm(inter_dict.items()):
+                        fp.write('\t'.join([str(item) for item in list(k) + v]) + '\n')
+                else:
+                    for line in tqdm(inter_table):
+                        fp.write('\t'.join(line) + '\n')
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
-    def merge_repeat(self, click_table, buy_table):
-        click_dict, buy_dict = {}, {}
-        for line in click_table:
+    def merge_duplicate(self, inter_table):
+        inter_dict = {}
+        for line in inter_table:
             key = tuple(line[:-1])
-            time = line[-1]
-            if key in click_dict:
-                click_dict[key][0] = time
-                click_dict[key][1] += 1
+            t = line[-1]
+            if key in inter_dict:
+                inter_dict[key][0] = t
+                inter_dict[key][1] += 1
             else:
-                click_dict[key] = [time, 1]
-        for line in buy_table:
-            key = tuple(line[:-1])
-            time = line[-1]
-            if key in buy_dict:
-                buy_dict[key][0] = time
-                buy_dict[key][1] += 1
-            else:
-                buy_dict[key] = [time, 1]
-        return click_dict, buy_dict
+                inter_dict[key] = [t, 1]
+        return inter_dict
 
 
 class NETFLIXDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(NETFLIXDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'netflix'
-
-        # input pathgit
-        self.inter_file = os.path.join(self.input_path, 'netflix_data')
 
         self.sep = ','
 
@@ -304,25 +269,34 @@ class NETFLIXDataset(BaseDataset):
                              2: 'rating:float',
                              3: 'timestamp:float'}
 
+    def load_inter_data(self):
         # preprocess raw data file
+        words_list = list()
         raw_file_list = ['combined_data_1.txt', 'combined_data_2.txt', 'combined_data_3.txt', 'combined_data_4.txt']
-        raw_path_list = [os.path.join(self.input_path, raw_file) for raw_file in raw_file_list]
+        raw_path_list = [os.path.join(self.input_path, 'archive', raw_file) for raw_file in raw_file_list]
         lines_list = [open(raw_path, encoding='utf-8').read().strip().split('\n') for raw_path in raw_path_list]
         time_format = '%Y-%m-%d'
-        with open(self.inter_file, 'w') as fp:
-            for lines in lines_list:
-                i = 0
-                while i < len(lines):
-                    u_id = lines[i].replace(':', ',')
+        for lines in tqdm(lines_list):
+            i = 0
+            while i < len(lines):
+                u_id = lines[i][:-1]
+                i += 1
+                while i < len(lines) and lines[i][-1] != ':':
+                    words = lines[i].strip().split(',')
+                    words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
+                    words_list.append([u_id] + words)
                     i += 1
-                    while i < len(lines) and lines[i][-1] != ':':
-                        words = lines[i].strip().split(',')
-                        words[-1] = str(int(datetime.strptime(words[-1], time_format).timestamp()))
-                        fp.write(u_id + ','.join(words) + '\n')
-                        i += 1
+        return words_list
 
-    def load_inter_data(self):
-        return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
+    def convert_inter(self):
+        try:
+            words_list = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
+                fp.write('\t'.join(self.inter_fields.values()) + '\n')
+                for words in tqdm(words_list):
+                    fp.write('\t'.join(words) + '\n')
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class CRITEODataset(BaseDataset):
@@ -710,10 +684,10 @@ class EPINIONSDataset(BaseDataset):
 
 
 class GOWALLADataset(BaseDataset):
-    def __init__(self, input_path, output_path, merge_repeat=False):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(GOWALLADataset, self).__init__(input_path, output_path)
         self.dataset_name = 'gowalla'
-        self.merge_repeat = merge_repeat  # merge repeat interactions if 'repeat' is True
+        self.duplicate_removal = duplicate_removal  # merge repeat interactions if 'repeat' is True
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'loc-gowalla_totalCheckins.txt')
@@ -725,7 +699,7 @@ class GOWALLADataset(BaseDataset):
         self.output_inter_file = output_files[0]
 
         # selected feature fields
-        if self.merge_repeat == True:
+        if self.duplicate_removal == True:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'item_id:token',
                                  2: 'timestamp:float',
@@ -740,8 +714,8 @@ class GOWALLADataset(BaseDataset):
                                  4: 'longitude:float'}
 
     def load_inter_data(self):
-        if self.merge_repeat == True:
-            processed_data = self.merge_repeat_lines()
+        if self.duplicate_removal == True:
+            processed_data = self.run_duplicate_removal()
         else:
             origin_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
             order = [0, 4, 1, 2, 3]
@@ -750,7 +724,7 @@ class GOWALLADataset(BaseDataset):
             processed_data[1] = origin_data[1].apply(lambda x: time.mktime(time.strptime(x, '%Y-%m-%dT%H:%M:%SZ')))
         return processed_data
 
-    def merge_repeat_lines(self):
+    def run_duplicate_removal(self):
         cnt_row = 0
         all_user = {}
         a_user = {}
@@ -761,8 +735,6 @@ class GOWALLADataset(BaseDataset):
                 if not line:
                     for key, value in a_user[pre_userid].items():
                         all_user[cnt_row] = [pre_userid, key, value[0], value[1], value[2], value[3]]
-                        cnt_row += 1
-                    pre_userid = userid
                     break
                 line = line.strip().split('\t')
                 userid, timestamp, lati, longi, itemid = line[0], line[1], line[2], line[3], line[4]
@@ -786,18 +758,18 @@ class GOWALLADataset(BaseDataset):
 
 
 class LFM1bDataset(BaseDataset):
-    def __init__(self, input_path, output_path, item_type='tracks', merge_repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(LFM1bDataset, self).__init__(input_path, output_path)
         self.input_path = input_path
         self.output_path = output_path
 
-        self.merge_repeat = merge_repeat  # merge repeat interactions if 'merge_repeat' is True
-        self.item_type = item_type  # artists, albums, tracks
-        self.dataset_name = 'lfm1b-' + self.item_type
+        self.duplicate_removal = duplicate_removal  # merge repeat interactions if 'duplicate_removal' is True
+        self.interaction_type = interaction_type  # artists, albums, tracks
+        self.dataset_name = 'lfm1b-' + self.interaction_type
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'LFM-1b_LEs.txt')
-        self.item_file = os.path.join(self.input_path, 'LFM-1b_' + self.item_type + '.txt')
+        self.item_file = os.path.join(self.input_path, 'LFM-1b_' + self.interaction_type + '.txt')
         self.user_file = os.path.join(self.input_path, 'LFM-1b_users.txt')
         self.user_file_add = os.path.join(self.input_path, 'LFM-1b_users_additional.txt')
 
@@ -807,24 +779,24 @@ class LFM1bDataset(BaseDataset):
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
 
         # selected feature fields
-        if self.merge_repeat == True:
+        if self.duplicate_removal == True:
             self.inter_fields = {0: 'user_id:token',
-                                 1: self.item_type + '_id:token',
+                                 1: self.interaction_type + '_id:token',
                                  2: 'timestamp:float',
                                  3: 'num_repeat:float'
                                  }
         else:
             self.inter_fields = {0: 'user_id:token',
-                                 1: self.item_type + '_id:token',
+                                 1: self.interaction_type + '_id:token',
                                  2: 'timestamp:float'
                                  }
 
-        if self.item_type == 'artists':
-            self.item_fields = {0: self.item_type + '_id:token',
+        if self.interaction_type == 'artists':
+            self.item_fields = {0: self.interaction_type + '_id:token',
                                 1: 'name:token_seq'
                                 }
         else:
-            self.item_fields = {0: self.item_type + '_id:token',
+            self.item_fields = {0: self.interaction_type + '_id:token',
                                 1: 'name:token_seq',
                                 2: 'artists_id:token'
                                 }
@@ -881,13 +853,10 @@ class LFM1bDataset(BaseDataset):
 
     def convert_inter(self):
         fout = open(self.output_inter_file, 'w')
-        for i in range(len(self.inter_fields)):
-            v = self.inter_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
 
-        if self.repeat == True:
-            self.merge_repeat_lines(fout)
+        if self.duplicate_removal == True:
+            self.run_duplicate_removal(fout)
         else:
             with open(self.inter_file, 'r') as f:
                 line = f.readline()
@@ -897,9 +866,9 @@ class LFM1bDataset(BaseDataset):
 
                     line = line.strip().split('\t')
                     userid, artistid, albumid, trackid, timestamp = line[0], line[1], line[2], line[3], line[4]
-                    if self.item_type == 'artists':
+                    if self.interaction_type == 'artists':
                         itemid = artistid
-                    elif self.item_type == 'albums':
+                    elif self.interaction_type == 'albums':
                         itemid = albumid
                     else:
                         itemid = trackid
@@ -911,10 +880,7 @@ class LFM1bDataset(BaseDataset):
 
     def convert_item(self):
         fout = open(self.output_item_file, 'w')
-        for i in range(len(self.item_fields)):
-            v = self.item_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.item_fields[i] for i in range(len(self.item_fields))]) + '\n')
 
         cnt_row = 0
         dict_all_items = {}
@@ -930,10 +896,7 @@ class LFM1bDataset(BaseDataset):
 
     def convert_user(self):
         fout = open(self.output_user_file, 'w')
-        for i in range(len(self.user_fields)):
-            v = self.user_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.user_fields[i] for i in range(len(self.user_fields))]) + '\n')
 
         with open(self.user_file, 'r') as f1:
             with open(self.user_file_add, 'r') as f2:
@@ -952,7 +915,7 @@ class LFM1bDataset(BaseDataset):
         print(self.output_user_file + ' is done!')
         fout.close()
 
-    def merge_repeat_lines(self, fout):
+    def run_duplicate_removal(self, fout):
         a_user = {}
         pre_userid = '31435741'
         user_order = []
@@ -969,9 +932,9 @@ class LFM1bDataset(BaseDataset):
                     break
                 line = line.strip().split('\t')
                 userid, artistid, albumid, trackid, timestamp = line[0], line[1], line[2], line[3], line[4]
-                if self.item_type == 'artists':
+                if self.interaction_type == 'artists':
                     itemid = artistid
-                elif self.item_type == 'albums':
+                elif self.interaction_type == 'albums':
                     itemid = albumid
                 else:
                     itemid = trackid
@@ -988,7 +951,6 @@ class LFM1bDataset(BaseDataset):
                         user_order.append(pre_userid)
                     pre_userid = userid
                 line = f.readline()
-
 
 class PHISHINGWEBDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -1041,10 +1003,7 @@ class PHISHINGWEBDataset(BaseDataset):
 
     def convert_inter(self):
         fout = open(self.output_inter_file, 'w')
-        for i in range(len(self.inter_fields)):
-            v = self.inter_fields[i]
-            fout.write(v) if i == 0 else fout.write('\t' + v)
-        fout.write('\n')
+        fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
 
         with open(self.inter_file, 'r') as f:
             line = f.readline()
@@ -1056,10 +1015,8 @@ class PHISHINGWEBDataset(BaseDataset):
                     line = f.readline()
                     continue
                 line = line.strip().split(',')
-                fout.write(str(line[-1]))
-                for i in range(len(line) - 1):
-                    fout.write('\t' + str(line[i]))
-                fout.write('\n')
+                fout.write(str(line[-1])+'\t')
+                fout.write('\t'.join([str(line[i]) for i in range(len(line)-1)]) + '\n')
                 line = f.readline()
         fout.close()
 
@@ -1147,17 +1104,24 @@ class BOOKCROSSINGDataset(BaseDataset):
 
 
 class IPINYOUDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat=True):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(IPINYOUDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ipinyou'
-        self.repeat = repeat
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['click', 'view'], 'interaction_type must be in [click, view]'
+        self.duplicate_removal = duplicate_removal
+
         self.record_id = 1
-        if self.repeat:
-            postfix = '-sums'
-        else:
-            postfix = ''
-        self.view_dataset_name = self.dataset_name + '-view' + postfix
-        self.click_dataset_name = self.dataset_name + '-click' + postfix
+
+        # output file
+        interact = '-click' if self.interaction_type == 'click' else '-view'
+        repeat = '-sums' if self.duplicate_removal else ''
+        self.dataset_name = self.dataset_name + interact + repeat
+        self.output_path = os.path.join(self.output_path, self.dataset_name)
+        self.check_output_path()
+        self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '.inter')
+        self.output_item_file = os.path.join(self.output_path, self.dataset_name + '.item')
+        self.output_user_file = os.path.join(self.output_path, self.dataset_name + '.user')
 
         self.sep = '\t'
 
@@ -1180,17 +1144,13 @@ class IPINYOUDataset(BaseDataset):
                 for data in iter(lambda: file.read(100 * 1024), b''):
                     new_file.write(data)
 
-        self.input_view_files = [file[:-4] for file in self.input_view_files]
-        self.input_click_files = [file[:-4] for file in self.input_click_files]
-
-        # output path
-        output_file = self.get_output_paths()
-        self.output_inter_file = output_file[0]
-        self.output_item_file = output_file[1]
-        self.output_user_file = output_file[2]
+        if self.interaction_type == 'view':
+            self.input_files = [file[:-4] for file in self.input_view_files]
+        else:
+            self.input_files = [file[:-4] for file in self.input_click_files]
 
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'user_id:token',
                                  1: 'item_id:token',
                                  2: 'season:token',
@@ -1215,78 +1175,59 @@ class IPINYOUDataset(BaseDataset):
                             1: 'user_profile:token_seq'}
 
     def load_inter_data(self):
-        total_clk_output, total_imp_output = {}, {}
+        total_output = {}
         # Process view and click inter files
-        for imp, clk in zip(self.input_view_files, self.input_click_files):
-            clk_output, imp_output = self.load_inter_file(imp, clk)
-            total_clk_output.update(clk_output)
-            total_imp_output.update(imp_output)
-        return total_imp_output, total_clk_output
+        for input_file in self.input_files:
+            output = self.load_inter_file(input_file)
+            total_output.update(output)
+        return total_output
 
     def load_item_data(self):
         total_item_data = set()
-        for imp in self.input_view_files:
-            total_item_data |= self.load_item_file(imp)
+        for input_file in self.input_files:
+            total_item_data |= self.load_item_file(input_file)
         return total_item_data
 
     def load_user_data(self):
         total_user_data = set()
-        for imp in self.input_view_files:
-            total_user_data |= self.load_user_file(imp)
+        for input_file in self.input_files:
+            total_user_data |= self.load_user_file(input_file)
         return total_user_data
 
-    def load_inter_file(self, input_imp_file, input_clk_file):
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
-        clk_lines = open(input_clk_file, encoding='utf-8').readlines()
-        if input_imp_file[-8:-6] == '06':
+    def load_inter_file(self, input_file):
+        lines = open(input_file, encoding='utf-8').readlines()
+        if input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
 
-        clk_output = {}
-        for line in clk_lines:
+        output = {}
+        for line in lines:
             words = line.strip().split(self.sep)
             if len(words) != 24:
                 continue
-            if self.repeat:
+            if self.duplicate_removal:
                 k = [words[3], words[18], words[6], words[7], words[12]]
             else:
                 k = [words[3], words[18], words[6], words[7], self.record_id]
                 self.record_id += 1
             k.insert(2, season)
             k = tuple(k)
-            if k in clk_output:
-                clk_output[k] += 1
+            if k in output:
+                output[k] += 1
             else:
-                clk_output[k] = 1
+                output[k] = 1
+        return output
 
-        imp_output = {}
-        for line in imp_lines:
-            words = line.strip().split(self.sep)
-            if len(words) != 24:
-                continue
-            if self.repeat:
-                k = [words[3], words[18], words[6], words[7], words[12]]
-            else:
-                k = [words[3], words[18], words[6], words[7], self.record_id]
-                self.record_id += 1
-            k.insert(2, season)
-            k = tuple(k)
-            if k in imp_output:
-                imp_output[k] += 1
-            else:
-                imp_output[k] = 1
-        return clk_output, imp_output
-
-    def load_item_file(self, input_imp_file):
-        if input_imp_file[-8:-6] == '06':
+    def load_item_file(self, input_file):
+        if input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
+        lines = open(input_file, encoding='utf-8').readlines()
         item_output = set()
         index = [18, 13, 14, 20, 22, 12]
-        for line in imp_lines:
+        for line in lines:
             words = line.strip().split(self.sep)
             if len(words) != 24:
                 continue
@@ -1295,8 +1236,8 @@ class IPINYOUDataset(BaseDataset):
             item_output.add(tuple(filed_list))
         return item_output
 
-    def load_user_file(self, input_imp_file):
-        imp_lines = open(input_imp_file, encoding='utf-8').readlines()
+    def load_user_file(self, input_file):
+        imp_lines = open(input_file, encoding='utf-8').readlines()
         user_output = set()
         for line in imp_lines:
             words = line.strip().split(self.sep)
@@ -1305,46 +1246,14 @@ class IPINYOUDataset(BaseDataset):
             user_output.add((words[3], words[23]))
         return user_output
 
-    def get_output_paths(self):
-        view_output_path = os.path.join(self.output_path, self.view_dataset_name)
-        click_output_path = os.path.join(self.output_path, self.click_dataset_name)
-
-        if not os.path.isdir(view_output_path):
-            os.makedirs(view_output_path)
-        if not os.path.isdir(click_output_path):
-            os.makedirs(click_output_path)
-
-        view_inter_file = os.path.join(view_output_path, self.view_dataset_name + '.inter')
-        click_inter_file = os.path.join(click_output_path, self.click_dataset_name + '.inter')
-        output_inter_file = (view_inter_file, click_inter_file)
-
-        view_item_file = os.path.join(view_output_path, self.view_dataset_name + '.item')
-        click_item_file = os.path.join(click_output_path, self.click_dataset_name + '.item')
-        output_item_file = (view_item_file, click_item_file)
-
-        view_user_file = os.path.join(view_output_path, self.view_dataset_name + '.user')
-        click_user_file = os.path.join(click_output_path, self.click_dataset_name + '.user')
-        output_user_file = (view_user_file, click_user_file)
-
-        return output_inter_file, output_item_file, output_user_file
-
     def convert_inter(self):
         try:
-            view_inter, click_inter = self.load_inter_data()
-            view_file, click_file = self.output_inter_file
-            with open(view_file, 'w') as fp:
+            inter_data = self.load_inter_data()
+            with open(self.output_inter_file, 'w') as fp:
                 fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                for k, v in tqdm(view_inter.items()):
+                for k, v in tqdm(inter_data.items()):
                     k = k[:-1]
-                    if self.repeat:
-                        fp.write('\t'.join([str(item) for item in list(k) + [v]]) + '\n')
-                    else:
-                        fp.write('\t'.join([str(item) for item in list(k)]) + '\n')
-            with open(click_file, 'w') as fp:
-                fp.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
-                for k, v in tqdm(click_inter.items()):
-                    k = k[:-1]
-                    if self.repeat:
+                    if self.duplicate_removal:
                         fp.write('\t'.join([str(item) for item in list(k) + [v]]) + '\n')
                     else:
                         fp.write('\t'.join([str(item) for item in list(k)]) + '\n')
@@ -1354,31 +1263,25 @@ class IPINYOUDataset(BaseDataset):
     def convert_item(self):
         try:
             item_data = self.load_item_data()
-            view_file, click_file = self.output_item_file
-            with open(view_file, 'w') as vf, open(click_file, 'w') as cf:
+            with open(self.output_item_file, 'w') as fp:
                 title = '\t'.join([self.item_fields[i] for i in range(len(self.item_fields))]) + '\n'
-                vf.write(title)
-                cf.write(title)
+                fp.write(title)
                 for item in tqdm(item_data):
                     item = item[:-1]
                     record = '\t'.join([str(field) for field in item]) + '\n'
-                    vf.write(record)
-                    cf.write(record)
+                    fp.write(record)
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
     def convert_user(self):
         try:
             user_data = self.load_user_data()
-            view_file, click_file = self.output_user_file
-            with open(view_file, 'w') as vf, open(click_file, 'w') as cf:
+            with open(self.output_user_file, 'w') as fp:
                 title = '\t'.join([self.user_fields[i] for i in range(len(self.user_fields))]) + '\n'
-                vf.write(title)
-                cf.write(title)
+                fp.write(title)
                 for user in tqdm(user_data):
                     record = '\t'.join([user[0], user[1].replace(',', ' ')]) + '\n'
-                    vf.write(record)
-                    cf.write(record)
+                    fp.write(record)
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
@@ -4036,9 +3939,9 @@ class YELPDataset(BaseDataset):
         self.dataset_name = 'yelp'
 
         # input file
-        self.inter_file = os.path.join(self.input_path, 'review.json')
-        self.item_file = os.path.join(self.input_path, 'business.json')
-        self.user_file = os.path.join(self.input_path, 'user.json')
+        self.inter_file = os.path.join(self.input_path, 'yelp_academic_dataset_review.json')
+        self.item_file = os.path.join(self.input_path, 'yelp_academic_dataset_business.json')
+        self.user_file = os.path.join(self.input_path, 'yelp_academic_dataset_user.json')
 
         # output_file
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
@@ -4346,10 +4249,12 @@ class YOOCHOOSEDataset(BaseDataset):
 
 
 class RETAILROCKETDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(RETAILROCKETDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'retailrocket'
-        self.repeat = repeat  # merge repeat interactions if 'repeat' is True
+        self.interaction_type = interaction_type
+        assert self.interaction_type in ['view', 'addtocart', 'transaction'], 'interaction_type must be in [view, addtocart, transaction]'
+        self.duplicate_removal = duplicate_removal
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'events.csv')
@@ -4358,63 +4263,62 @@ class RETAILROCKETDataset(BaseDataset):
         self.sep = ','
 
         # output file
-        self.output_inter_view_file = os.path.join(self.output_path, 'retailrocket-view.inter')
-        self.output_inter_addtocart_file = os.path.join(self.output_path, 'retailrocket-addtocart.inter')
-        self.output_inter_transaction_file = os.path.join(self.output_path, 'retailrocket-transaction.inter')
+        if self.interaction_type == 'view':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-view.inter')
+        elif self.interaction_type == 'addtocart':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-addtocart.inter')
+        elif self.interaction_type == 'transaction':
+            self.output_inter_file = os.path.join(self.output_path, 'retailrocket-transaction.inter')
         self.output_item_file = os.path.join(self.output_path, 'retailrocket.item')
 
         # selected feature fields
-        if self.repeat:
-            self.inter_view_fields = {0: 'timestamp:float',
-                                      1: 'visitor_id:token',
-                                      2: 'item_id:token',
-                                      3: 'count:float'}
-            self.inter_addtocart_fields = {0: 'timestamp:float',
-                                           1: 'visitor_id:token',
-                                           2: 'item_id:token',
-                                           3: 'count:float'}
-            self.inter_transaction_fields = {0: 'timestamp:float',
-                                             1: 'visitor_id:token',
-                                             2: 'item_id:token',
-                                             3: 'count:float'}
+        if self.duplicate_removal:
+            if self.interaction_type == 'view':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
+            elif self.interaction_type == 'addtocart':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
+            elif self.interaction_type == 'transaction':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'count:float'}
         else:
-            self.inter_view_fields = {0: 'timestamp:float',
-                                      1: 'visitor_id:token',
-                                      2: 'item_id:token'}
-            self.inter_addtocart_fields = {0: 'timestamp:float',
-                                           1: 'visitor_id:token',
-                                           2: 'item_id:token'}
-            self.inter_transaction_fields = {0: 'timestamp:float',
-                                             1: 'visitor_id:token',
-                                             2: 'item_id:token',
-                                             3: 'transaction_id:token'}
+            if self.interaction_type == 'view':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token'}
+            elif self.interaction_type == 'addtocart':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token'}
+            elif self.interaction_type == 'transaction':
+                self.inter_fields = {0: 'timestamp:float',
+                                     1: 'visitor_id:token',
+                                     2: 'item_id:token',
+                                     3: 'transaction_id:token'}
         self.item_fields = {0: 'timestamp:float',
                             1: 'item_id:token',
                             2: 'property:token',
                             3: 'value:token_seq'}
 
     def convert_inter(self):
-        if self.repeat:
+        if self.duplicate_removal:
             fin = open(self.inter_file, "r")
-            fout_view = open(self.output_inter_view_file, "w")
-            fout_addtocart = open(self.output_inter_addtocart_file, "w")
-            fout_transaction = open(self.output_inter_transaction_file, "w")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout_view.write(
-                '\t'.join([self.inter_view_fields[column] for column in self.inter_view_fields.keys()]) + '\n')
-            fout_addtocart.write('\t'.join(
-                [self.inter_addtocart_fields[column] for column in self.inter_addtocart_fields.keys()]) + '\n')
-            fout_transaction.write('\t'.join(
-                [self.inter_transaction_fields[column] for column in self.inter_transaction_fields.keys()]) + '\n')
-
-            dic_view = {}
-            dic_addtocart = {}
-            dic_transaction = {}
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
+            dic = {}
 
             for i in tqdm(range(lines_count)):
                 if i == 0:
@@ -4423,63 +4327,30 @@ class RETAILROCKETDataset(BaseDataset):
                 line = fin.readline()
                 line_list = line.split(',')
                 key = (line_list[1], line_list[3])
-                if line_list[2] == "view":
-                    if key not in dic_view:
-                        dic_view[key] = (line_list[0], 1)
+                if line_list[2] == self.interaction_type:
+                    if key not in dic:
+                        dic[key] = (line_list[0], 1)
                     else:
-                        if line_list[0] > dic_view[key][0]:
-                            dic_view[key] = (line_list[0], dic_view[key][1] + 1)
+                        if line_list[0] > dic[key][0]:
+                            dic[key] = (line_list[0], dic[key][1] + 1)
                         else:
-                            dic_view[key] = (dic_view[key][0], dic_view[key][1] + 1)
-                elif line_list[2] == "addtocart":
-                    if key not in dic_addtocart:
-                        dic_addtocart[key] = (line_list[0], 1)
-                    else:
-                        if line_list[0] > dic_addtocart[key][0]:
-                            dic_addtocart[key] = (line_list[0], dic_addtocart[key][1] + 1)
-                        else:
-                            dic_addtocart[key] = (dic_addtocart[key][0], dic_addtocart[key][1] + 1)
-                elif line_list[2] == "transaction":
-                    if key not in dic_transaction:
-                        dic_transaction[key] = (line_list[0], 1)
-                    else:
-                        if line_list[0] > dic_transaction[key][0]:
-                            dic_transaction[key] = (line_list[0], dic_transaction[key][1] + 1)
-                        else:
-                            dic_transaction[key] = (dic_transaction[key][0], dic_transaction[key][1] + 1)
+                            dic[key] = (dic[key][0], dic[key][1] + 1)
 
-            for key in dic_view.keys():
-                fout_view.write(dic_view[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic_view[key][1]) + '\n')
-
-            for key in dic_addtocart.keys():
-                fout_addtocart.write(
-                    dic_addtocart[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic_addtocart[key][1]) + '\n')
-
-            for key in dic_transaction.keys():
-                fout_transaction.write(dic_transaction[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(
-                    dic_transaction[key][1]) + '\n')
+            for key in dic.keys():
+                fout.write(dic[key][0] + '\t' + key[0] + '\t' + key[1] + '\t' + str(dic[key][1]) + '\n')
 
             fin.close()
-            fout_view.close()
-            fout_addtocart.close()
-            fout_transaction.close()
+            fout.close()
         else:
             fin = open(self.inter_file, "r")
-            fout_view = open(self.output_inter_view_file, "w")
-            fout_addtocart = open(self.output_inter_addtocart_file, "w")
-            fout_transaction = open(self.output_inter_transaction_file, "w")
+            fout = open(self.output_inter_file, "w")
 
             lines_count = 0
             for _ in fin:
                 lines_count += 1
             fin.seek(0, 0)
 
-            fout_view.write(
-                '\t'.join([self.inter_view_fields[column] for column in self.inter_view_fields.keys()]) + '\n')
-            fout_addtocart.write('\t'.join(
-                [self.inter_addtocart_fields[column] for column in self.inter_addtocart_fields.keys()]) + '\n')
-            fout_transaction.write('\t'.join(
-                [self.inter_transaction_fields[column] for column in self.inter_transaction_fields.keys()]) + '\n')
+            fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
             for i in tqdm(range(lines_count)):
                 if i == 0:
@@ -4487,22 +4358,15 @@ class RETAILROCKETDataset(BaseDataset):
                     continue
                 line = fin.readline()
                 line_list = line.split(',')
-                if line_list[2] == "view":
-                    del line_list[4]
+                if line_list[2] == self.interaction_type:
+                    if self.interaction_type != 'transaction':
+                        del line_list[4]
+                    else: line_list[4] = line_list[4].strip()
                     del line_list[2]
-                    fout_view.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
-                elif line_list[2] == "addtocart":
-                    del line_list[4]
-                    del line_list[2]
-                    fout_addtocart.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
-                elif line_list[2] == "transaction":
-                    del line_list[2]
-                    fout_transaction.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]))
+                    fout.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
 
             fin.close()
-            fout_view.close()
-            fout_addtocart.close()
-            fout_transaction.close()
+            fout.close()
 
     def convert_item(self):
         fin1 = open(self.item_file1, "r")
@@ -4543,10 +4407,10 @@ class RETAILROCKETDataset(BaseDataset):
 
 
 class TAFENGDataset(BaseDataset):
-    def __init__(self, input_path, output_path, repeat):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(TAFENGDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ta-feng'
-        self.repeat = repeat  # merge repeat interactions if 'repeat' is True
+        self.duplicate_removal = duplicate_removal
 
         # input file
         self.inter_file = os.path.join(self.input_path, 'ta_feng_all_months_merged.csv')
@@ -4556,7 +4420,7 @@ class TAFENGDataset(BaseDataset):
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
 
         # selected feature fields
-        if self.repeat:
+        if self.duplicate_removal:
             self.inter_fields = {0: 'transaction_date:float',
                                  1: 'customer_id:token',
                                  2: 'product_id:token',
@@ -4573,7 +4437,7 @@ class TAFENGDataset(BaseDataset):
                                  8: 'sales_price:float'}
 
     def convert_inter(self):
-        if self.repeat:
+        if self.duplicate_removal:
             fin = open(self.inter_file, "r")
             fout = open(self.output_inter_file, "w")
 
