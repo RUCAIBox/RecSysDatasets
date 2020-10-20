@@ -1,4 +1,4 @@
-# EPINIONS
+# Epinions
 
 1.Clone the repository and install requirements. 
 (If you have already done this, please move to the step 2.)
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the EPINIONS Dataset and extract the dataset file.
+2.Download the Epinions Dataset and extract the dataset file.
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -22,7 +22,7 @@ mv epinions_data epinions-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of EPINIONS dataset.
+and run the following command to get the Atomic files of Epinions dataset.
 
 ```
 python run.py --dataset epinions \ 
@@ -34,4 +34,4 @@ python run.py --dataset epinions \
 
 `output_path` is the path to store converted atomic files
  
-`convert_inter` EPINIONS only can be converted to '*.inter' atomic file
+`convert_inter` Epinions only can be converted to '*.inter' atomic file
