@@ -39,4 +39,4 @@ python run.py --dataset jester --input_path jester-data --output_path output_dat
 
 `output_path` is the path to store converted atomic files.
 
- `convert_inter` Jester only can be converted to '*.inter' atomic file.
+`convert_inter` Jester only can be converted to '*.inter' atomic file.
