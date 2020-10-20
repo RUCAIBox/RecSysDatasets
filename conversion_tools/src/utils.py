@@ -67,7 +67,9 @@ click_dataset = {
     'IPINYOUDataset',
     'TAFENGDataset',
     'LFM1bDataset',
-    'GOWALLADataset'
+    'GOWALLADataset',
+    'DIGINETICADataset',
+    'FOURSQUAREDataset'
 }
 
 multiple_dataset = {
