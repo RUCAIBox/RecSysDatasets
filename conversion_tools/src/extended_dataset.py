@@ -1655,10 +1655,10 @@ class DOUBANDataset(BaseDataset):
         print("The process of Dataset DOUBAN has finished.")
 
 
-class KDD2010BridgeAlgebra2006Dataset(BaseDataset):
+class KDD2010Algebra2006Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BridgeAlgebra2006Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-algebra2006_2007'
+        super(KDD2010Algebra2006Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-algebra2006_2007'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'algebra_2006_2007_train.txt')
@@ -1729,10 +1729,10 @@ class KDD2010BridgeAlgebra2006Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010BRIDGEALGEBRA2008Dataset(BaseDataset):
+class KDD2010ALGEBRA2008Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BRIDGEALGEBRA2008Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-birdge-algebra2008_2009'
+        super(KDD2010ALGEBRA2008Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-algebra2008_2009'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'algebra_2008_2009_train.txt')
@@ -1803,10 +1803,10 @@ class KDD2010BRIDGEALGEBRA2008Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010BridgeBridgeToAlgebra2006Dataset(BaseDataset):
+class KDD2010BridgeToAlgebra2006Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BridgeBridgeToAlgebra2006Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-bridge-to-algebra2006_2007'
+        super(KDD2010BridgeToAlgebra2006Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-bridge-to-algebra2006_2007'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'bridge_to_algebra_2006_2007_train.txt')
