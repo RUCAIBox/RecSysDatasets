@@ -34,6 +34,8 @@ python run.py --dataset foursquare --input_path foursquare-data --output_path ou
 
 # if not duplicate_removal
 python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare-data --convert_inter
+
+python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare-data --convert_item
 ```
 
 `input_path` is the path of the input decompressed foursquare file.
@@ -47,3 +49,5 @@ python run.py --dataset foursquare --input_path foursquare-data --output_path ou
  If you do not want to do this, please ignore this parameter.
 
 `convert_inter` FOURSQUARE can be converted to '*.inter' atomic file
+
+`convert_item` FOURSQUARE can be converted to '*.item' atomic file
