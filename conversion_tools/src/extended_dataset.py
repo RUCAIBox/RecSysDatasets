@@ -1555,7 +1555,7 @@ class JESTERDataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'jester.inter')
         #
         #        # selected feature fields
-        inter_fields = {0: 'user_id:token',
+        self.inter_fields = {0: 'user_id:token',
                         1: 'item_id:token',
                         2: 'rating:float'}
 
