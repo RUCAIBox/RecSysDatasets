@@ -1116,12 +1116,15 @@ class IPINYOUDataset(BaseDataset):
         self.sep = '\t'
 
         # input path list
+        days_1st = ['201303%02d' % day for day in range(11, 18)]
         days_2nd = ['201306%02d' % day for day in range(6, 13)]
         days_3rd = ['201310%02d' % day for day in range(19, 28)]
-        self.input_view_files = [os.path.join(self.input_path, 'training2nd/imp.%s.txt.bz2' % s) for s in days_2nd] + \
+        self.input_view_files = [os.path.join(self.input_path, 'training1st/imp.%s.txt.bz2' % s) for s in days_1st] + \
+                                [os.path.join(self.input_path, 'training2nd/imp.%s.txt.bz2' % s) for s in days_2nd] + \
                                 [os.path.join(self.input_path, 'training3rd/imp.%s.txt.bz2' % s) for s in days_3rd]
 
-        self.input_click_files = [os.path.join(self.input_path, 'training2nd/clk.%s.txt.bz2' % s) for s in days_2nd] + \
+        self.input_click_files = [os.path.join(self.input_path, 'training1st/clk.%s.txt.bz2' % s) for s in days_1st] + \
+                                 [os.path.join(self.input_path, 'training2nd/clk.%s.txt.bz2' % s) for s in days_2nd] + \
                                  [os.path.join(self.input_path, 'training3rd/clk.%s.txt.bz2' % s) for s in days_3rd]
 
         # decompress bz2 file
@@ -1166,7 +1169,6 @@ class IPINYOUDataset(BaseDataset):
 
     def load_inter_data(self):
         total_output = {}
-        # Process view and click inter files
         for input_file in self.input_files:
             output = self.load_inter_file(input_file)
             total_output.update(output)
@@ -1186,7 +1188,9 @@ class IPINYOUDataset(BaseDataset):
 
     def load_inter_file(self, input_file):
         lines = open(input_file, encoding='utf-8').readlines()
-        if input_file[-8:-6] == '06':
+        if input_file[-8:-6] == '03':
+            season = '1'
+        elif input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
@@ -1194,7 +1198,7 @@ class IPINYOUDataset(BaseDataset):
         output = {}
         for line in lines:
             words = line.strip().split(self.sep)
-            if len(words) != 24:
+            if len(words) != 24 and season != '1':
                 continue
             if self.duplicate_removal:
                 k = [words[3], words[18], words[6], words[7], words[12]]
@@ -1210,30 +1214,43 @@ class IPINYOUDataset(BaseDataset):
         return output
 
     def load_item_file(self, input_file):
-        if input_file[-8:-6] == '06':
+        if input_file[-8:-6] == '03':
+            season = '1'
+        elif input_file[-8:-6] == '06':
             season = '2'
         else:
             season = '3'
         lines = open(input_file, encoding='utf-8').readlines()
         item_output = set()
-        index = [18, 13, 14, 20, 22, 12]
         for line in lines:
             words = line.strip().split(self.sep)
-            if len(words) != 24:
+            if len(words) != 24 and season != '1':
                 continue
-            filed_list = [words[i] for i in index]
-            filed_list.insert(1, season)
-            item_output.add(tuple(filed_list))
+            if season == '1':
+                field_list = [words[18], words[13], words[14], words[20], '', words[12]]
+            else:
+                field_list = [words[18], words[13], words[14], words[20], words[22], words[12]]
+            field_list.insert(1, season)
+            item_output.add(tuple(field_list))
         return item_output
 
     def load_user_file(self, input_file):
+        if input_file[-8:-6] == '03':
+            season = '1'
+        elif input_file[-8:-6] == '06':
+            season = '2'
+        else:
+            season = '3'
         imp_lines = open(input_file, encoding='utf-8').readlines()
         user_output = set()
         for line in imp_lines:
             words = line.strip().split(self.sep)
-            if len(words) != 24:
+            if len(words) != 24 and season != '1':
                 continue
-            user_output.add((words[3], words[23]))
+            if season == '1':
+                user_output.add((words[3], ''))
+            else:
+                user_output.add((words[3], words[23]))
         return user_output
 
     def convert_inter(self):
