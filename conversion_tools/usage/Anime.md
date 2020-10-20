@@ -1,4 +1,4 @@
-# ANIME
+# Anime
 
 1.Clone the repository and install requirements. 
 (If you have already done this, please move to the step 2.)
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the ANIME Dataset and extract the dataset file.
+2.Download the Anime Dataset and extract the dataset file.
 (If you have already done this, please move to the step 3.)
 
 You can download dataset(archive.zip) from https://www.kaggle.com/CooperUnion/anime-recommendations-database, 
@@ -22,7 +22,7 @@ unzip archive.zip -d anime-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of ANIME dataset.
+and run the following command to get the Atomic files of Anime dataset.
 
 ```
 python run.py --dataset anime \ 
@@ -34,6 +34,6 @@ python run.py --dataset anime \
 
 `output_path` is the path to store converted atomic files
  
- `convert_inter` ANIME only can be converted to '*.inter' atomic file
+ `convert_inter` Anime only can be converted to '*.inter' atomic file
 
- `convert_item` ANIME can be converted to '*.item' atomic file
+ `convert_item` Anime can be converted to '*.item' atomic file
