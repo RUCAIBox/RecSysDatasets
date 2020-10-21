@@ -1327,10 +1327,10 @@ class IPINYOUDataset(BaseDataset):
 
 
 class STEAMDataset(BaseDataset):
-    def __init__(self, input_path, output_path):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(STEAMDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'steam'
-
+        self.duplicate_removal = duplicate_removal
         # input file
         self.inter_file = os.path.join(self.input_path, 'steam_reviews.json')
         self.item_file = os.path.join(self.input_path, 'steam_games.json')
@@ -1365,8 +1365,13 @@ class STEAMDataset(BaseDataset):
                             11: "tags:token_seq",
                             12: "title:token"}
 
+    
+
+
     def convert_inter(self):
         fout = open(self.output_inter_file, "w")
+        if self.duplicate_removal == True:
+            self.inter_fields[10] = "times:float"
         fout.write('\t'.join([self.inter_fields.get(i) for i in self.inter_fields.keys()]) + '\n')
 
         fin = open(self.inter_file, "r")
@@ -1391,6 +1396,7 @@ class STEAMDataset(BaseDataset):
         fin.seek(0, 0)
         fin.readline()
 
+        data_list = {}
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             if line == "":
@@ -1444,11 +1450,27 @@ class STEAMDataset(BaseDataset):
                 else:
                     data_line.append("")
 
-            fout.write('\t'.join([str(data_line[i])
+            if self.duplicate_removal == False:
+                fout.write('\t'.join([str(data_line[i])
                                   for i in range(len(data_line))]) + '\n')
+            else:
+                if (data_line[0], data_line[2]) not in data_list:
+                    data_list[(data_line[0], data_line[2])] = data_line
+                    data_list[(data_line[0], data_line[2])].append(1)
+                else:
+                    if data_line[5] > data_list[(data_line[0], data_line[2])][5]:
+                        data_line.append(data_list[(data_line[0], data_line[2])][-1])
+                        data_list[(data_line[0], data_line[2])] = data_line
+                        data_list[(data_line[0], data_line[2])][-1] = str(int(data_list[(data_line[0], data_line[2])][-1]) + 1)
+
+        if self.duplicate_removal == True:
+            for _, value in tqdm(data_list.items()):
+                fout.write('\t'.join([str(value[i])
+                                  for i in range(len(value))]) + '\n')
 
         fin.close()
         fout.close()
+
         print("There are ", error_count, " error data.")
         #        print("There are ", lines_count, " lines.")
         #        print("There are ", prod_count, " products.")
@@ -1532,7 +1554,6 @@ class STEAMDataset(BaseDataset):
         #        print("There are ", lines_count, " lines.")
         print("The item part of Dataset STEAM has finished.")
 
-
 class PINTERESTDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(PINTERESTDataset, self).__init__(input_path, output_path)
@@ -1572,7 +1593,7 @@ class JESTERDataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'jester.inter')
         #
         #        # selected feature fields
-        inter_fields = {0: 'user_id:token',
+        self.inter_fields = {0: 'user_id:token',
                         1: 'item_id:token',
                         2: 'rating:float'}
 

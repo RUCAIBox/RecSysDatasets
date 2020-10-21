@@ -69,7 +69,8 @@ click_dataset = {
     'LFM1bDataset',
     'GOWALLADataset',
     'DIGINETICADataset',
-    'FOURSQUAREDataset'
+    'FOURSQUAREDataset',
+    'STEAMDataset'
 }
 
 multiple_dataset = {
