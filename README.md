@@ -141,7 +141,7 @@ people's attributes and whether they make over 50k a year.
 |----|:------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 2  | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
-| 3  | [iPinYou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/iPinYou)   | 12,931,430 | 131 | 15,367,312 | 99.09% | View/Click                 |           | √            | √            | √                   |
+| 3  | [iPinYou](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/iPinYou)   | 19,731,660 | 163 | 24,637,657 | 99.23% | View/Click                 |           | √            | √            | √                   |
 | 4  | Phishing websites | -        | \-        | 11,055       | \-       |                            |           |              |              | √                   |
 | 5  | Adult             | \-        | \-        | 32,561       | \-       | income>=50k <br> \[0, 1\]  |           |              |              | √                   |
 
