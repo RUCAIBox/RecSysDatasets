@@ -2,7 +2,7 @@
 
 | SN   | Dataset                                    | \#User     | \#Item | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
 | ---- | ------------------------------------------ | ---------- | ------ | ------------ | -------- | ---------------- | --------- | ------------ | ------------ | ------------------- |
-| 1    | iPinYou\-View                              | 12,930,288 | 131    | 15,354,629   | 99\.09%  | View             |           | √            | √            | √                   |
-| 2    | iPinYou\-View  <br> \(duplicate removal\)  | 12,930,288 | 131    | 14,697,046   | 99\.13%  | View             |           | √            | √            | √                   |
-| 3    | iPinYou\-Click                             | 11,597     | 118    | 12,683       | 99\.07%  | Click            |           | √            | √            | √                   |
-| 4    | iPinYou\-Click  <br> \(duplicate removal\) | 11,597     | 118    | 11,615       | 99\.15%  | Click            |           | √            | √            | √                   |
+| 1    | iPinYou\-View                              | 19,730,198 | 163    | 24,617,492   | 99\.23%  | View             |           | √            | √            | √                   |
+| 2    | iPinYou\-View  <br> \(duplicate removal\)  | 19,730,198 | 163    | 23,579,242   | 99\.27%  | View             |           | √            | √            | √                   |
+| 3    | iPinYou\-Click                             | 18,587     | 148    | 20,165       | 99\.27%  | Click            |           | √            | √            | √                   |
+| 4    | iPinYou\-Click  <br> \(duplicate removal\) | 18,587     | 148    | 18,626       | 99\.32%  | Click            |           | √            | √            | √                   |
