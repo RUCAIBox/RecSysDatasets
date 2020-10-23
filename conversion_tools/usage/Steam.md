@@ -30,6 +30,10 @@ rm -rvf steam_games.json.gz
 and run the following command to get the Atomic files of Steam dataset.
 
 ```
+# if duplicate_removal
+python run.py --dataset steam --input_path steam-data --output_path output_data/steam-data --duplicate_removal --convert_inter
+
+# if not duplicate_removal
 python run.py --dataset steam --input_path steam-data --output_path output_data/steam-data --convert_inter
 
 python run.py --dataset steam --input_path steam-data --output_path output_data/steam-data --convert_item
@@ -39,6 +43,11 @@ python run.py --dataset steam --input_path steam-data --output_path output_data/
 
 `output_path` is the path to store converted atomic files.
 
- `convert_inter` Steam can be converted to '*.inter' atomic file.
+`dupliacte_removal` There may be multiple interaction records for the same user-item pair. Add `--dupliacte_removal` can 
+ keep only the most recent interaction between user and item and 
+ record the number of interactions between the user and the item. 
+ If you do not want to do this, please ignore this parameter.
+
+`convert_inter` Steam can be converted to '*.inter' atomic file.
 
 `convert_inter` Steam can be converted to '*.item' atomic file.

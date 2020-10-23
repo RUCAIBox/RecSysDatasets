@@ -19,6 +19,73 @@ from tqdm import tqdm
 from src.base_dataset import BaseDataset
 
 
+class ML100KDataset(BaseDataset):
+    def __init__(self, input_path, output_path):
+        super(ML100KDataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'ml-100k'
+
+        # input file
+        self.inter_file = os.path.join(self.input_path, 'u.data')
+        self.item_file = os.path.join(self.input_path, 'u.item')
+        self.user_file = os.path.join(self.input_path, 'u.user')
+        self.item_sep = '|'
+        self.user_sep = '|'
+        self.inter_sep = '\t'
+
+        # output file
+        self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
+
+        # selected feature fields
+        self.inter_fields = {0: 'user_id:token',
+                             1: 'item_id:token',
+                             2: 'rating:float',
+                             3: 'timestamp:float'}
+        self.item_fields = {0: 'item_id:token',
+                            1: 'movie_title:token',
+                            2: 'release_year:token',
+                            3: 'video_release_date:token',
+                            4: 'genre:token_seq'}
+        self.user_fields = {0: 'user_id:token',
+                            1: 'age:token',
+                            2: 'gender:token',
+                            3: 'occupation:token',
+                            4: 'zip_code:token'}
+
+    def load_inter_data(self):
+        return pd.read_csv(self.inter_file, delimiter=self.inter_sep, header=None, engine='python')
+
+    def load_item_data(self):
+        origin_data = pd.read_csv(self.item_file, delimiter=self.item_sep, header=None, engine='python')
+        processed_data = origin_data.iloc[:,0:4]
+        release_year = []
+        all_type = ['unkown', 'Action', 'Adventure', 'Animation',
+              'Children\'s', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy',
+              'Film-Noir', 'Horror', 'Musical', 'Mystery', 'Romance', 'Sci-Fi',
+              'Thriller', 'War', 'Western']
+        genre = []
+        for i in range(origin_data.shape[0]):
+            type_str = []
+            for j in range(5, origin_data.shape[1]):
+                if origin_data.iloc[i,j] == 1:
+                    #print(j,origin_data.iloc[i,j])
+                    type_str.append(all_type[j-5])
+            type_str = ' '.join(type_str)
+            genre.append(type_str)
+            origin_name = origin_data.iloc[i,1]
+            year_start = origin_name.find('(') + 1
+            year_end = origin_name.find(')')
+            title_end = year_start - 2
+            year = origin_name[year_start:year_end]
+            title = origin_name[0: title_end]
+            processed_data.iloc[i,1] =title
+            release_year.append(year)
+        processed_data.insert(2, 'release_year', pd.Series(release_year))
+        processed_data.insert(4, 'genre', pd.Series(genre))
+        return processed_data
+    def load_user_data(self):
+        return pd.read_csv(self.user_file, delimiter=self.user_sep, header=None, engine='python')
+
+
 class ML1MDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(ML1MDataset, self).__init__(input_path, output_path)
@@ -38,10 +105,39 @@ class ML1MDataset(BaseDataset):
                              1: 'item_id:token',
                              2: 'rating:float',
                              3: 'timestamp:float'}
+        self.item_fields = {0: 'item_id:token',
+                            1: 'movie_title:token',
+                            2: 'release_year:token',
+                            3: 'genre:token_seq'}
+        self.user_fields = {0: 'user_id:token',
+                            1: 'age:token',
+                            2: 'gender:token',
+                            3: 'occupation:token',
+                            4: 'zip_code:token'}
 
     def load_inter_data(self):
         return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
 
+    def load_item_data(self):
+        origin_data = pd.read_csv(self.item_file, delimiter=self.sep, header=None, engine='python')
+        processed_data = origin_data
+        release_year = []
+        for i in range(origin_data.shape[0]):
+            split_type = origin_data.iloc[i, 2].split('|')
+            type_str = ' '.join(split_type)
+            processed_data.iloc[i, 2] = type_str
+            origin_name = origin_data.iloc[i,1]
+            year_start = origin_name.find('(') + 1
+            year_end = origin_name.find(')')
+            title_end = year_start - 2
+            year = origin_name[year_start:year_end]
+            title = origin_name[0: title_end]
+            processed_data.iloc[i,1] =title
+            release_year.append(year)
+        processed_data.insert(2, 'release_year', pd.Series(release_year))
+        return processed_data
+    def load_user_data(self):
+        return pd.read_csv(self.user_file, delimiter=self.sep, header=None, engine='python')
 
 class ML10MDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -67,7 +163,8 @@ class ML10MDataset(BaseDataset):
 
         self.item_fields = {0: 'item_id:token',
                             1: 'movie_name:token_seq',
-                            2: 'type:token_seq'}
+                            2: 'release_year: token',
+                            3: 'type:token_seq'}
 
     def load_inter_data(self):
         return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
@@ -75,10 +172,69 @@ class ML10MDataset(BaseDataset):
     def load_item_data(self):
         origin_data = pd.read_csv(self.item_file, delimiter=self.sep, header=None, engine='python')
         processed_data = origin_data
+        release_year = []
         for i in range(origin_data.shape[0]):
             split_type = origin_data.iloc[i, 2].split('|')
             type_str = ' '.join(split_type)
             processed_data.iloc[i, 2] = type_str
+            origin_name = origin_data.iloc[i,1]
+            year_start = origin_name.find('(') + 1
+            year_end = origin_name.find(')')
+            title_end = year_start - 2
+            year = origin_name[year_start:year_end]
+            title = origin_name[0: title_end]
+            processed_data.iloc[i,1] =title
+            release_year.append(year)
+        processed_data.insert(2, 'release_year', pd.Series(release_year))
+        return processed_data
+
+class ML20MDataset(BaseDataset):
+    def __init__(self, input_path, output_path):
+        super(ML20MDataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'ml-20m'
+
+        # input_path
+        self.inter_file = os.path.join(self.input_path, 'ratings.csv')
+        self.item_file = os.path.join(self.input_path, 'movies.csv')
+
+        self.sep = ','
+
+        # output_path
+        output_files = self.get_output_files()
+        self.output_inter_file = output_files[0]
+        self.output_item_file = output_files[1]
+
+        # selected feature fields
+        self.inter_fields = {0: 'user_id:token',
+                             1: 'item_id:token',
+                             2: 'rating:float',
+                             3: 'timestamp:float'}
+
+        self.item_fields = {0: 'item_id:token',
+                            1: 'movie_name:token_seq',
+                            2: 'release_year:token',
+                            3: 'type:token_seq'}
+
+    def load_inter_data(self):
+        return pd.read_csv(self.inter_file, delimiter=self.sep, engine='python')
+
+    def load_item_data(self):
+        origin_data = pd.read_csv(self.item_file, delimiter=self.sep, engine='python')
+        processed_data = origin_data
+        release_year = []
+        for i in range(origin_data.shape[0]):
+            split_type = origin_data.iloc[i, 2].split('|')
+            type_str = ' '.join(split_type)
+            processed_data.iloc[i, 2] = type_str
+            origin_name = origin_data.iloc[i,1]
+            year_start = origin_name.find('(') + 1
+            year_end = origin_name.find(')')
+            title_end = year_start - 2
+            year = origin_name[year_start:year_end]
+            title = origin_name[0: title_end]
+            processed_data.iloc[i,1] =title
+            release_year.append(year)
+        processed_data.insert(2, 'release_year', pd.Series(release_year))
         return processed_data
 
 
@@ -1327,10 +1483,10 @@ class IPINYOUDataset(BaseDataset):
 
 
 class STEAMDataset(BaseDataset):
-    def __init__(self, input_path, output_path):
+    def __init__(self, input_path, output_path, duplicate_removal):
         super(STEAMDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'steam'
-
+        self.duplicate_removal = duplicate_removal
         # input file
         self.inter_file = os.path.join(self.input_path, 'steam_reviews.json')
         self.item_file = os.path.join(self.input_path, 'steam_games.json')
@@ -1365,8 +1521,13 @@ class STEAMDataset(BaseDataset):
                             11: "tags:token_seq",
                             12: "title:token"}
 
+    
+
+
     def convert_inter(self):
         fout = open(self.output_inter_file, "w")
+        if self.duplicate_removal == True:
+            self.inter_fields[10] = "times:float"
         fout.write('\t'.join([self.inter_fields.get(i) for i in self.inter_fields.keys()]) + '\n')
 
         fin = open(self.inter_file, "r")
@@ -1391,6 +1552,7 @@ class STEAMDataset(BaseDataset):
         fin.seek(0, 0)
         fin.readline()
 
+        data_list = {}
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             if line == "":
@@ -1444,11 +1606,27 @@ class STEAMDataset(BaseDataset):
                 else:
                     data_line.append("")
 
-            fout.write('\t'.join([str(data_line[i])
+            if self.duplicate_removal == False:
+                fout.write('\t'.join([str(data_line[i])
                                   for i in range(len(data_line))]) + '\n')
+            else:
+                if (data_line[0], data_line[2]) not in data_list:
+                    data_list[(data_line[0], data_line[2])] = data_line
+                    data_list[(data_line[0], data_line[2])].append(1)
+                else:
+                    if data_line[5] > data_list[(data_line[0], data_line[2])][5]:
+                        data_line.append(data_list[(data_line[0], data_line[2])][-1])
+                        data_list[(data_line[0], data_line[2])] = data_line
+                        data_list[(data_line[0], data_line[2])][-1] = str(int(data_list[(data_line[0], data_line[2])][-1]) + 1)
+
+        if self.duplicate_removal == True:
+            for _, value in tqdm(data_list.items()):
+                fout.write('\t'.join([str(value[i])
+                                  for i in range(len(value))]) + '\n')
 
         fin.close()
         fout.close()
+
         print("There are ", error_count, " error data.")
         #        print("There are ", lines_count, " lines.")
         #        print("There are ", prod_count, " products.")
@@ -1532,7 +1710,6 @@ class STEAMDataset(BaseDataset):
         #        print("There are ", lines_count, " lines.")
         print("The item part of Dataset STEAM has finished.")
 
-
 class PINTERESTDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(PINTERESTDataset, self).__init__(input_path, output_path)
@@ -1572,7 +1749,7 @@ class JESTERDataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'jester.inter')
         #
         #        # selected feature fields
-        inter_fields = {0: 'user_id:token',
+        self.inter_fields = {0: 'user_id:token',
                         1: 'item_id:token',
                         2: 'rating:float'}
 
@@ -1672,10 +1849,10 @@ class DOUBANDataset(BaseDataset):
         print("The process of Dataset DOUBAN has finished.")
 
 
-class KDD2010BridgeAlgebra2006Dataset(BaseDataset):
+class KDD2010Algebra2006Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BridgeAlgebra2006Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-algebra2006_2007'
+        super(KDD2010Algebra2006Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-algebra2006_2007'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'algebra_2006_2007_train.txt')
@@ -1746,10 +1923,10 @@ class KDD2010BridgeAlgebra2006Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010BRIDGEALGEBRA2008Dataset(BaseDataset):
+class KDD2010ALGEBRA2008Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BRIDGEALGEBRA2008Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-birdge-algebra2008_2009'
+        super(KDD2010ALGEBRA2008Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-algebra2008_2009'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'algebra_2008_2009_train.txt')
@@ -1820,10 +1997,10 @@ class KDD2010BRIDGEALGEBRA2008Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010BridgeBridgeToAlgebra2006Dataset(BaseDataset):
+class KDD2010BridgeToAlgebra2006Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010BridgeBridgeToAlgebra2006Dataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'KDD2010-bridge-bridge-to-algebra2006_2007'
+        super(KDD2010BridgeToAlgebra2006Dataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'KDD2010-bridge-to-algebra2006_2007'
 
         # input file
         self.train_inter_file = os.path.join(self.input_path, 'bridge_to_algebra_2006_2007_train.txt')
