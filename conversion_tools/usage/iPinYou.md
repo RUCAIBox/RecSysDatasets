@@ -20,9 +20,7 @@ please go to https://pan.baidu.com/s/1kTwX2mF#list/path=%2F to download
 
 mkdir ipinyou-data
 
-mv ipinyou.contest.dataset/training2nd ipinyou-data
-
-mv ipinyou.contest.dataset/training3rd ipinyou-data
+mv ipinyou.contest.dataset/training* ipinyou-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
