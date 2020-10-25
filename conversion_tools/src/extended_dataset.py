@@ -163,7 +163,7 @@ class ML10MDataset(BaseDataset):
 
         self.item_fields = {0: 'item_id:token',
                             1: 'movie_name:token_seq',
-                            2: 'release_year: token',
+                            2: 'release_year:token',
                             3: 'type:token_seq'}
 
     def load_inter_data(self):
