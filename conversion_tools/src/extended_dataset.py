@@ -819,6 +819,8 @@ class ANIMEDataset(BaseDataset):
             processed_data.iloc[i, 2] = type_str
         processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'nan' else False)),
                                               '')
+        processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'Unknown' else False)),
+                                              '')
         return processed_data
 
 
@@ -1088,7 +1090,9 @@ class LFM1bDataset(BaseDataset):
                         break
                     line1 = line1.strip()
                     line2 = line2.strip().replace('?', '')
-                    fout.write(line1 + '\t' + line2 + '\n')
+                    line2 = line2.split('\t')
+                    fout.write(line1 + '\t')
+                    fout.write('\t'.join([line2[i] for i in range(1, len(line2))]) + '\n')
                     line1 = f1.readline()
                     line2 = f2.readline()
         print(self.output_user_file + ' is done!')
