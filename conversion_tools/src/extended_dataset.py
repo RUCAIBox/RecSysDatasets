@@ -1927,9 +1927,9 @@ class KDD2010Algebra2006Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010ALGEBRA2008Dataset(BaseDataset):
+class KDD2010Algebra2008Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010ALGEBRA2008Dataset, self).__init__(input_path, output_path)
+        super(KDD2010Algebra2008Dataset, self).__init__(input_path, output_path)
         self.dataset_name = 'KDD2010-algebra2008_2009'
 
         # input file
