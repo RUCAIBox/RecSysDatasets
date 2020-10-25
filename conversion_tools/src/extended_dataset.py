@@ -1965,7 +1965,6 @@ class KDD2010Algebra2008Dataset(BaseDataset):
 
         time_convert_data = train_inter_data
         for each_field in tqdm(train_inter_data.columns):
-            print(each_field, type(each_field))
             if each_field.endswith('Time'):
                 this_field = []
                 for i in tqdm(range(train_inter_data.shape[0])):
@@ -1975,7 +1974,6 @@ class KDD2010Algebra2008Dataset(BaseDataset):
                     d = datetime.strptime(str(train_inter_data[each_field][i]), "%Y-%m-%d %H:%M:%S.0")
                     time_str = time.mktime(d.timetuple())
                     this_field.append(time_str)
-                # print(all_data[each_field][i])
                 time_convert_data[each_field] = pd.Series(this_field)
 
         sorted_by_row_data = time_convert_data.sort_values(by='Row', ascending=True)
