@@ -819,6 +819,8 @@ class ANIMEDataset(BaseDataset):
             processed_data.iloc[i, 2] = type_str
         processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'nan' else False)),
                                               '')
+        processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'Unknown' else False)),
+                                              '')
         return processed_data
 
 
