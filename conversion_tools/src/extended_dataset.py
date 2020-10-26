@@ -468,11 +468,12 @@ class CRITEODataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'criteo.inter')
 
         # selected feature fields
-        self.fields = {0: 'label:token'}
-        for i in range(1, 14):
-            self.fields[i] = "I" + str(i) + ":float"
-        for i in range(14, 40):
-            self.fields[i] = "C" + str(i - 13) + ":token"
+        self.fields = {0:'index:float',
+		1: 'label:float'}
+        for i in range(2, 15):
+            self.fields[i] = "I" + str(i - 1) + ":float"
+        for i in range(15, 41):
+            self.fields[i] = "C" + str(i - 14) + ":token"
 
     def convert_inter(self):
         # convert
@@ -493,6 +494,7 @@ class CRITEODataset(BaseDataset):
             for i in range(1, 14):
                 if line_list[i] != "":
                     line_list[i] = float(line_list[i])
+            fout.write(str(j) + '\t')
             fout.write('\t'.join([str(line_list[i])
                                   for i in range(len(line_list))]))
         fin.close()
@@ -1927,9 +1929,9 @@ class KDD2010Algebra2006Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010ALGEBRA2008Dataset(BaseDataset):
+class KDD2010Algebra2008Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010ALGEBRA2008Dataset, self).__init__(input_path, output_path)
+        super(KDD2010Algebra2008Dataset, self).__init__(input_path, output_path)
         self.dataset_name = 'KDD2010-algebra2008_2009'
 
         # input file
@@ -1965,7 +1967,6 @@ class KDD2010ALGEBRA2008Dataset(BaseDataset):
 
         time_convert_data = train_inter_data
         for each_field in tqdm(train_inter_data.columns):
-            print(each_field, type(each_field))
             if each_field.endswith('Time'):
                 this_field = []
                 for i in tqdm(range(train_inter_data.shape[0])):
@@ -1975,7 +1976,6 @@ class KDD2010ALGEBRA2008Dataset(BaseDataset):
                     d = datetime.strptime(str(train_inter_data[each_field][i]), "%Y-%m-%d %H:%M:%S.0")
                     time_str = time.mktime(d.timetuple())
                     this_field.append(time_str)
-                # print(all_data[each_field][i])
                 time_convert_data[each_field] = pd.Series(this_field)
 
         sorted_by_row_data = time_convert_data.sort_values(by='Row', ascending=True)
