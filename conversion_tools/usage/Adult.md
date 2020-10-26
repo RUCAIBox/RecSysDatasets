@@ -24,7 +24,7 @@ mkdir adult-data & mv adult.data ./adult-data
 and run the following command to get the Atomic files of Adult dataset.
 
 ```
-python run.py --dataset adult \ 
+python run.py --dataset adult \
 --input_path adult-data --output_path output_data/adult-data \
 --convert_inter
 ```
