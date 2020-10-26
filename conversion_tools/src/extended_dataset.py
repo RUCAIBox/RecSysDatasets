@@ -163,7 +163,7 @@ class ML10MDataset(BaseDataset):
 
         self.item_fields = {0: 'item_id:token',
                             1: 'movie_name:token_seq',
-                            2: 'release_year: token',
+                            2: 'release_year:token',
                             3: 'type:token_seq'}
 
     def load_inter_data(self):
@@ -468,11 +468,12 @@ class CRITEODataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'criteo.inter')
 
         # selected feature fields
-        self.fields = {0: 'label:token'}
-        for i in range(1, 14):
-            self.fields[i] = "I" + str(i) + ":float"
-        for i in range(14, 40):
-            self.fields[i] = "C" + str(i - 13) + ":token"
+        self.fields = {0:'index:float',
+		1: 'label:float'}
+        for i in range(2, 15):
+            self.fields[i] = "I" + str(i - 1) + ":float"
+        for i in range(15, 41):
+            self.fields[i] = "C" + str(i - 14) + ":token"
 
     def convert_inter(self):
         # convert
@@ -493,6 +494,7 @@ class CRITEODataset(BaseDataset):
             for i in range(1, 14):
                 if line_list[i] != "":
                     line_list[i] = float(line_list[i])
+            fout.write(str(j) + '\t')
             fout.write('\t'.join([str(line_list[i])
                                   for i in range(len(line_list))]))
         fin.close()
@@ -819,6 +821,8 @@ class ANIMEDataset(BaseDataset):
             processed_data.iloc[i, 2] = type_str
         processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'nan' else False)),
                                               '')
+        processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'Unknown' else False)),
+                                              '')
         return processed_data
 
 
@@ -1088,7 +1092,9 @@ class LFM1bDataset(BaseDataset):
                         break
                     line1 = line1.strip()
                     line2 = line2.strip().replace('?', '')
-                    fout.write(line1 + '\t' + line2 + '\n')
+                    line2 = line2.split('\t')
+                    fout.write(line1 + '\t')
+                    fout.write('\t'.join([line2[i] for i in range(1, len(line2))]) + '\n')
                     line1 = f1.readline()
                     line2 = f2.readline()
         print(self.output_user_file + ' is done!')
@@ -1923,9 +1929,9 @@ class KDD2010Algebra2006Dataset(BaseDataset):
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
 
-class KDD2010ALGEBRA2008Dataset(BaseDataset):
+class KDD2010Algebra2008Dataset(BaseDataset):
     def __init__(self, input_path, output_path):
-        super(KDD2010ALGEBRA2008Dataset, self).__init__(input_path, output_path)
+        super(KDD2010Algebra2008Dataset, self).__init__(input_path, output_path)
         self.dataset_name = 'KDD2010-algebra2008_2009'
 
         # input file
@@ -1961,7 +1967,6 @@ class KDD2010ALGEBRA2008Dataset(BaseDataset):
 
         time_convert_data = train_inter_data
         for each_field in tqdm(train_inter_data.columns):
-            print(each_field, type(each_field))
             if each_field.endswith('Time'):
                 this_field = []
                 for i in tqdm(range(train_inter_data.shape[0])):
@@ -1971,7 +1976,6 @@ class KDD2010ALGEBRA2008Dataset(BaseDataset):
                     d = datetime.strptime(str(train_inter_data[each_field][i]), "%Y-%m-%d %H:%M:%S.0")
                     time_str = time.mktime(d.timetuple())
                     this_field.append(time_str)
-                # print(all_data[each_field][i])
                 time_convert_data[each_field] = pd.Series(this_field)
 
         sorted_by_row_data = time_convert_data.sort_values(by='Row', ascending=True)
@@ -4174,15 +4178,15 @@ class YELPDataset(BaseDataset):
                              8: 'date:float'}
 
         self.item_fields = {0: 'business_id:token',
-                            1: 'name:token_seq',
+                            1: 'item_name:token_seq',
                             2: 'address:token_seq',
                             3: 'city:token_seq',
                             4: 'state:token',
                             5: 'postal_code:token',
                             6: 'latitude:float',
                             7: 'longitude:float',
-                            8: 'stars:float',
-                            9: 'review_count:float',
+                            8: 'item_stars:float',
+                            9: 'item_review_count:float',
                             10: 'is_open:float',
                             12: 'categories:token_seq'}
 
@@ -4207,6 +4211,27 @@ class YELPDataset(BaseDataset):
                             19: 'compliment_funny:float',
                             20: 'compliment_writer:float',
                             21: 'compliment_photos:float'}
+        self.user_head_fields = {0: 'user_id:token',
+                                 1: 'user_name:token',
+                                 2: 'user_review_count:float',
+                                 3: 'yelping_since:float',
+                                 4: 'user_useful:float',
+                                 5: 'user_funny:float',
+                                 6: 'user_cool:float',
+                                 7: 'elite:token',
+                                 9: 'fans:float',
+                                 10: 'average_stars:float',
+                                 11: 'compliment_hot:float',
+                                 12: 'compliment_more:float',
+                                 13: 'compliment_profile:float',
+                                 14: 'compliment_cute:float',
+                                 15: 'compliment_list:float',
+                                 16: 'compliment_note:float',
+                                 17: 'compliment_plain:float',
+                                 18: 'compliment_cool:float',
+                                 19: 'compliment_funny:float',
+                                 20: 'compliment_writer:float',
+                                 21: 'compliment_photos:float'}
 
     def load_item_data(self):
         return pd.read_json(self.item_file, lines=True)
@@ -4241,7 +4266,7 @@ class YELPDataset(BaseDataset):
             lines_count += 1
         fin.seek(0, 0)
 
-        fout.write('\t'.join([self.user_fields[column] for column in self.user_fields.keys()]) + '\n')
+        fout.write('\t'.join([self.user_head_fields[column] for column in self.user_head_fields.keys()]) + '\n')
 
         for i in tqdm(range(lines_count)):
             line = fin.readline()
@@ -4519,7 +4544,7 @@ class RETAILROCKETDataset(BaseDataset):
                                      1: 'visitor_id:token',
                                      2: 'item_id:token',
                                      3: 'transaction_id:token'}
-        self.item_fields = {0: 'timestamp:float',
+        self.item_fields = {0: 'item_timestamp:float',
                             1: 'item_id:token',
                             2: 'property:token',
                             3: 'value:token_seq'}
