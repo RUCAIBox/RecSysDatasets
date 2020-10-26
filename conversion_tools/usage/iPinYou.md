@@ -27,9 +27,9 @@ mv ipinyou.contest.dataset/training* ipinyou-data
 and run the following command to get the Atomic files of iPinYou dataset.
 
 ```
-python run.py --dataset ipinyou \ 
+python run.py --dataset ipinyou \
 --input_path ipinyou-data --output_path output_data/ipinyou-data \
---interaction_type view --duplicate_removal \ 
+--interaction_type view --duplicate_removal \
 --convert_inter
 ```
 
