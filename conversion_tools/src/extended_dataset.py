@@ -468,11 +468,12 @@ class CRITEODataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'criteo.inter')
 
         # selected feature fields
-        self.fields = {0: 'label:token'}
-        for i in range(1, 14):
-            self.fields[i] = "I" + str(i) + ":float"
-        for i in range(14, 40):
-            self.fields[i] = "C" + str(i - 13) + ":token"
+        self.fields = {0:'index:float',
+		1: 'label:float'}
+        for i in range(2, 15):
+            self.fields[i] = "I" + str(i - 1) + ":float"
+        for i in range(15, 41):
+            self.fields[i] = "C" + str(i - 14) + ":token"
 
     def convert_inter(self):
         # convert
@@ -493,6 +494,7 @@ class CRITEODataset(BaseDataset):
             for i in range(1, 14):
                 if line_list[i] != "":
                     line_list[i] = float(line_list[i])
+            fout.write(str(j) + '\t')
             fout.write('\t'.join([str(line_list[i])
                                   for i in range(len(line_list))]))
         fin.close()
