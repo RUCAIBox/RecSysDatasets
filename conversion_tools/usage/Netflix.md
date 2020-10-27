@@ -26,7 +26,7 @@ unzip -o -d ./netflix-data archive.zip
 and run the following command to get the Atomic files of Netflix dataset.
 
 ```
-python run.py --dataset netflix \ 
+python run.py --dataset netflix \
 --input_path netflix-data --output_path output_data/netflix-data \
 --convert_inter
 ```

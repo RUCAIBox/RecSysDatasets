@@ -4649,7 +4649,7 @@ class RETAILROCKETDataset(BaseDataset):
 
 
 class TAFENGDataset(BaseDataset):
-    def __init__(self, input_path, output_path, duplicate_removal):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(TAFENGDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ta-feng'
         self.duplicate_removal = duplicate_removal
