@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the [Yahoo Music]() Dataset and extract the dataset file.
+2.Download the [Yahoo Music](https://webscope.sandbox.yahoo.com/catalog.php?datatype=r) Dataset and extract the dataset file.
 (If you have already done this, please move to the step 3.)
 
 ```
