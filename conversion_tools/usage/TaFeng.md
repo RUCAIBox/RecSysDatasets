@@ -1,6 +1,6 @@
 # Ta Feng
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Ta Feng Dataset and extract the dataset file.
+2.**Download the Ta Feng Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -20,8 +20,8 @@ pip install -r requirements.txt
 unzip archive.zip -d ./ta-feng
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of Ta Feng dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Ta Feng dataset.**
 
 ```
 python run.py --dataset ta-feng \ 
