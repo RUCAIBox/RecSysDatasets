@@ -27,9 +27,9 @@ mv IJCAI16_data tmall-data
 and run the following command to get the Atomic files of Tmall dataset.
 
 ```
-python run.py --dataset tmall \ 
+python run.py --dataset tmall \
 --input_path tmall-data --output_path output_data/tmall-data \
---interaction_type buy --duplicate_removal \ 
+--interaction_type buy --duplicate_removal \
 --convert_inter
 ```
 

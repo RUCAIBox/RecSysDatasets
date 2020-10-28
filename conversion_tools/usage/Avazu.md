@@ -29,7 +29,7 @@ gzip -d avazu-data/tain.gz
 and run the following command to get the Atomic files of Avazu dataset.
 
 ```
-python run.py --dataset avazu \ 
+python run.py --dataset avazu \
 --input_path avazu-data --output_path output_data/avazu-data \
 --convert_inter
 ```

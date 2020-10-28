@@ -1255,7 +1255,7 @@ class BOOKCROSSINGDataset(BaseDataset):
         with open(self.item_file, 'r', encoding='cp1252') as f:
             for each_line in f.readlines():
                 split_line = pattern.split(each_line[:-1])
-                split_line = [item[1:-1] for item in split_line]
+                split_line = [item[1:-1].strip('\t') for item in split_line]
                 processed_list.append(split_line)
 
             column_list = processed_list[0]
@@ -4649,7 +4649,7 @@ class RETAILROCKETDataset(BaseDataset):
 
 
 class TAFENGDataset(BaseDataset):
-    def __init__(self, input_path, output_path, duplicate_removal):
+    def __init__(self, input_path, output_path, interaction_type, duplicate_removal):
         super(TAFENGDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'ta-feng'
         self.duplicate_removal = duplicate_removal
