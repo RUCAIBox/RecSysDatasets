@@ -14,10 +14,10 @@ pip install -r requirements.txt
 2.**Download the iPinYou Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
-```
 please go to https://pan.baidu.com/s/1kTwX2mF#list/path=%2F to download
 'ipinyou.contest.dataset' and place it in directory 'conversion_tools/'
 
+```
 mkdir ipinyou-data
 
 mv ipinyou.contest.dataset/training* ipinyou-data

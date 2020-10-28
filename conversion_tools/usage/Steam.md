@@ -26,8 +26,8 @@ rm -rvf steam_reviews.json.gz
 rm -rvf steam_games.json.gz
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of Steam dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Steam dataset.**
 
 ```
 # if duplicate_removal
