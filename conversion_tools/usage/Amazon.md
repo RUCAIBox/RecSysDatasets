@@ -1,6 +1,6 @@
 # Amazon
 
-**It should be noted that this series of data sets is divided into many sub-data sets according to the categories of Amazon products. You can download the corresponding data set files according to your needs. We will demonstrate the operation mode of 'Amazon_Video_Games' dataset below, and you can process the sub-data sets of other categories in this series according to the demonstration.**
+**It should be noted that this series of datsets is divided into many sub-datasets according to the categories of Amazon products. You can download the corresponding data set files according to your needs. We will demonstrate the operation steps of 'Amazon_Video_Games' dataset below, and you can process sub-datasets of other categories according to the demonstration.**
 
 1.Clone the repository and install requirements. 
 (If you have already done this, please move to the step 2.)
@@ -31,7 +31,7 @@ gunzip meta_Video_Games.json.gz
 and run the following command to get the Atomic files of Amazon_Video_Games dataset.
 
 ```
-python run.py --dataset amazon_video_games \ 
+python run.py --dataset amazon_video_games \
 --input_path Amazon_Video_Games --output_path output_data/Amazon_Video_Games \
 --convert_inter --convert_item
 ```
