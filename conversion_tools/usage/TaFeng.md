@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.**Download the Ta Feng Dataset and extract the dataset file.**
+2.**Download the [Ta Feng](https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset) Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
