@@ -23,7 +23,7 @@ mv loc-gowalla_totalCheckins.txt gowalla-data/
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Gowalla dataset.
+and run the following command to get the atomic files of Gowalla dataset.
 
 ```
 python run.py --dataset gowalla \ 

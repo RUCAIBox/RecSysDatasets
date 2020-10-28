@@ -23,7 +23,7 @@ tar -zxvf dac.tar.gz -C criteo-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Criteo dataset.
+and run the following command to get the atomic files of Criteo dataset.
 
 ```
 python run.py --dataset criteo --input_path criteo-data --output_path output_data/criteo-data --convert_inter

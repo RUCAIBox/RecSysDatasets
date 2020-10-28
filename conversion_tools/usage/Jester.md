@@ -29,7 +29,7 @@ rm -rvf jester_dataset_1_3.zip
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Jester dataset.
+and run the following command to get the atomic files of Jester dataset.
 
 ```
 python run.py --dataset jester --input_path jester-data --output_path output_data/jester-data --convert_inter

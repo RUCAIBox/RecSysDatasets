@@ -21,7 +21,7 @@ unzip archive.zip -d ./retailrocket
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Retailrocket dataset.
+and run the following command to get the atomic files of Retailrocket dataset.
 
 ```
 python run.py --dataset retailrocket \ 

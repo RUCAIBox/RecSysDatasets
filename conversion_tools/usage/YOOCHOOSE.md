@@ -21,7 +21,7 @@ wget https://s3-eu-west-1.amazonaws.com/yc-rdata/yoochoose-data.7z
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of YOOCHOOSE dataset.
+and run the following command to get the atomic files of YOOCHOOSE dataset.
 
 ```
 python run.py --dataset yoochoose \ 

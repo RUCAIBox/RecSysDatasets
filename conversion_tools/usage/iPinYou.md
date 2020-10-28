@@ -24,7 +24,7 @@ mv ipinyou.contest.dataset/training* ipinyou-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of iPinYou dataset.
+and run the following command to get the atomic files of iPinYou dataset.
 
 ```
 python run.py --dataset ipinyou \

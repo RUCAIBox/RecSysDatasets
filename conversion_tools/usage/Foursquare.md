@@ -26,7 +26,7 @@ rm archive.zip
 
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Foursquare  dataset.
+and run the following command to get the atomic files of Foursquare  dataset.
 
 ```
 # if duplicate_removal

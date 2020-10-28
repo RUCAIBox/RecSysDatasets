@@ -26,7 +26,7 @@ gzip -d avazu-data/tain.gz
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Avazu dataset.
+and run the following command to get the atomic files of Avazu dataset.
 
 ```
 python run.py --dataset avazu \

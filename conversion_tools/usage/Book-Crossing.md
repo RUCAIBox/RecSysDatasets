@@ -21,7 +21,7 @@ unzip BX-CSV-Dump.zip -d Book-Crossing
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Book-Crossing dataset.
+and run the following command to get the atomic files of Book-Crossing dataset.
 
 ```
 python run.py --dataset book-crossing \ 

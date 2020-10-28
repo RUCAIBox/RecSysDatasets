@@ -24,7 +24,7 @@ rm -rvf archive.zip
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Douban dataset.
+and run the following command to get the atomic files of Douban dataset.
 
 ```
 python run.py --dataset douban --input_path douban-data --output_path output_data/douban-data --convert_inter

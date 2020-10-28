@@ -21,7 +21,7 @@ mkdir adult-data & mv adult.data ./adult-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Adult dataset.
+and run the following command to get the atomic files of Adult dataset.
 
 ```
 python run.py --dataset adult \

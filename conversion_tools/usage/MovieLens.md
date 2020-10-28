@@ -1,8 +1,11 @@
 # MovieLens
 
-**This dataset has several sub-datasets of different sizes, respectively 'ml-100k',  'ml-1m', 'ml-10m' and 'ml-20m'. You can download the corresponding dataset files according to your needs. **
+**This dataset has several sub-datasets of different sizes, 
+respectively 'ml-100k',  'ml-1m', 'ml-10m' and 'ml-20m'. 
+You can download the corresponding dataset files according 
+to your needs.**
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -13,11 +16,10 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the MovieLens dataset and extract the dataset file.
-
+2.**Download the MovieLens dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
-Here we process all of 3 datasets, and you can download corresponding dataset according to your neads.
+Here we process all of 4 datasets, and you can download corresponding dataset according to your neads.
 
 ```
 wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
@@ -33,8 +35,8 @@ wget http://files.grouplens.org/datasets/movielens/ml-20m.zip
 unzip ml-20m.zip -d ml-20m
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of  MovieLens dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of  MovieLens dataset.
 
 ```
 python run.py --dataset ml-100k \ 

@@ -22,7 +22,7 @@ unzip LFM-1b.zip -d lfm1b-data/
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of LFM-1b dataset.
+and run the following command to get the atomic files of LFM-1b dataset.
 
 ```
 python run.py --dataset lfm1b \ 

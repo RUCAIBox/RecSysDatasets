@@ -23,7 +23,7 @@ unzip -o -d ./netflix-data archive.zip
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Netflix dataset.
+and run the following command to get the atomic files of Netflix dataset.
 
 ```
 python run.py --dataset netflix \

@@ -28,7 +28,7 @@ gunzip meta_Video_Games.json.gz
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Amazon_Video_Games dataset.
+and run the following command to get the atomic files of Amazon_Video_Games dataset.
 
 ```
 python run.py --dataset amazon_video_games \ 

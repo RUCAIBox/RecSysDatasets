@@ -21,7 +21,7 @@ Download from https://drive.google.com/open?id=0B7XZSACQf0KdXzZFS21DblRxQ3c and 
 Create a folder 'diginetica-data' and put them in it.
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of DIGINETICA dataset.
+and run the following command to get the atomic files of DIGINETICA dataset.
 
 ```
 # if duplicate_removal

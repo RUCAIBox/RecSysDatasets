@@ -22,7 +22,7 @@ unzip archive.zip -d anime-data
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Anime dataset.
+and run the following command to get the atomic files of Anime dataset.
 
 ```
 python run.py --dataset anime \ 
