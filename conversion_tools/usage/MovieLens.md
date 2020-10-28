@@ -1,9 +1,10 @@
 # MovieLens
 
-**This dataset has several sub-datasets of different sizes, 
+This dataset has several sub-datasets of different sizes, 
 respectively 'ml-100k',  'ml-1m', 'ml-10m' and 'ml-20m'. 
 You can download the corresponding dataset files according 
-to your needs.**
+to your needs.
+
 
 1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
@@ -36,7 +37,7 @@ unzip ml-20m.zip -d ml-20m
 ```
 
 3.**Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of  MovieLens dataset.
+and run the following command to get the atomic files of  MovieLens dataset.**
 
 ```
 python run.py --dataset ml-100k \ 
