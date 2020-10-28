@@ -1,6 +1,6 @@
 # DIGINETICA
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the DIGINETICA Dataset and extract the dataset file.
+2.**Download the DIGINETICA Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 Download from https://drive.google.com/open?id=0B7XZSACQf0KdXzZFS21DblRxQ3c and we only use the following files:
@@ -20,17 +20,17 @@ Download from https://drive.google.com/open?id=0B7XZSACQf0KdXzZFS21DblRxQ3c and 
 
 Create a folder 'diginetica-data' and put them in it.
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of DIGINETICA dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of DIGINETICA dataset.**
 
 ```
 # if duplicate_removal
-python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica-data --duplicate_removal --convert_inter
+python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica --duplicate_removal --convert_inter
 
 # if not duplicate_removal
-python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica-data --convert_inter
+python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica --convert_inter
 
-python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica-data --convert_item
+python run.py --dataset diginetica --input_path diginetica-data --output_path output_data/diginetica --convert_item
 ```
 
 `input_path` is the path of the input decompressed DIGINETICA file

@@ -1,6 +1,6 @@
 # Tmall
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Tmall Dataset and extract the dataset file.
+2.**Download the Tmall Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -23,17 +23,17 @@ unzip -d IJCAI16_data.zip
 mv IJCAI16_data tmall-data
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Tmall dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Tmall dataset.**
 
 ```
 python run.py --dataset tmall \
---input_path tmall-data --output_path output_data/tmall-data \
+--input_path tmall-data --output_path output_data/tmall \
 --interaction_type buy --duplicate_removal \
 --convert_inter
 ```
 
-`input_path` is the path of the input decompressed tmall file
+`input_path` is the path of the input decompressed Tmall file
 
 `output_path` is the path to store converted atomic files
 

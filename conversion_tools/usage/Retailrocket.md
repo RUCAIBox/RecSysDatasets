@@ -1,6 +1,6 @@
 # Retailrocket
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset) Dataset and extract the dataset file.
+2.**Download the [Retailrocket](https://www.kaggle.com/retailrocket/ecommerce-dataset) Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -21,7 +21,7 @@ unzip archive.zip -d ./retailrocket
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Retailrocket dataset.
+and run the following command to get the atomic files of Retailrocket dataset.
 
 ```
 python run.py --dataset retailrocket \ 
@@ -30,7 +30,7 @@ python run.py --dataset retailrocket \
 --convert_inter --convert_item
 ```
 
-`input_path` is the path of the input decompressed retailrocket files
+`input_path` is the path of the input decompressed Retailrocket files
 
 `output_path` is the path to store converted atomic files
 

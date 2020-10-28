@@ -21,7 +21,7 @@ unzip archive.zip -d ./ta-feng
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Ta Feng dataset.
+and run the following command to get the atomic files of Ta Feng dataset.
 
 ```
 python run.py --dataset ta-feng \ 
