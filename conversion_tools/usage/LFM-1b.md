@@ -1,6 +1,6 @@
 # LFM-1b
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the LFM-1b Dataset and extract the dataset file.
+2.**Download the LFM-1b Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 You can download dataset(LFM-1b.zip) from http://www.cp.jku.at/datasets/LFM-1b, 
@@ -21,17 +21,17 @@ save it in current folder, and do:
 unzip LFM-1b.zip -d lfm1b-data/
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of LFM-1b dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of LFM-1b dataset.**
 
 ```
 python run.py --dataset lfm1b \ 
---input_path lfm1b-data --output_path output_data/lfm1b-data \
+--input_path lfm1b-data --output_path output_data/lfm1b \
 --interaction_type artists --duplicate_removal \ 
 --convert_inter --convert_item --convert_user
 ```
 
-`input_path` is the path of the input decompressed lfm1b file
+`input_path` is the path of the input decompressed LFM-1b file
 
 `output_path` is the path to store converted atomic files
 

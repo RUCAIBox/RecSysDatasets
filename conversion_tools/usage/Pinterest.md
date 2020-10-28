@@ -20,13 +20,18 @@ wget https://raw.githubusercontent.com/hexiangnan/neural_collaborative_filtering
 mkdir pinterest-data
 
 mv pinterest-20.train.rating ./pinterest-data/
+
+(Note that if you have connection error while excuting wget command, please
+go straight to https://github.com/hexiangnan/neural_collaborative_filtering
+to download the whole project, and then place /Data/pinterest-20.train.rating
+in convertion_tools/pinterest-data/)
 ```
 
 3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Pinterest dataset.
+and run the following command to get the atomic files of Pinterest dataset.
 
 ```
-python run.py --dataset pinterest \ 
+python run.py --dataset pinterest \
 --input_path pinterest-data --output_path output_data/pinterest-data \
 --convert_inter
 ```

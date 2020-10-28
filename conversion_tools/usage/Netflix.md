@@ -1,6 +1,6 @@
 # Netflix
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Netflix Dataset and extract the dataset file.
+2.**Download the Netflix Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -22,18 +22,17 @@ click 'Download' to get archive.zip. Then place archive.zip in directory
 unzip -o -d ./netflix-data archive.zip
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Netflix dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Netflix dataset.**
 
 ```
-python run.py --dataset netflix \ 
---input_path netflix-data --output_path output_data/netflix-data \
+python run.py --dataset netflix \
+--input_path netflix-data --output_path output_data/netflix \
 --convert_inter
 ```
 
-`input_path` is the path of the input decompressed netflix file
+`input_path` is the path of the input decompressed Netflix file
 
 `output_path` is the path to store converted atomic files
 
- 
- `convert_inter` Netflix only can be converted to '*.inter' atomic file
+`convert_inter` Netflix only can be converted to '*.inter' atomic file
