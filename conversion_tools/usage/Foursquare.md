@@ -1,6 +1,6 @@
 # Foursquare
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Foursquare Dataset and extract the dataset file.
+2.**Download the Foursquare Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 In this step, you need to log in to kaggle and download data from https://www.kaggle.com/chetanism/foursquare-nyc-and-tokyo-checkin-dataset.
@@ -23,19 +23,17 @@ unzip archive.zip -d ./foursquare-data
 rm archive.zip
 ```
 
-
-
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of Foursquare  dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Foursquare  dataset.**
 
 ```
 # if duplicate_removal
-python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare-data --duplicate_removal --convert_inter
+python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare --duplicate_removal --convert_inter
 
 # if not duplicate_removal
-python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare-data --convert_inter
+python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare --convert_inter
 
-python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare-data --convert_item
+python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare --convert_item
 ```
 
 `input_path` is the path of the input decompressed Foursquare file.

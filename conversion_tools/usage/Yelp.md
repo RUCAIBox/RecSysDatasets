@@ -1,6 +1,6 @@
 # Yelp
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the [Yelp](https://www.yelp.com/dataset) Dataset and extract the dataset file.
+2.**Download the [Yelp](https://www.yelp.com/dataset) Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -22,16 +22,16 @@ mkdir yelp_dataset
 tar -zxvf yelp_dataset.tar -C ./yelp_dataset
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of Yelp dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Yelp dataset.**
 
 ```
 python run.py --dataset yelp \ 
---input_path yelp_dataset --output_path output_data/yelp_dataset \
+--input_path yelp_dataset --output_path output_data/yelp \
 --convert_inter --convert_item --convert_user
 ```
 
-`input_path` is the path of the input decompressed yelp files
+`input_path` is the path of the input decompressed Yelp files
 
 `output_path` is the path to store converted atomic files
 
