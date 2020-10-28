@@ -1,6 +1,6 @@
 # Last.FM
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Last.FM Dataset and extract the dataset file.
+2.**Download the Last.FM Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -20,8 +20,8 @@ wget http://files.grouplens.org/datasets/hetrec2011/hetrec2011-lastfm-2k.zip
 unzip hetrec2011-lastfm-2k.zip -d ./lastfm
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Last.FM dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Last.FM dataset.**
 
 ```
 python run.py --dataset lastfm \ 
@@ -29,7 +29,7 @@ python run.py --dataset lastfm \
 --convert_inter --convert_item
 ```
 
-`input_path` is the path of the input decompressed lastfm files
+`input_path` is the path of the input decompressed LastFM files
 
 `output_path` is the path to store converted atomic files
 
