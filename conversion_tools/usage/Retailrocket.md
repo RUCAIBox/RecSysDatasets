@@ -24,9 +24,9 @@ unzip archive.zip -d ./retailrocket
 and run the following command to get the atomic files of Retailrocket dataset.**
 
 ```
-python run.py --dataset retailrocket \ 
+python run.py --dataset retailrocket \
 --input_path retailrocket --output_path output_data/retailrocket \
---interaction_type view --duplicate_removal \ 
+--interaction_type view --duplicate_removal \
 --convert_inter --convert_item
 ```
 

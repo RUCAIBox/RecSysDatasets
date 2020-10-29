@@ -24,7 +24,7 @@ unzip hetrec2011-lastfm-2k.zip -d ./lastfm
 and run the following command to get the atomic files of Last.FM dataset.**
 
 ```
-python run.py --dataset lastfm \ 
+python run.py --dataset lastfm \
 --input_path lastfm --output_path output_data/lastfm \
 --convert_inter --convert_item
 ```
