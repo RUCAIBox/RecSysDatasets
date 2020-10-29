@@ -16,6 +16,7 @@ pip install -r requirements.txt
 
 ```
 # Download the Yahoo Music Dataset into the 'conversion_tools/' directory.
+# Dataset Name: R1 - Yahoo! Music User Ratings of Musical Artists, version 1.0 (423 MB)
 
 mkdir yahoo-music
 
@@ -26,7 +27,7 @@ tar -zxvf dataset.tgz -C ./yahoo-music
 and run the following command to get the atomic files of Yahoo Music dataset.**
 
 ```
-python run.py --dataset yahoo-music \ 
+python run.py --dataset yahoo-music \
 --input_path yahoo-music --output_path output_data/yahoo-music \
 --convert_inter --convert_item
 ```

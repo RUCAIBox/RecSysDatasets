@@ -24,9 +24,9 @@ wget https://s3-eu-west-1.amazonaws.com/yc-rdata/yoochoose-data.7z
 and run the following command to get the atomic files of YOOCHOOSE dataset.**
 
 ```
-python run.py --dataset yoochoose \ 
+python run.py --dataset yoochoose \
 --input_path yoochoose-data --output_path output_data/yoochoose \
---interaction_type buy --duplicate_removal \ 
+--interaction_type buy --duplicate_removal \
 --convert_inter
 ```
 

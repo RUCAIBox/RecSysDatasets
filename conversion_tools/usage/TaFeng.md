@@ -24,9 +24,9 @@ unzip archive.zip -d ./ta-feng
 and run the following command to get the atomic files of Ta Feng dataset.**
 
 ```
-python run.py --dataset ta-feng \ 
+python run.py --dataset ta-feng \
 --input_path ta-feng --output_path output_data/ta-feng \
---duplicate_removal \ 
+--duplicate_removal \
 --convert_inter
 ```
 

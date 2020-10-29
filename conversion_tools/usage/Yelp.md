@@ -26,7 +26,7 @@ tar -zxvf yelp_dataset.tar -C ./yelp_dataset
 and run the following command to get the atomic files of Yelp dataset.**
 
 ```
-python run.py --dataset yelp \ 
+python run.py --dataset yelp \
 --input_path yelp_dataset --output_path output_data/yelp \
 --convert_inter --convert_item --convert_user
 ```
