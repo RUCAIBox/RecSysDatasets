@@ -27,7 +27,7 @@ unzip LFM-1b-KG.zip -d LFM-1b-KG
 You can refer to [LFM-1b](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LFM-1b.md) 
 to get the inter atomic file of LFM-1b dataset.
 
-Only the lfm1b-tracks.inter can be aligned to the KG we provided. 
+Only the lfm1b-tracks.inter can align to the KG we provided. 
 
 
 4.**Go the ``conversion_tools/`` directory 

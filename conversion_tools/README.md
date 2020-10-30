@@ -36,3 +36,11 @@
 | 3  | iPinYou           |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/iPinYou.md)|
 | 4  | Phishing websites |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Phishing%20Websites.md)|
 | 5  | Adult             |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Adult.md)|
+
+
+### Knowledge-aware Datasets
+| SN | Dataset            | Instructions |
+|----|--------------------|--------------|
+| 1  | MovieLens          |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/MovieLens-KG.md)|
+| 2  | Amazon\-book       |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Amazon-book-KG.md)|
+| 3  | LFM\-1b \(tracks\) |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LFM-1b-KG.md)|

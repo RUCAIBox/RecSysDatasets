@@ -19,14 +19,15 @@ class KGDataset(object):
 
         self.hop = hop
 
-        self.seed_entities, self.seed_link = self.get_seed_entities(inter_file, os.path.join(kg_data_path, 'link.kg'))
+        self.seed_entities, self.seed_link, self.item_field = \
+            self.get_seed_entities(inter_file, os.path.join(kg_data_path, 'link.kg'))
         self.selected_relations = self.get_selected_relations(os.path.join(kg_data_path, 'relation.kg'))
 
     @staticmethod
     def get_seed_entities(inter_file, link_file):
         items = set()
         with open(inter_file, 'r') as fp:
-            fp.readline()
+            item_field = fp.readline().strip().split('\t')[1].strip().split(':')[0]
             for line in fp:
                 item = line.strip().split('\t')[1]
                 items.add(item)
@@ -43,7 +44,7 @@ class KGDataset(object):
             if item in item2entity_dict:
                 seed_entities.add(item2entity_dict[item])
                 seed_link[item] = item2entity_dict[item]
-        return seed_entities, seed_link
+        return seed_entities, seed_link, item_field
 
     @staticmethod
     def get_selected_relations(relation_file):
@@ -55,7 +56,7 @@ class KGDataset(object):
 
     def generate_link(self):
         with open(self.output_link_file, 'w') as fp:
-            fp.write('item_id:token\tentity_id:token\n')
+            fp.write(self.item_field + ':token\tentity_id:token\n')
             for item in self.seed_link:
                 fp.write(str(item) + '\t' + self.seed_link[item] + '\n')
 
