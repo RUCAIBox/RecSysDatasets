@@ -1,6 +1,6 @@
 # YOOCHOOSE
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the YOOCHOOSE Dataset and extract the dataset file.
+2.**Download the YOOCHOOSE Dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 ```
@@ -20,17 +20,17 @@ wget https://s3-eu-west-1.amazonaws.com/yc-rdata/yoochoose-data.7z
 7z x yoochoose-data.7z -o./yoochoose-data
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of YOOCHOOSE dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of YOOCHOOSE dataset.**
 
 ```
-python run.py --dataset yoochoose \ 
---input_path yoochoose-data --output_path output_data/yoochoose-data \
---interaction_type buy --duplicate_removal \ 
+python run.py --dataset yoochoose \
+--input_path yoochoose-data --output_path output_data/yoochoose \
+--interaction_type buy --duplicate_removal \
 --convert_inter
 ```
 
-`input_path` is the path of the input decompressed yoochoose files
+`input_path` is the path of the input decompressed YOOCHOOSE files
 
 `output_path` is the path to store converted atomic files
 

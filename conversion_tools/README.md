@@ -1,26 +1,38 @@
-# Public Dataset 向 RecBox Dataset 的转换脚本
+# Conversion Tools
 
-为了能将这些 public dataset 转换成 RecBox dataset 的格式，并将其应用到 RecBox 上，您只需要执行这两步：
+## General Datasets
+| SN | Dataset        | Instructions |
+|----|----------------|--------------|
+| 1  | MovieLens      |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/MovieLens.md)|
+| 2  | Anime          |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Anime.md)|
+| 3  | Epinions       |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Epinions.md)|
+| 4  | Yelp           |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Yelp.md)|
+| 5  | Netflix        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Netflix.md)|
+| 6  | Book\-Crossing |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Book-Crossing.md)|
+| 7  | Jester         |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Jester.md)|
+| 8  | Douban         |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Douban.md)|
+| 9  | Yahoo Music    |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/YahooMusic.md)|
+| 10 | KDD2010        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/KDD2010.md)|
+| 11 | Amazon         |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Amazon.md)|
+| 12 | Pinterest      |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Pinterest.md)|
+| 13 | Gowalla        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Gowalla.md)|
+| 14 | Last\.FM       |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LastFM.md)|
+| 15 | DIGINETICA     |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/DIGINETICA.md)|
+| 16 | Steam          |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Steam.md)|
+| 17 | Ta Feng        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/TaFeng.md)|
+| 18 | Foursquare     |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Foursquare.md)|
+| 19 | Tmall          |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Tmall.md)|
+| 20 | YOOCHOOSE      |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/YOOCHOOSE.md)|
+| 21 | Retailrocket   |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Retailrocket.md)|
+| 22 | LFM\-1b        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LFM-1b.md)|
 
-## Step1 下载原始数据集，并转换格式
-1) 根据本项目提供的各种数据集链接[数据集链接和简单介绍](),到对应位置下载你想要下载的数据集，下载完成后，对数据集进行解压。
 
-2) 下载这些处理脚本
-```
-git clone https://github.com/RUCAIBox/RecommenderSystems-Datasets.git
-```
+### CTR Datasets
 
-3) 进入到程序目录，执行相应程序，其中`input_path`为下载且解压后的数据集的目录位置, `output_path`为处理后数据的存储目录。
-
-```
-cd RecommenderSystems-Datasets/Preprocessing
-
-python main.py --dataset [dataset_name] --input_path [input_path] --output_path [output_path]
-```
-
-## Step2 将其应用在RecBox中
-1) 安装 RecBox， 请参考[link](https://github.com/RUCAIBox/RecBox)
-
-2) 将从Step1获取的RecBox Dataset 移动到对应目录，就可以测试该数据集在RecBox中各个模型和各种评测方式下的表现了
-
-3) 更多关于 RecBox 的使用，请参考[link]()
+| SN | Dataset           | Instructions |
+|----|-------------------|--------------|
+| 1  | Criteo            |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Criteo.md)|
+| 2  | Avazu             |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Avazu.md)|
+| 3  | iPinYou           |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/iPinYou.md)|
+| 4  | Phishing websites |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Phishing%20Websites.md)|
+| 5  | Adult             |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Adult.md)|

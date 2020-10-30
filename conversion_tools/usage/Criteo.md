@@ -1,6 +1,6 @@
 # Criteo
 
-1.Clone the repository and install requirements. 
+1.**Clone the repository and install requirements.** 
 (If you have already done this, please move to the step 2.)
 
 ```
@@ -11,7 +11,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.Download the Criteo Dataset and extract the dataset file.
+2.**Download the Criteo Dataset and extract the dataset file.**
 
 (If you have already done this, please move to the step 3.)
 
@@ -22,8 +22,8 @@ mkdir criteo-data
 tar -zxvf dac.tar.gz -C criteo-data
 ```
 
-3.Go the ``conversion_tools/`` directory 
-and run the following command to get the Atomic files of Criteo dataset.
+3.**Go the ``conversion_tools/`` directory 
+and run the following command to get the atomic files of Criteo dataset.**
 
 ```
 python run.py --dataset criteo --input_path criteo-data --output_path output_data/criteo-data --convert_inter

@@ -1,6 +1,15 @@
 # Datasets For Recommender Systems
 
-This is a repository of public data sources for Recommender Systems (RS). 
+This is a repository of public data sources for Recommender Systems (RS).
+
+All of these recommendation datasets can be convert to the atomic files
+defined in [RecBole](https://github.com/RUCAIBox/RecBole)
+which is a unified, comprehensive and efficient recommendation library.
+
+After converting to the atomic files, you can use [RecBole](https://github.com/RUCAIBox/RecBole)
+to test the performance of different recommender models on these datasets easily.
+
+For more information about RecBole, please refer to [RecBole](https://github.com/RUCAIBox/RecBole).
 
 ## Datasets link and brief introduction
 
@@ -10,7 +19,7 @@ This dataset contains product reviews and metadata from Amazon, including 142.8 
 May 1996 - July 2014. This dataset includes only-rating data (ratings), product metadata
 (descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data):
-This dataset was collected from Epinions.com, a popular online consumer review website. It contains trust relationships 
+This dataset was collected from Epinions.com, a popular online consumer review website. It contains trust relationships
 amongst users and spans more than a decade, from January 2001 to November 2013.
 - [Yelp](https://www.yelp.com/dataset):
 This dataset was collected from Yelp.com. The Yelp dataset is a subset of our businesses, reviews,
@@ -151,14 +160,19 @@ people's attributes and whether they make over 50k a year.
 
 
 
-## 简单使用
-如果想测试一下这些数据集在不同推荐系统模型下的表现，我们推荐你使用 [RecBox](https://github.com/RUCAIBox/RecBox)，一个集成了 
-General, Context, Sequential, Knowledge 类模型的推荐系统库，模型涵盖范围广，使用便利。
+## Usage
+If you want to test the performance of different recommender models on these datasets,
+we recommend you to use [RecBole](https://github.com/RUCAIBox/RecBole)
+which is a unified, comprehensive and efficient recommendation library.
+It includes 52 recommendation algorithms currently, covering four major categories:
+general recommendation, context-aware recommendation, sequential recommendation and knowledge based recommendation.
+And it is easy to use.
 
-如果想把上述介绍的数据集应用到RecBox中，您只需要简单两步操作就可以测试这些数据集在不同模型下的效果，首先您需要安装[RecBox](https://github.com/RUCAIBox/RecBox),
-接着需要把原始的数据格式，转换成RecBox规定的数据格式。
+In order to use RecBole, you need to convert these original datasets to the atomic file
+which is a kind of data format defined by RecBole.
 
-针对如何获取RecBox规定的数据格式，我们提供两种处理方式：
-1. 下载原始数据，使用便捷的脚本进行处理，具体方式请参照 [Public dataset向RecBox dataset的转换](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/Preprocessing)。
+We provide two ways to convert these datasets into atomic files:
 
-2. 直接下载已处理为RecBox格式的数据集（只包含部分数据集），您可以通过 [国内](), [国外]() 网盘连接进行获取。
+1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools)
+
+2. Directly download the processed atomic files. [Baidu Yun](), [Google Drive]()。

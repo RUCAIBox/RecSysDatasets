@@ -1,19 +1,14 @@
-# @Time   : 2020/9/18
-# @Author : Shanlei Mu
-# @Email  : slmu@ruc.edu.cn
-
-
-import os
-import re
 import bz2
 import csv
-import time
 import json
 import operator
+import os
+import re
+import time
+from datetime import datetime
+
 import numpy as np
 import pandas as pd
-
-from datetime import datetime
 from tqdm import tqdm
 
 from src.base_dataset import BaseDataset
@@ -43,8 +38,7 @@ class ML100KDataset(BaseDataset):
         self.item_fields = {0: 'item_id:token',
                             1: 'movie_title:token',
                             2: 'release_year:token',
-                            3: 'video_release_date:token',
-                            4: 'genre:token_seq'}
+                            3: 'genre:token_seq'}
         self.user_fields = {0: 'user_id:token',
                             1: 'age:token',
                             2: 'gender:token',
@@ -56,32 +50,33 @@ class ML100KDataset(BaseDataset):
 
     def load_item_data(self):
         origin_data = pd.read_csv(self.item_file, delimiter=self.item_sep, header=None, engine='python')
-        processed_data = origin_data.iloc[:,0:4]
+        processed_data = origin_data.iloc[:, 0:4]
         release_year = []
         all_type = ['unkown', 'Action', 'Adventure', 'Animation',
-              'Children\'s', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy',
-              'Film-Noir', 'Horror', 'Musical', 'Mystery', 'Romance', 'Sci-Fi',
-              'Thriller', 'War', 'Western']
+                    'Children\'s', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy',
+                    'Film-Noir', 'Horror', 'Musical', 'Mystery', 'Romance', 'Sci-Fi',
+                    'Thriller', 'War', 'Western']
         genre = []
         for i in range(origin_data.shape[0]):
             type_str = []
             for j in range(5, origin_data.shape[1]):
-                if origin_data.iloc[i,j] == 1:
-                    #print(j,origin_data.iloc[i,j])
-                    type_str.append(all_type[j-5])
+                if origin_data.iloc[i, j] == 1:
+                    # print(j,origin_data.iloc[i,j])
+                    type_str.append(all_type[j - 5])
             type_str = ' '.join(type_str)
             genre.append(type_str)
-            origin_name = origin_data.iloc[i,1]
+            origin_name = origin_data.iloc[i, 1]
             year_start = origin_name.find('(') + 1
             year_end = origin_name.find(')')
             title_end = year_start - 2
             year = origin_name[year_start:year_end]
             title = origin_name[0: title_end]
-            processed_data.iloc[i,1] =title
+            processed_data.iloc[i, 1] = title
             release_year.append(year)
         processed_data.insert(2, 'release_year', pd.Series(release_year))
-        processed_data.insert(4, 'genre', pd.Series(genre))
+        processed_data.insert(3, 'genre', pd.Series(genre))
         return processed_data
+
     def load_user_data(self):
         return pd.read_csv(self.user_file, delimiter=self.user_sep, header=None, engine='python')
 
@@ -126,18 +121,20 @@ class ML1MDataset(BaseDataset):
             split_type = origin_data.iloc[i, 2].split('|')
             type_str = ' '.join(split_type)
             processed_data.iloc[i, 2] = type_str
-            origin_name = origin_data.iloc[i,1]
+            origin_name = origin_data.iloc[i, 1]
             year_start = origin_name.find('(') + 1
             year_end = origin_name.find(')')
             title_end = year_start - 2
             year = origin_name[year_start:year_end]
             title = origin_name[0: title_end]
-            processed_data.iloc[i,1] =title
+            processed_data.iloc[i, 1] = title
             release_year.append(year)
         processed_data.insert(2, 'release_year', pd.Series(release_year))
         return processed_data
+
     def load_user_data(self):
         return pd.read_csv(self.user_file, delimiter=self.sep, header=None, engine='python')
+
 
 class ML10MDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -177,16 +174,17 @@ class ML10MDataset(BaseDataset):
             split_type = origin_data.iloc[i, 2].split('|')
             type_str = ' '.join(split_type)
             processed_data.iloc[i, 2] = type_str
-            origin_name = origin_data.iloc[i,1]
+            origin_name = origin_data.iloc[i, 1]
             year_start = origin_name.find('(') + 1
             year_end = origin_name.find(')')
             title_end = year_start - 2
             year = origin_name[year_start:year_end]
             title = origin_name[0: title_end]
-            processed_data.iloc[i,1] =title
+            processed_data.iloc[i, 1] = title
             release_year.append(year)
         processed_data.insert(2, 'release_year', pd.Series(release_year))
         return processed_data
+
 
 class ML20MDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -226,13 +224,13 @@ class ML20MDataset(BaseDataset):
             split_type = origin_data.iloc[i, 2].split('|')
             type_str = ' '.join(split_type)
             processed_data.iloc[i, 2] = type_str
-            origin_name = origin_data.iloc[i,1]
+            origin_name = origin_data.iloc[i, 1]
             year_start = origin_name.find('(') + 1
             year_end = origin_name.find(')')
             title_end = year_start - 2
             year = origin_name[year_start:year_end]
             title = origin_name[0: title_end]
-            processed_data.iloc[i,1] =title
+            processed_data.iloc[i, 1] = title
             release_year.append(year)
         processed_data.insert(2, 'release_year', pd.Series(release_year))
         return processed_data
@@ -338,7 +336,7 @@ class TMALLDataset(BaseDataset):
 
         # output file
         interact = '-buy' if self.interaction_type == 'buy' else '-click'
-        repeat = '-sums' if self.duplicate_removal else ''
+        repeat = ''
         self.dataset_name = self.dataset_name + interact + repeat
         self.output_path = os.path.join(self.output_path, self.dataset_name)
         self.check_output_path()
@@ -468,8 +466,8 @@ class CRITEODataset(BaseDataset):
         self.output_file = os.path.join(output_path, 'criteo.inter')
 
         # selected feature fields
-        self.fields = {0:'index:float',
-		1: 'label:float'}
+        self.fields = {0: 'index:float',
+                       1: 'label:float'}
         for i in range(2, 15):
             self.fields[i] = "I" + str(i - 1) + ":float"
         for i in range(15, 41):
@@ -572,7 +570,6 @@ class FOURSQUAREDataset(BaseDataset):
         fout_NYC = open(self.output_file_NYC, "w")
         fout_TKY = open(self.output_file_TKY, "w")
 
-        
         if self.merge_repeat == True:
             fout_NYC.write('\t'.join([self.fields.get(i) for i in [0, 1, 6, 7, 8]]) + '\n')
             fout_TKY.write('\t'.join([self.fields.get(i) for i in [0, 1, 6, 7, 8]]) + '\n')
@@ -583,14 +580,14 @@ class FOURSQUAREDataset(BaseDataset):
             fout_TKY.write('\t'.join([self.fields.get(i) for i in [0, 1, 6, 7]]) + '\n')
             for i in tqdm(range(data_NYC.shape[0])):
                 fout_NYC.write('\t'.join([str(data_NYC.iloc[i, j])
-                                        for j in [0, 1, 6, 7]]) + '\n')
+                                          for j in [0, 1, 6, 7]]) + '\n')
             for i in tqdm(range(data_TKY.shape[0])):
                 fout_TKY.write('\t'.join([str(data_TKY.iloc[i, j])
-                                        for j in [0, 1, 6, 7]]) + '\n')
+                                          for j in [0, 1, 6, 7]]) + '\n')
 
         fout_NYC.close()
         fout_TKY.close()
-    
+
     def convert_item(self):
         # load data
         data_NYC = pd.read_csv(self.input_file_NYC, header=0, engine='python')
@@ -600,7 +597,7 @@ class FOURSQUAREDataset(BaseDataset):
         fout_TKY = open(self.output_item_file_TKY, "w")
         fout_NYC.write('\t'.join([self.fields.get(i) for i in [1, 2, 3, 4, 5]]) + '\n')
         fout_TKY.write('\t'.join([self.fields.get(i) for i in [1, 2, 3, 4, 5]]) + '\n')
-        
+
         for data, fout in [(data_NYC, fout_NYC), (data_TKY, fout_TKY)]:
             # use dict to recard
             info_dict = {}
@@ -821,8 +818,9 @@ class ANIMEDataset(BaseDataset):
             processed_data.iloc[i, 2] = type_str
         processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'nan' else False)),
                                               '')
-        processed_data = processed_data.where((processed_data.applymap(lambda x: True if str(x) != 'Unknown' else False)),
-                                              '')
+        processed_data = processed_data.where(
+            (processed_data.applymap(lambda x: True if str(x) != 'Unknown' else False)),
+            '')
         return processed_data
 
 
@@ -1137,6 +1135,7 @@ class LFM1bDataset(BaseDataset):
                     pre_userid = userid
                 line = f.readline()
 
+
 class PHISHINGWEBDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(PHISHINGWEBDataset, self).__init__(input_path, output_path)
@@ -1200,8 +1199,8 @@ class PHISHINGWEBDataset(BaseDataset):
                     line = f.readline()
                     continue
                 line = line.strip().split(',')
-                fout.write(str(line[-1])+'\t')
-                fout.write('\t'.join([str(line[i]) for i in range(len(line)-1)]) + '\n')
+                fout.write(str(line[-1]) + '\t')
+                fout.write('\t'.join([str(line[i]) for i in range(len(line) - 1)]) + '\n')
                 line = f.readline()
         fout.close()
 
@@ -1300,7 +1299,7 @@ class IPINYOUDataset(BaseDataset):
 
         # output file
         interact = '-click' if self.interaction_type == 'click' else '-view'
-        repeat = '-sums' if self.duplicate_removal else ''
+        repeat = ''
         self.dataset_name = self.dataset_name + interact + repeat
         self.output_path = os.path.join(self.output_path, self.dataset_name)
         self.check_output_path()
@@ -1527,9 +1526,6 @@ class STEAMDataset(BaseDataset):
                             11: "tags:token_seq",
                             12: "title:token"}
 
-    
-
-
     def convert_inter(self):
         fout = open(self.output_inter_file, "w")
         if self.duplicate_removal == True:
@@ -1614,7 +1610,7 @@ class STEAMDataset(BaseDataset):
 
             if self.duplicate_removal == False:
                 fout.write('\t'.join([str(data_line[i])
-                                  for i in range(len(data_line))]) + '\n')
+                                      for i in range(len(data_line))]) + '\n')
             else:
                 if (data_line[0], data_line[2]) not in data_list:
                     data_list[(data_line[0], data_line[2])] = data_line
@@ -1623,12 +1619,13 @@ class STEAMDataset(BaseDataset):
                     if data_line[5] > data_list[(data_line[0], data_line[2])][5]:
                         data_line.append(data_list[(data_line[0], data_line[2])][-1])
                         data_list[(data_line[0], data_line[2])] = data_line
-                        data_list[(data_line[0], data_line[2])][-1] = str(int(data_list[(data_line[0], data_line[2])][-1]) + 1)
+                        data_list[(data_line[0], data_line[2])][-1] = str(
+                            int(data_list[(data_line[0], data_line[2])][-1]) + 1)
 
         if self.duplicate_removal == True:
             for _, value in tqdm(data_list.items()):
                 fout.write('\t'.join([str(value[i])
-                                  for i in range(len(value))]) + '\n')
+                                      for i in range(len(value))]) + '\n')
 
         fin.close()
         fout.close()
@@ -1716,6 +1713,7 @@ class STEAMDataset(BaseDataset):
         #        print("There are ", lines_count, " lines.")
         print("The item part of Dataset STEAM has finished.")
 
+
 class PINTERESTDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(PINTERESTDataset, self).__init__(input_path, output_path)
@@ -1756,8 +1754,8 @@ class JESTERDataset(BaseDataset):
         #
         #        # selected feature fields
         self.inter_fields = {0: 'user_id:token',
-                        1: 'item_id:token',
-                        2: 'rating:float'}
+                             1: 'item_id:token',
+                             2: 'rating:float'}
 
     def convert_inter(self):
         data1 = pd.read_excel(self.input_file_1, header=None).values.tolist()
@@ -2119,7 +2117,6 @@ class AmazonAppsForAndroidDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2151,17 +2148,22 @@ class AmazonAppsForAndroidDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-
             input_item_data = self.load_item_data()
-
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonBeautyDataset(BaseDataset):
@@ -2210,7 +2212,6 @@ class AmazonBeautyDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2243,17 +2244,22 @@ class AmazonBeautyDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-
             input_item_data = self.load_item_data()
-
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonToolsAndHomeImprovementDataset(BaseDataset):
@@ -2302,7 +2308,6 @@ class AmazonToolsAndHomeImprovementDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2334,17 +2339,22 @@ class AmazonToolsAndHomeImprovementDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-
             input_item_data = self.load_item_data()
-
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonBooksDataset(BaseDataset):
@@ -2393,7 +2403,6 @@ class AmazonBooksDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2425,17 +2434,22 @@ class AmazonBooksDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonInstantVideoDataset(BaseDataset):
@@ -2480,7 +2494,6 @@ class AmazonInstantVideoDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2501,17 +2514,22 @@ class AmazonInstantVideoDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonDigitalMusicDataset(BaseDataset):
@@ -2560,7 +2578,6 @@ class AmazonDigitalMusicDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2592,17 +2609,22 @@ class AmazonDigitalMusicDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonMoviesAndTVDataset(BaseDataset):
@@ -2651,7 +2673,6 @@ class AmazonMoviesAndTVDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2683,17 +2704,22 @@ class AmazonMoviesAndTVDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonAutomotiveDataset(BaseDataset):
@@ -2742,7 +2768,6 @@ class AmazonAutomotiveDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2776,17 +2801,22 @@ class AmazonAutomotiveDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonBabyDataset(BaseDataset):
@@ -2835,7 +2865,6 @@ class AmazonBabyDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2867,17 +2896,22 @@ class AmazonBabyDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonClothingShoesAndJewelryDataset(BaseDataset):
@@ -2926,7 +2960,6 @@ class AmazonClothingShoesAndJewelryDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -2958,17 +2991,22 @@ class AmazonClothingShoesAndJewelryDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonCellPhonesAndAccessoriesDataset(BaseDataset):
@@ -3017,7 +3055,6 @@ class AmazonCellPhonesAndAccessoriesDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3049,17 +3086,22 @@ class AmazonCellPhonesAndAccessoriesDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonPatioLawnAndGardenDataset(BaseDataset):
@@ -3108,7 +3150,6 @@ class AmazonPatioLawnAndGardenDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3140,17 +3181,22 @@ class AmazonPatioLawnAndGardenDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonKindleStoreDataset(BaseDataset):
@@ -3199,7 +3245,6 @@ class AmazonKindleStoreDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3231,17 +3276,22 @@ class AmazonKindleStoreDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonHomeAndKitchenDataset(BaseDataset):
@@ -3290,7 +3340,6 @@ class AmazonHomeAndKitchenDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3322,17 +3371,22 @@ class AmazonHomeAndKitchenDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonGroceryAndGourmetFoodDataset(BaseDataset):
@@ -3381,7 +3435,6 @@ class AmazonGroceryAndGourmetFoodDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3413,17 +3466,22 @@ class AmazonGroceryAndGourmetFoodDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonHealthAndPersonalCareDataset(BaseDataset):
@@ -3472,7 +3530,6 @@ class AmazonHealthAndPersonalCareDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3504,17 +3561,22 @@ class AmazonHealthAndPersonalCareDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonPetSuppliesDataset(BaseDataset):
@@ -3563,7 +3625,6 @@ class AmazonPetSuppliesDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3595,17 +3656,22 @@ class AmazonPetSuppliesDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonSportsAndOutdoorsDataset(BaseDataset):
@@ -3654,7 +3720,6 @@ class AmazonSportsAndOutdoorsDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3686,17 +3751,22 @@ class AmazonSportsAndOutdoorsDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonToysAndGamesDataset(BaseDataset):
@@ -3745,7 +3815,6 @@ class AmazonToysAndGamesDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3777,17 +3846,22 @@ class AmazonToysAndGamesDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonElectronicsDataset(BaseDataset):
@@ -3836,7 +3910,6 @@ class AmazonElectronicsDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3868,17 +3941,22 @@ class AmazonElectronicsDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonOfficeProductsDataset(BaseDataset):
@@ -3927,7 +4005,6 @@ class AmazonOfficeProductsDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -3959,17 +4036,22 @@ class AmazonOfficeProductsDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonVideoGamesDataset(BaseDataset):
@@ -4018,7 +4100,6 @@ class AmazonVideoGamesDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -4050,17 +4131,22 @@ class AmazonVideoGamesDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class AmazonMusicalInstrumentsDataset(BaseDataset):
@@ -4109,7 +4195,6 @@ class AmazonMusicalInstrumentsDataset(BaseDataset):
 
     def load_inter_data(self):
         inter_data = pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
-        self.count_num(inter_data)
         return inter_data
 
     def load_item_data(self):
@@ -4141,17 +4226,22 @@ class AmazonMusicalInstrumentsDataset(BaseDataset):
     def convert(self, input_data, selected_fields, output_file):
         output_data = pd.DataFrame()
         for column in selected_fields:
-            output_data[self.item_fields[column]] = input_data.iloc[:, column]
+            output_data[selected_fields[column]] = input_data.iloc[:, column]
         output_data.to_csv(output_file, index=0, header=1, sep='\t')
 
     def convert_item(self):
         try:
-            # self.load_inter_data()
             input_item_data = self.load_item_data()
-            # print(input_item_data)
             self.convert(input_item_data, self.item_fields, self.output_item_file)
         except NotImplementedError:
             print('This dataset can\'t be converted to item file\n')
+
+    def convert_inter(self):
+        try:
+            input_inter_data = self.load_inter_data()
+            self.convert(input_inter_data, self.inter_fields, self.output_inter_file)
+        except NotImplementedError:
+            print('This dataset can\'t be converted to inter file\n')
 
 
 class YELPDataset(BaseDataset):
@@ -4495,7 +4585,8 @@ class RETAILROCKETDataset(BaseDataset):
         super(RETAILROCKETDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'retailrocket'
         self.interaction_type = interaction_type
-        assert self.interaction_type in ['view', 'addtocart', 'transaction'], 'interaction_type must be in [view, addtocart, transaction]'
+        assert self.interaction_type in ['view', 'addtocart',
+                                         'transaction'], 'interaction_type must be in [view, addtocart, transaction]'
         self.duplicate_removal = duplicate_removal
 
         # input file
@@ -4603,7 +4694,8 @@ class RETAILROCKETDataset(BaseDataset):
                 if line_list[2] == self.interaction_type:
                     if self.interaction_type != 'transaction':
                         del line_list[4]
-                    else: line_list[4] = line_list[4].strip()
+                    else:
+                        line_list[4] = line_list[4].strip()
                     del line_list[2]
                     fout.write('\t'.join([str(line_list[i]) for i in range(len(line_list))]) + '\n')
 
