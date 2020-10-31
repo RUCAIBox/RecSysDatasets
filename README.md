@@ -192,4 +192,4 @@ We provide two ways to convert these datasets into atomic files:
 
 1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools)
 
-2. Directly download the processed atomic files. [Baidu Yun](), [Google Drive]()。
+2. Directly download the processed atomic files. [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) (Password: e272), [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing)。
