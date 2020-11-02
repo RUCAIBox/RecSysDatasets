@@ -38,7 +38,7 @@ class ML100KDataset(BaseDataset):
         self.item_fields = {0: 'item_id:token',
                             1: 'movie_title:token',
                             2: 'release_year:token',
-                            3: 'genre:token_seq'}
+                            3: 'class:token_seq'}
         self.user_fields = {0: 'user_id:token',
                             1: 'age:token',
                             2: 'gender:token',
@@ -61,7 +61,6 @@ class ML100KDataset(BaseDataset):
             type_str = []
             for j in range(5, origin_data.shape[1]):
                 if origin_data.iloc[i, j] == 1:
-                    # print(j,origin_data.iloc[i,j])
                     type_str.append(all_type[j - 5])
             type_str = ' '.join(type_str)
             genre.append(type_str)
@@ -74,7 +73,7 @@ class ML100KDataset(BaseDataset):
             processed_data.iloc[i, 1] = title
             release_year.append(year)
         processed_data.insert(2, 'release_year', pd.Series(release_year))
-        processed_data.insert(3, 'genre', pd.Series(genre))
+        processed_data.insert(3, 'class', pd.Series(genre))
         return processed_data
 
     def load_user_data(self):
