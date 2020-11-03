@@ -2,7 +2,7 @@
 
 This is a repository of public data sources for Recommender Systems (RS).
 
-All of these recommendation datasets can be convert to the atomic files
+All of these recommendation datasets can convert to the atomic files
 defined in [RecBole](https://github.com/RUCAIBox/RecBole)
 which is a unified, comprehensive and efficient recommendation library.
 
@@ -15,9 +15,7 @@ For more information about RecBole, please refer to [RecBole](https://github.com
 
 ### Shopping
 - [Amazon](http://jmcauley.ucsd.edu/data/amazon/):
-This dataset contains product reviews and metadata from Amazon, including 142.8 million reviews spanning
-May 1996 - July 2014. This dataset includes only-rating data (ratings), product metadata
-(descriptions, category information, price, brand, and image features), and links (also viewed/also bought graphs).
+This dataset contains product reviews, only-rating data (ratings) and metadata(descriptions, category information, price, brand, and image features) from Amazon, including 142.8 million reviews spanning May 1996 - July 2014.  
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data):
 This dataset was collected from Epinions.com, a popular online consumer review website. It contains trust relationships
 amongst users and spans more than a decade, from January 2001 to November 2013.
@@ -63,8 +61,7 @@ This dataset contains more than 2 million short comments of 28 movies in Douban 
 
 ### Music
 - [Last.FM](https://grouplens.org/datasets/hetrec-2011/):
-This dataset contains social networking, tagging, and music artist listening information
-from a set of 2K users from Last.fm online music system.
+This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
 - [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/):
 This dataset contains more than one billion music listening events created by more than 120,000 users of Last.FM.
 Each listening event is characterized by artist, album, and track name, and includes a timestamp.
@@ -75,7 +72,7 @@ This dataset represents a snapshot of the Yahoo! Music community's preferences f
 * [Book-Crossing](http://www2.informatik.uni-freiburg.de/~cziegler/BX/):
 This dataset was collected by Cai-Nicolas Ziegler in a 4-week crawl (August / September 2004) from
 the [Book-Crossing](http://www.bookcrossing.com/) community with kind permission from Ron Hornbaker,
-CTO of [Humankind Systems](http://www.humankindsystems.com/). Contains 278,858 users
+CTO of [Humankind Systems](http://www.humankindsystems.com/). It contains 278,858 users
 (anonymized but with demographic information) providing 1,149,780 ratings (explicit / implicit) about 271,379 books.
 
 ### Games
@@ -181,7 +178,7 @@ After filtering by 5-core (And filter out the tracks that are listened to less t
 If you want to test the performance of different recommender models on these datasets,
 we recommend you to use [RecBole](https://github.com/RUCAIBox/RecBole)
 which is a unified, comprehensive and efficient recommendation library.
-It includes 52 recommendation algorithms currently, covering four major categories:
+It includes 53 recommendation algorithms currently, covering four major categories:
 general recommendation, context-aware recommendation, sequential recommendation and knowledge based recommendation.
 And it is easy to use.
 
@@ -190,6 +187,6 @@ which is a kind of data format defined by RecBole.
 
 We provide two ways to convert these datasets into atomic files:
 
-1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools)
+1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
 
-2. Directly download the processed atomic files. [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) (Password: e272), [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing)。
+2. Directly download the processed atomic files. [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) (Password: e272), [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).

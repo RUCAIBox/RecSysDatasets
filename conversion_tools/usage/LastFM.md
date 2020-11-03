@@ -29,7 +29,7 @@ python run.py --dataset lastfm \
 --convert_inter --convert_item
 ```
 
-`input_path` is the path of the input decompressed LastFM files
+`input_path` is the path of the input decompressed LastFM file
 
 `output_path` is the path to store converted atomic files
 

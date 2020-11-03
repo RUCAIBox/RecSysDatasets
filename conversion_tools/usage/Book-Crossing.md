@@ -29,7 +29,7 @@ python run.py --dataset book-crossing \
 --convert_inter --convert_user --convert_item
 ```
 
-`input_path` is the path of the input decompressed Book-Crossing files
+`input_path` is the path of the input decompressed Book-Crossing file
 
 `output_path` is the path to store converted atomic files
 

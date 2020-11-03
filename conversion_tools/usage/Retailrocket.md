@@ -30,7 +30,7 @@ python run.py --dataset retailrocket \
 --convert_inter --convert_item
 ```
 
-`input_path` is the path of the input decompressed Retailrocket files
+`input_path` is the path of the input decompressed Retailrocket file
 
 `output_path` is the path to store converted atomic files
 

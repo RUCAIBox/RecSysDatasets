@@ -36,9 +36,9 @@ python run.py --dataset foursquare --input_path foursquare-data --output_path ou
 python run.py --dataset foursquare --input_path foursquare-data --output_path output_data/foursquare --convert_item
 ```
 
-`input_path` is the path of the input decompressed Foursquare file.
+`input_path` is the path of the input decompressed Foursquare file
 
-`output_path` is the path to store converted atomic files.
+`output_path` is the path to store converted atomic files
 
 `dupliacte_removal` The interaction type in Foursquare data is check-in, 
  there may be multiple interaction records for the same user-item pair. Add `--dupliacte_removal` can 
