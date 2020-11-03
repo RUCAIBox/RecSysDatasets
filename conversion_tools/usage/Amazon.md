@@ -19,6 +19,8 @@ pip install -r requirements.txt
 
 You can download ratings only data and metadata from http://jmcauley.ucsd.edu/data/amazon/.
 
+However, we're sorry for the metadata before 2014 we used can't be downloaded from the website now. We will continue with the assumption that the operator already has the original metadata. If you don't have the original metadata, you can download processed data from  [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) or [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).
+
 Here we download ratings_Video_Games.csv and meta_Video_Games.json.gz
 
 save them in current folder(Amazon_Video_Games/), and do:
