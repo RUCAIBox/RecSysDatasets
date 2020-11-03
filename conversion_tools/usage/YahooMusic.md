@@ -32,7 +32,7 @@ python run.py --dataset yahoo-music \
 --convert_inter --convert_item
 ```
 
-`input_path` is the path of the input decompressed Yahoo Music files
+`input_path` is the path of the input decompressed Yahoo Music file
 
 `output_path` is the path to store converted atomic files
 

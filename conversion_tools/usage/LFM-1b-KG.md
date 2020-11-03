@@ -14,7 +14,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.**Download the KG file from [Baidu Yun]() or [Google Drive]().**
+2.**Download the KG file from [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) or [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).**
 
 The used KG file is in KGDatasets/, named LFM-1b-KG.zip
 

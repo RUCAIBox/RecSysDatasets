@@ -30,7 +30,7 @@ python run.py --dataset yoochoose \
 --convert_inter
 ```
 
-`input_path` is the path of the input decompressed YOOCHOOSE files
+`input_path` is the path of the input decompressed YOOCHOOSE file
 
 `output_path` is the path to store converted atomic files
 

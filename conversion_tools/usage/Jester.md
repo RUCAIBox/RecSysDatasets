@@ -35,8 +35,8 @@ and run the following command to get the atomic files of Jester dataset.**
 python run.py --dataset jester --input_path jester-data --output_path output_data/jester --convert_inter
 ```
 
-`input_path` is the path of the input decompressed Jester file.
+`input_path` is the path of the input decompressed Jester file
 
-`output_path` is the path to store converted atomic files.
+`output_path` is the path to store converted atomic files
 
-`convert_inter` Jester only can be converted to '*.inter' atomic file.
+`convert_inter` Jester only can be converted to '*.inter' atomic file

@@ -14,7 +14,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.**Download the KG file from [Baidu Yun]() or [Google Drive]().**
+2.**Download the KG file from [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) or [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).**
 
 The used KG file is in KGDatasets/, named Amazon-book-KG.zip
 
@@ -26,7 +26,6 @@ unzip Amazon-book-KG.zip -d Amazon-book-KG
 
 You can refer to [Amazon](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Amazon.md) 
 to get the inter atomic file of Amazon-book dataset, named Amazon_Books.inter
-
 
 4.**Go the ``conversion_tools/`` directory 
 and run the following command to get the KG atomic files of Amazon-book dataset.**
