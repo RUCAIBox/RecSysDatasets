@@ -6,10 +6,21 @@ All of these recommendation datasets can convert to the atomic files
 defined in [RecBole](https://github.com/RUCAIBox/RecBole)
 which is a unified, comprehensive and efficient recommendation library.
 
-After converting to the atomic files, you can use [RecBole](https://github.com/RUCAIBox/RecBole)
+After converting to the atomic files, you can use RecBole
 to test the performance of different recommender models on these datasets easily.
-
 For more information about RecBole, please refer to [RecBole](https://github.com/RUCAIBox/RecBole).
+
+
+## Usage
+In order to use RecBole, you need to convert these original datasets to the atomic file
+which is a kind of data format defined by RecBole.
+
+We provide two ways to convert these datasets into atomic files:
+
+1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
+
+2. Directly download the processed atomic files. [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) (Password: e272), [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).
+
 
 ## Datasets link and brief introduction
 
@@ -171,22 +182,3 @@ After filtering by 5-core (And filter out the tracks that are listened to less t
 | 1  | MovieLens          | 18,345  | 18,057          | 138,493 | 19,984,024     |
 | 2  | Amazon\-book       | 367,982 | 34,476          | 603,668 | 8,898,041      |
 | 3  | LFM\-1b \(tracks\) | 615,823 | 337,349         | 79,133  | 15,765,756     |
-
-
-
-## Usage
-If you want to test the performance of different recommender models on these datasets,
-we recommend you to use [RecBole](https://github.com/RUCAIBox/RecBole)
-which is a unified, comprehensive and efficient recommendation library.
-It includes 53 recommendation algorithms currently, covering four major categories:
-general recommendation, context-aware recommendation, sequential recommendation and knowledge based recommendation.
-And it is easy to use.
-
-In order to use RecBole, you need to convert these original datasets to the atomic file
-which is a kind of data format defined by RecBole.
-
-We provide two ways to convert these datasets into atomic files:
-
-1. Download the raw dataset and process it with conversion tools we provide in this repository. Please refer to [conversion tools](https://github.com/RUCAIBox/RecDatasets/tree/master/conversion_tools).
-
-2. Directly download the processed atomic files. [Baidu Yun](https://pan.baidu.com/s/1p51sWMgVFbAaHQmL4aD_-g) (Password: e272), [Google Drive](https://drive.google.com/drive/folders/1so0lckI6N6_niVEYaBu-LIcpOdZf99kj?usp=sharing).
