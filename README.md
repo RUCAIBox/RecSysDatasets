@@ -46,7 +46,7 @@ without any content transformations, however, all values are hashed due to confi
 - [Ta Feng](https://www.kaggle.com/chiranjivdas09/ta-feng-grocery-dataset):
 The dataset contains a Chinese grocery store transaction data from November 2000 to February 2001.
 
-### Advertisng
+### Advertising
 * [Criteo](https://www.kaggle.com/c/criteo-display-ad-challenge/data):
   This dataset was collected from Criteo, which consists of a portion of Criteo's traffic over a period of several days.
 * [Avazu](https://www.kaggle.com/c/avazu-ctr-prediction/data):
