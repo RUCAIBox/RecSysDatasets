@@ -1,4 +1,4 @@
-# MovieLens
+# MIND
 
 This dataset has several sub-datasets of different sizes, 
 respectively 'MIND-large',  'MIND-small'. 
@@ -17,7 +17,7 @@ cd RecDatasets/conversion_tools
 pip install -r requirements.txt
 ```
 
-2.**Download the MovieLens dataset and extract the dataset file.**
+2.**Download the MIND dataset and extract the dataset file.**
 (If you have already done this, please move to the step 3.)
 
 Here we process all of five datasets, and you can download corresponding dataset according to your needs. 
@@ -43,7 +43,7 @@ unzip MINDsmall_dev.zip -d MINDsmall_dev
 ```
 
 3.**Go the ``conversion_tools/`` directory 
-and run the following command to get the atomic files of  MovieLens dataset.**
+and run the following command to get the atomic files of MIND dataset.**
 
 ```
 python run.py --dataset mind \ 
@@ -63,11 +63,11 @@ python run.py --dataset mind \
 --convert_inter 
 ```
 
-`input_path` is the path of the input decompressed MovieLen file
+`input_path` is the path of the input decompressed MIND file
 
 `output_path` is the path to store converted atomic files
 
-`convert_inter` MINDlarge_train, MINDlarge_dev, MINDsmall_train and MINDsmall_dev can be converted to '*.item' atomic file.
+`convert_inter` MINDlarge_train, MINDlarge_dev, MINDsmall_train and MINDsmall_dev can be converted to '*.inter' atomic file.
 
 
  
