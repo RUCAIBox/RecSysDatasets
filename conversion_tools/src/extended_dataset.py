@@ -4830,3 +4830,49 @@ class TAFENGDataset(BaseDataset):
 
             fin.close()
             fout.close()
+
+
+class MINDDataset(BaseDataset):
+    def __init__(self, input_path, output_path):
+        super(MINDDataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'mind'
+
+        self.sep = '\t'
+        self.inter_fields = {
+                             0: 'user_id:token',
+                             1: 'item_id:token',
+                             2: 'rating:int',
+                             3: 'time:int'
+                             }
+        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\','/')
+        self.output_inter_file = os.path.join(self.output_path, 'mind-behaviors.inter').replace('\\','/')
+
+    def convert_inter(self):
+        fin = open(self.inter_file, 'r')
+        fout = open(self.output_inter_file, "w")
+
+        lines_count = 0
+        for _ in fin:
+            lines_count += 1
+        fin.seek(0, 0)
+
+        fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
+
+        current_list = [0,0,0,0]
+        for i in tqdm(range(lines_count)):
+            line = fin.readline()
+            line_list = line.split('\t')
+
+            current_list[0] = line_list[1].strip('U')
+            rating_lst = line_list[4].split()
+            if 'AM' in line_list[2]:
+                timestamp = str(int(time.mktime(time.strptime(line_list[2], "%m/%d/%Y %H:%M:%S AM"))))
+            else:
+                timestamp = str(int(time.mktime(time.strptime(line_list[2], "%m/%d/%Y %H:%M:%S PM"))) + 43200)
+            for rate in rating_lst:
+                item, rating = rate.split('-')
+                item = item.strip('N')
+
+                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+        fin.close()
+        fout.close()

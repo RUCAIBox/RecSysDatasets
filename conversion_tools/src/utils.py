@@ -57,7 +57,8 @@ dataset2class = {
     'yoochoose': 'YOOCHOOSEDataset',
     'yahoo-music': 'YAHOOMUSICDataset',
     'ta-feng': 'TAFENGDataset',
-    'retailrocket': 'RETAILROCKETDataset'
+    'retailrocket': 'RETAILROCKETDataset',
+    'mind':'MINDDataset'
 }
 
 click_dataset = {
