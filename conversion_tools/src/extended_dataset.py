@@ -4385,7 +4385,7 @@ class LASTFMDataset(BaseDataset):
         self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
 
         # selected feature fields
-        self.item_fields = {0: 'id:token',
+        self.item_fields = {0: 'artist_id:token',
                             1: 'name:token',
                             2: 'url:token',
                             3: 'picture_url:token'}
