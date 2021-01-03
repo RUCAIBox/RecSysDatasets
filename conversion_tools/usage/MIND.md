@@ -46,20 +46,20 @@ unzip MINDsmall_dev.zip -d MINDsmall_dev
 and run the following command to get the atomic files of MIND dataset.**
 
 ```
-python run.py --dataset mind \ 
---input_path MINDlarge_train --output_path output_data/MINDlarge_train \
+python run.py --dataset mind_large_train \
+--input_path MINDlarge_train --output_path output_data/mind_large_train \
 --convert_inter 
 
-python run.py --dataset mind \ 
---input_path MINDlarge_dev --output_path output_data/MINDlarge_dev \
+python run.py --dataset mind_large_dev \
+--input_path MINDlarge_dev --output_path output_data/mind_large_dev \
 --convert_inter 
 
-python run.py --dataset mind \ 
---input_path MINDsmall_train --output_path output_data/MINDsmall_train \
+python run.py --dataset mind_small_train \
+--input_path MINDsmall_train --output_path output_data/mind_small_train \
 --convert_inter  
 
-python run.py --dataset mind \ 
---input_path MINDsmall_dev --output_path output_data/MINDsmall_dev \
+python run.py --dataset mind_small_dev \
+--input_path MINDsmall_dev --output_path output_data/mind_small_dev \
 --convert_inter 
 ```
 
@@ -70,4 +70,4 @@ python run.py --dataset mind \
 `convert_inter` MINDlarge_train, MINDlarge_dev, MINDsmall_train and MINDsmall_dev can be converted to '*.inter' atomic file.
 
 
- 
+

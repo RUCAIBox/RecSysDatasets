@@ -58,7 +58,10 @@ dataset2class = {
     'yahoo-music': 'YAHOOMUSICDataset',
     'ta-feng': 'TAFENGDataset',
     'retailrocket': 'RETAILROCKETDataset',
-    'mind':'MINDDataset'
+    'mind_large_train': 'MINDLargeTrainDataset',
+    'mind_large_dev': 'MINDLargeDevDataset',
+    'mind_small_train': 'MINDSmallTrainDataset',
+    'mind_small_dev': 'MINDSmallDevDataset'
 }
 
 click_dataset = {
