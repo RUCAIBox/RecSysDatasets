@@ -61,9 +61,9 @@ python run.py --dataset ml-20m \
 
 `output_path` is the path to store converted atomic files
 
- `convert_inter` ml-100k, ml-1m, ml-10m and ml-10m all can be converted to '*.item' atomic file
+`convert_inter` ml-100k, ml-1m, ml-10m and ml-10m all can be converted to '*.inter' atomic file
 
- `convert_item` ml-100k, ml-1m, ml-10m and ml-10m can be converted to '*.inter' atomic file
+`convert_item` ml-100k, ml-1m, ml-10m and ml-10m can be converted to '*.item' atomic file
 
 `convert_user` ml-100k, ml-1m can be converted to '*.user' atomic file
 
