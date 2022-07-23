@@ -12,6 +12,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.base_dataset import BaseDataset
+from src.cosmetics import CosmeticsDataset
 
 
 class ML100KDataset(BaseDataset):
