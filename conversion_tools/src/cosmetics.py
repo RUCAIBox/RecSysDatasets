@@ -12,33 +12,33 @@ from src.base_dataset import BaseDataset
 class CosmeticsDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(CosmeticsDataset, self).__init__(input_path, output_path)
-        self.dataset_name = 'cosmetics'
+        self.dataset_name = "cosmetics"
 
         self.log = logging.getLogger(__file__)
         self.log.addHandler(logging.StreamHandler())
         self.log.setLevel(logging.INFO)
 
-        self.sep = '\t'
+        self.sep = "\t"
         self.inter_fields = {
-            "user_id":      'user_id:token',
-            "product_id":   'item_id:token',
-            "category_id":  'cate_id:token',
-            "user_session": 'sess_id:token',
-            "event_type":   'event:token',
-            "price":        'price:float',
-            "event_time":   'timestamp:float'
+            "user_id":      "user_id:token",
+            "product_id":   "item_id:token",
+            "category_id":  "cate_id:token",
+            "user_session": "sess_id:token",
+            "event_type":   "event:token",
+            "price":        "price:float",
+            "event_time":   "timestamp:float"
         }
 
         if os.path.isfile(input_path):
             self.inter_file = [input_path]
         elif os.path.isdir(input_path):
             files = os.listdir(input_path)
-            self.inter_file = [os.path.join(input_path, f).replace('\\', '/') for f in files if f.endswith(".csv")]
+            self.inter_file = [os.path.join(input_path, f).replace("\\", "/") for f in files if f.endswith(".csv")]
         else:
             self.log.error(f"Path not exists: {input_path}")
             exit(-1)
 
-        self.output_inter_file = os.path.join(self.output_path, f'{self.dataset_name}.inter').replace('\\', '/')
+        self.output_inter_file = os.path.join(self.output_path, f"{self.dataset_name}.inter").replace("\\", "/")
 
     @staticmethod
     def _process_data(df):
@@ -66,4 +66,4 @@ class CosmeticsDataset(BaseDataset):
         df.rename(columns=self.inter_fields, inplace=True)
 
         self.log.info(f"Writing to file")
-        df.to_csv(self.output_inter_file, index=False)
+        df.to_csv(self.output_inter_file, sep=self.sep, index=False)
