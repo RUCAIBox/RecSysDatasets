@@ -4848,7 +4848,7 @@ class MINDLargeTrainDataset(BaseDataset):
         
         # fields
         self.item_fields = {
-                             0: 'news_id:token',
+                             0: 'item_id:token',
                              1: 'category:token_seq',
                              2: 'sub_category:token_seq',
                              3: 'title:token_seq',
@@ -4960,7 +4960,7 @@ class MINDLargeDevDataset(BaseDataset):
         
         # fields
         self.item_fields = {
-                             0: 'news_id:token',
+                             0: 'item_id:token',
                              1: 'category:token_seq',
                              2: 'sub_category:token_seq',
                              3: 'title:token_seq',
@@ -5042,7 +5042,7 @@ class MINDSmallTrainDataset(BaseDataset):
         
         # fields
         self.item_fields = {
-                             0: 'news_id:token',
+                             0: 'item_id:token',
                              1: 'category:token_seq',
                              2: 'sub_category:token_seq',
                              3: 'title:token_seq',
@@ -5124,7 +5124,7 @@ class MINDSmallDevDataset(BaseDataset):
         
         # fields
         self.item_fields = {
-                             0: 'news_id:token',
+                             0: 'item_id:token',
                              1: 'category:token_seq',
                              2: 'sub_category:token_seq',
                              3: 'title:token_seq',
