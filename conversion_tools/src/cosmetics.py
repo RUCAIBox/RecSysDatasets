@@ -17,9 +17,10 @@ class CosmeticsDataset(BaseDataset):
         self.log = logging.getLogger(__file__)
         self.log.addHandler(logging.StreamHandler())
         self.log.setLevel(logging.INFO)
+        self.df = None
 
         self.sep = "\t"
-        self.inter_fields = {
+        self.fields = {
             "user_id":      "user_id:token",
             "product_id":   "item_id:token",
             "category_id":  "cate_id:token",
@@ -28,6 +29,8 @@ class CosmeticsDataset(BaseDataset):
             "price":        "price:float",
             "event_time":   "timestamp:float"
         }
+        self.item_fields = ["item_id:token", "cate_id:token", "price:float"]
+        self.inter_fields = ["user_id:token", "item_id:token", "event:token", "sess_id:token", "timestamp:float"]
 
         if os.path.isfile(input_path):
             self.inter_file = [input_path]
@@ -38,6 +41,7 @@ class CosmeticsDataset(BaseDataset):
             self.log.error(f"Path not exists: {input_path}")
             exit(-1)
 
+        self.output_item_file = os.path.join(self.output_path, f"{self.dataset_name}.item").replace("\\", "/")
         self.output_inter_file = os.path.join(self.output_path, f"{self.dataset_name}.inter").replace("\\", "/")
 
     @staticmethod
@@ -55,15 +59,27 @@ class CosmeticsDataset(BaseDataset):
 
         return speedup(df["event_time"], df["user_session"])
 
+    def _read_data_from_files(self, force=False):
+        """force: Read again"""
+        if (self.df is None) or force:
+            # First time (self.df = None) or force to read
+            df = pd.DataFrame()
+            for f in self.inter_file:
+                self.log.info(f"Reading {f}")
+                df = pd.concat([df, pd.read_csv(f, usecols=self.fields.keys())])
+
+            self.log.info(f"Processing timestamp and user session")
+            df["event_time"], df["user_session"] = self._process_data(df)
+            df.rename(columns=self.fields, inplace=True)
+
+            self.df = df
+
     def convert_inter(self):
-        df = pd.DataFrame()
-        for f in self.inter_file:
-            self.log.info(f"Reading {f}")
-            df = pd.concat([df, pd.read_csv(f, usecols=self.inter_fields.keys())])
+        self._read_data_from_files()
+        self.log.info(f"Writing to inter file")
+        self.df[self.inter_fields].to_csv(self.output_inter_file, sep=self.sep, index=False)
 
-        self.log.info(f"Processing timestamp and user session")
-        df["event_time"], df["user_session"] = self._process_data(df)
-        df.rename(columns=self.inter_fields, inplace=True)
-
-        self.log.info(f"Writing to file")
-        df.to_csv(self.output_inter_file, sep=self.sep, index=False)
+    def convert_item(self):
+        self._read_data_from_files()
+        self.log.info(f"Writing to item file")
+        self.df[self.item_fields].to_csv(self.output_item_file, sep=self.sep, index=False)

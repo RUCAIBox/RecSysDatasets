@@ -28,7 +28,9 @@ unzip cosmetics/archive.zip -d cosmetics/
 
 ```sh
 # cd RecSysDatasets/conversion_tools
-python run.py --dataset cosmetics --input_path cosmetics --output_path cosmetics --convert_inter
+python run.py --dataset cosmetics \
+--input_path cosmetics --output_path cosmetics \
+--convert_inter --convert_item
 ```
 
 * `input_path` is the path of the input decompressed cosmetics file
