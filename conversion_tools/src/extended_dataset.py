@@ -916,6 +916,7 @@ class GOWALLADataset(BaseDataset):
                 if not line:
                     for key, value in a_user[pre_userid].items():
                         all_user[cnt_row] = [pre_userid, key, value[0], value[1], value[2], value[3]]
+                        cnt_row += 1
                     break
                 line = line.strip().split('\t')
                 userid, timestamp, lati, longi, itemid = line[0], line[1], line[2], line[3], line[4]
