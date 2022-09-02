@@ -35,7 +35,7 @@ We provide two ways to convert these datasets into atomic files:
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data):
   This dataset was collected from Epinions.com, a popular online consumer review website. It contains trust relationships amongst users and spans more than a decade, from January 2001 to November 2013.
 - [Yelp](https://www.yelp.com/dataset):
-  This dataset was collected from [https://www.yelp.com/]. The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes. 
+  This dataset was collected from [Yelp](https://www.yelp.com/). The Yelp dataset is a subset of our businesses, reviews, and user data for use in personal, educational, and academic purposes. 
   Starting from Yelp Challenge 2018 ([the original link](https://www.yelp.com/dataset/challenge) to this competition is not found and there will not be another round of Yelp Dataset Challenge), there are four versions of Yelp datasets in total and Yelp has also posted the dataset on [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset), where you can also download a few earlier versions. 
   Our processed 5 datasets are detailed [here](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Yelp).
   - [Yelp 2018](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset/download?datasetVersionNumber=1): It is the first version of Yelp dataset released in Yelp Challenge 2018 including 5,261,669 reviews.
