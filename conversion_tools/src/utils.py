@@ -88,3 +88,7 @@ multiple_dataset = {
     'IPINYOUDataset',
     'LFM1bDataset'
 }
+
+multiple_item_features = {
+    'Music4AllOnion',
+}

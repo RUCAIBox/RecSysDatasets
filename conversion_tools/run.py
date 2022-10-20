@@ -6,7 +6,7 @@
 import argparse
 import importlib
 
-from src.utils import dataset2class, click_dataset, multiple_dataset
+from src.utils import dataset2class, click_dataset, multiple_dataset, multiple_item_features
 
 
 if __name__ == '__main__':
@@ -17,6 +17,8 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=str, default=None)
     parser.add_argument('--interaction_type', type=str, default=None)
     parser.add_argument('--duplicate_removal', action='store_true')
+
+    parser.add_argument('--item_feature_name', type=str, default='none')
 
     parser.add_argument('--convert_inter', action='store_true')
     parser.add_argument('--convert_item', action='store_true')
@@ -34,11 +36,14 @@ if __name__ == '__main__':
         input_args.append(args.interaction_type)
     if dataset_class_name in click_dataset:
         input_args.append(args.duplicate_removal)
+    if dataset_class_name in multiple_item_features:
+        input_args.append(args.item_feature_name)
     datasets = dataset_class(*input_args)
 
     if args.convert_inter:
         datasets.convert_inter()
     if args.convert_item:
         datasets.convert_item()
+
     if args.convert_user:
         datasets.convert_user()
