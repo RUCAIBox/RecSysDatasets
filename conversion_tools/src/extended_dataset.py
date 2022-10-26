@@ -37,7 +37,7 @@ class Music4AllOnion(BaseDataset):
             # selected feature fields
             self.inter_fields = {0: 'user_id:token',
                                  1: 'track_id:token',
-                                 2: 'timestamp:token',
+                                 2: 'timestamp:float',
                                  }
             self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_timestamp.inter')
 
@@ -74,6 +74,9 @@ class Music4AllOnion(BaseDataset):
 
                 line = line.strip().split('\t')
                 userid, itemid, count = line[0], line[1], line[2]
+                if self.interaction_type == 'timestamp':
+                    d = datetime.strptime(count, "%Y-%m-%d %H:%M:%S")
+                    count = time.mktime(d.timetuple())
                 fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
                 line = f.readline()
 
