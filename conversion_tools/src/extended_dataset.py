@@ -29,7 +29,7 @@ class Music4AllOnion(BaseDataset):
             # selected feature fields
             self.inter_fields = {0: 'user_id:token',
                                  1: 'track_id:token',
-                                 2: 'count:token',
+                                 2: 'count:float',
                                  }
             self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_counts.inter')
         elif self.interaction_type == 'timestamp':
