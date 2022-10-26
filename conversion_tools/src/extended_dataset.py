@@ -42,8 +42,7 @@ class Music4AllOnion(BaseDataset):
             self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_timestamp.inter')
 
         if feature_name != 'none':
-            self.output_item_file = os.path.join(self.input_path, 'userid_trackid_count.tsv')
-
+            # self.output_item_file = os.path.join(self.input_path, 'userid_trackid_count.tsv')
             feature_filename = 'id_' + feature_name + '.tsv'
             self.item_file = os.path.join(self.input_path, 'features', feature_filename)
             self.output_item_file = os.path.join(self.output_path, self.dataset_name + '_' + feature_name + '.item')
