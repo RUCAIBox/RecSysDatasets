@@ -65,20 +65,33 @@ class Music4AllOnion(BaseDataset):
         fout = open(self.output_inter_file, 'w')
         fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
 
-        with open(self.inter_file, 'r') as f:
-            next(f)
-            line = f.readline()
-            while True:
-                if not line:
-                    break
+        if self.interaction_type == 'timestamp':
+            with open(self.inter_file, 'r') as f:
+                next(f)
+                line = f.readline()
+                while True:
+                    if not line:
+                        break
 
-                line = line.strip().split('\t')
-                userid, itemid, count = line[0], line[1], line[2]
-                if self.interaction_type == 'timestamp':
+                    line = line.strip().split('\t')
+                    userid, itemid, count = line[0], line[1], line[2]
                     d = datetime.strptime(count, "%Y-%m-%d %H:%M:%S")
                     count = time.mktime(d.timetuple())
-                fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
+                    fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
+                    line = f.readline()
+
+        elif self.interaction_type == 'counts':
+            with open(self.inter_file, 'r') as f:
+                next(f)
                 line = f.readline()
+                while True:
+                    if not line:
+                        break
+
+                    line = line.strip().split('\t')
+                    userid, itemid, count = line[0], line[1], line[2]
+                    fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
+                    line = f.readline()
 
         print(self.output_inter_file + ' is done!')
         fout.close()
