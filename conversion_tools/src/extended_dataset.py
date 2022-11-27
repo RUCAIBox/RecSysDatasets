@@ -278,11 +278,16 @@ class AVAZUDataset(BaseDataset):
 
     def convert_inter(self):
         try:
+            idx_list = list(self.inter_fields.keys())
             with open(self.output_inter_file, 'w') as fp, open(self.inter_file, encoding='utf-8') as rp:
                 fp.write('\t'.join(self.inter_fields.values()) + '\n')
                 lines = rp.readlines()[1:]
                 for line in tqdm(lines):
-                    fp.write('\t'.join(line.strip().split(self.sep)) + '\n')
+                    token_line = line.strip().split(self.sep)
+                    token_list = []
+                    for idx in idx_list:
+                        token_list.append(token_line[idx])
+                    fp.write('\t'.join(token_list) + '\n')
         except NotImplementedError:
             print('This dataset can\'t be converted to inter file\n')
 
