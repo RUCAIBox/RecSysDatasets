@@ -233,6 +233,7 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 ### Knowledge-aware Datasets
 These knowledge-aware recommender datasets are based on [KB4Rec](https://github.com/RUCDM/KB4Rec),
 which associate items from recommender systems with entities from Freebase.
+Note that Amazon\-book dataset is the version released in 2014.
 
 Raw datasets information
 
