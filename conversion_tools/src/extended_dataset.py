@@ -16,10 +16,12 @@ from src.cosmetics import CosmeticsDataset
 
 
 class Music4AllOnion(BaseDataset):
-    def __init__(self, input_path, output_path, interaction_type, feature_name):
+    def __init__(self, input_path, output_path, interaction_type, feature_name, float_seq=True, binary=False):
         super(Music4AllOnion, self).__init__(input_path, output_path)
         self.dataset_name = 'onion'
         self.sep = '\t'
+        self.float_seq = float_seq
+        self.binary = binary
 
         self.interaction_type = interaction_type
 
@@ -42,23 +44,29 @@ class Music4AllOnion(BaseDataset):
             self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_timestamp.inter')
 
         if feature_name != 'none':
+
             # self.output_item_file = os.path.join(self.input_path, 'userid_trackid_count.tsv')
             feature_filename = 'id_' + feature_name + '.tsv'
             self.item_file = os.path.join(self.input_path, 'features', feature_filename)
             self.output_item_file = os.path.join(self.output_path, self.dataset_name + '_' + feature_name + '.item')
-            with open(self.item_file, 'r') as f:
-                tsv_reader = csv.reader(f, delimiter='\t')
+            if self.float_seq:
+                item_fields_values = ['track_id:token', f'{feature_name}:float_seq']
+                self.item_fields = {key: value for key, value in enumerate(item_fields_values)}
 
-                feature_header = []
+            else:
+                with open(self.item_file, 'r') as f:
+                    tsv_reader = csv.reader(f, delimiter='\t')
 
-                for row in tsv_reader:
-                    feature_header = row
-                    break
+                    feature_header = []
 
-                item_fields_values = [column_name + ':float' for column_name in feature_header]
-                item_fields_values[0] = 'track_id:token'
+                    for row in tsv_reader:
+                        feature_header = row
+                        break
 
-            self.item_fields = {key: value for key, value in enumerate(item_fields_values)}
+                    item_fields_values = [column_name + ':float' for column_name in feature_header]
+                    item_fields_values[0] = 'track_id:token'
+
+                self.item_fields = {key: value for key, value in enumerate(item_fields_values)}
 
     def convert_inter(self):
         fout = open(self.output_inter_file, 'w')
@@ -88,7 +96,11 @@ class Music4AllOnion(BaseDataset):
                         break
 
                     line = line.strip().split('\t')
-                    userid, itemid, count = line[0], line[1], line[2]
+                    if self.binary:
+                        userid, itemid = line[0], line[1]
+                        count = 10
+                    else:
+                        userid, itemid, count = line[0], line[1], line[2]
                     fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
                     line = f.readline()
 
@@ -105,7 +117,11 @@ class Music4AllOnion(BaseDataset):
             while True:
                 if not line:
                     break
-
+                if self.float_seq:
+                    line = line.split('\t')
+                    values = line[1:]
+                    values = ' '.join(values)
+                    line = f'{line[0]}\t{values}'
                 fout.write(line)
                 line = f.readline()
 
