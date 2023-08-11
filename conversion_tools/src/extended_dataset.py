@@ -15,6 +15,121 @@ from src.base_dataset import BaseDataset
 from src.cosmetics import CosmeticsDataset
 
 
+class Music4AllOnion(BaseDataset):
+    def __init__(self, input_path, output_path, interaction_type, feature_name, float_seq=True, binary=False):
+        super(Music4AllOnion, self).__init__(input_path, output_path)
+        self.dataset_name = 'onion'
+        self.sep = '\t'
+        self.float_seq = float_seq
+        self.binary = binary
+
+        self.interaction_type = interaction_type
+
+        # input file
+        if self.interaction_type == 'counts':
+            self.inter_file = os.path.join(self.input_path, 'userid_trackid_count.tsv')
+            # selected feature fields
+            self.inter_fields = {0: 'user_id:token',
+                                 1: 'track_id:token',
+                                 2: 'count:float',
+                                 }
+            self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_counts.inter')
+        elif self.interaction_type == 'timestamp':
+            self.inter_file = os.path.join(self.input_path, 'userid_trackid_timestamp.tsv')
+            # selected feature fields
+            self.inter_fields = {0: 'user_id:token',
+                                 1: 'track_id:token',
+                                 2: 'timestamp:float',
+                                 }
+            self.output_inter_file = os.path.join(self.output_path, self.dataset_name + '_timestamp.inter')
+
+        if feature_name != 'none':
+
+            # self.output_item_file = os.path.join(self.input_path, 'userid_trackid_count.tsv')
+            feature_filename = 'id_' + feature_name + '.tsv'
+            self.item_file = os.path.join(self.input_path, 'features', feature_filename)
+            self.output_item_file = os.path.join(self.output_path, self.dataset_name + '_' + feature_name + '.item')
+            if self.float_seq:
+                item_fields_values = ['track_id:token', f'{feature_name}:float_seq']
+                self.item_fields = {key: value for key, value in enumerate(item_fields_values)}
+
+            else:
+                with open(self.item_file, 'r') as f:
+                    tsv_reader = csv.reader(f, delimiter='\t')
+
+                    feature_header = []
+
+                    for row in tsv_reader:
+                        feature_header = row
+                        break
+
+                    item_fields_values = [column_name + ':float' for column_name in feature_header]
+                    item_fields_values[0] = 'track_id:token'
+
+                self.item_fields = {key: value for key, value in enumerate(item_fields_values)}
+
+    def convert_inter(self):
+        fout = open(self.output_inter_file, 'w')
+        fout.write('\t'.join([self.inter_fields[i] for i in range(len(self.inter_fields))]) + '\n')
+
+        if self.interaction_type == 'timestamp':
+            with open(self.inter_file, 'r') as f:
+                next(f)
+                line = f.readline()
+                while True:
+                    if not line:
+                        break
+
+                    line = line.strip().split('\t')
+                    userid, itemid, count = line[0], line[1], line[2]
+                    d = datetime.strptime(count, "%Y-%m-%d %H:%M:%S")
+                    count = time.mktime(d.timetuple())
+                    fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
+                    line = f.readline()
+
+        elif self.interaction_type == 'counts':
+            with open(self.inter_file, 'r') as f:
+                next(f)
+                line = f.readline()
+                while True:
+                    if not line:
+                        break
+
+                    line = line.strip().split('\t')
+                    if self.binary:
+                        userid, itemid = line[0], line[1]
+                        count = 10
+                    else:
+                        userid, itemid, count = line[0], line[1], line[2]
+                    fout.write(str(userid) + '\t' + str(itemid) + '\t' + str(count) + '\n')
+                    line = f.readline()
+
+        print(self.output_inter_file + ' is done!')
+        fout.close()
+
+    def convert_item(self):
+        fout = open(self.output_item_file, 'w')
+        fout.write('\t'.join([self.item_fields[i] for i in range(len(self.item_fields))]) + '\n')
+
+        with open(self.item_file, 'r') as f:
+            next(f)
+            line = f.readline()
+            while True:
+                if not line:
+                    break
+                if self.float_seq:
+                    line = line.split('\t')
+                    values = line[1:]
+                    values = ' '.join(values)
+                    line = f'{line[0]}\t{values}'
+                fout.write(line)
+                line = f.readline()
+
+        print(self.output_inter_file + ' is done!')
+        fout.close()
+
+
+
 class ML100KDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(ML100KDataset, self).__init__(input_path, output_path)
@@ -484,7 +599,7 @@ class CRITEODataset(BaseDataset):
         fout = open(self.output_file, "w")
         fout.write('\t'.join([self.fields.get(i) for i in self.fields.keys()]) + '\n')
 
-        # Get file rows 
+        # Get file rows
         lines_count = 0
         for _ in fin:
             lines_count += 1
@@ -668,7 +783,7 @@ class DIGINETICADataset(BaseDataset):
         fout_prod = open(self.output_file_prod, "w")
         fout_prod.write('\t'.join([self.fields_item.get(i) for i in self.fields_item.keys()]) + '\n')
 
-        # Get file rows 
+        # Get file rows
         lines_count = 0
         for _ in fin:
             lines_count += 1
@@ -4846,31 +4961,31 @@ class MINDLargeTrainDataset(BaseDataset):
         self.sep = '\t'
 
         # input file
-        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\','/')
-        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\','/')
-        
+        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\', '/')
+        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\', '/')
+
         # output file
-        self.output_item_file = os.path.join(self.output_path, 'mind_large_train.item').replace('\\','/')
-        self.output_inter_file = os.path.join(self.output_path, 'mind_large_train.inter').replace('\\','/')
-        
+        self.output_item_file = os.path.join(self.output_path, 'mind_large_train.item').replace('\\', '/')
+        self.output_inter_file = os.path.join(self.output_path, 'mind_large_train.inter').replace('\\', '/')
+
         # fields
         self.item_fields = {
-                             0: 'item_id:token',
-                             1: 'category:token_seq',
-                             2: 'sub_category:token_seq',
-                             3: 'title:token_seq',
-                             4: 'abstract:token_seq',
-                             5: 'url:token_seq',
-                             6: 'title_entities:token_seq',
-                             7: 'abstract_entities:token_seq'
-                             }
+            0: 'item_id:token',
+            1: 'category:token_seq',
+            2: 'sub_category:token_seq',
+            3: 'title:token_seq',
+            4: 'abstract:token_seq',
+            5: 'url:token_seq',
+            6: 'title_entities:token_seq',
+            7: 'abstract_entities:token_seq'
+        }
         self.inter_fields = {
-                             0: 'user_id:token',
-                             1: 'item_id:token',
-                             2: 'label:float',
-                             3: 'timestamp:float'
-                             }
-    
+            0: 'user_id:token',
+            1: 'item_id:token',
+            2: 'label:float',
+            3: 'timestamp:float'
+        }
+
     def convert_item(self):
         fin = open(self.item_file, 'r')
         fout = open(self.output_item_file, "w")
@@ -4902,7 +5017,7 @@ class MINDLargeTrainDataset(BaseDataset):
 
         fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
-        current_list = [0,0,0,0]
+        current_list = [0, 0, 0, 0]
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             line_list = line.split('\t')
@@ -4917,7 +5032,7 @@ class MINDLargeTrainDataset(BaseDataset):
                 item, rating = rate.split('-')
                 item = item.strip('N')
 
-                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+                fout.write('\t'.join([current_list[0], item, rating, timestamp]) + '\n')
         fin.close()
         fout.close()
 
@@ -4932,7 +5047,7 @@ class MINDLargeTrainDataset(BaseDataset):
 
         fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
-        current_list = [0,0,0,0]
+        current_list = [0, 0, 0, 0]
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             line_list = line.split('\t')
@@ -4947,9 +5062,10 @@ class MINDLargeTrainDataset(BaseDataset):
                 item, rating = rate.split('-')
                 item = item.strip('N')
 
-                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+                fout.write('\t'.join([current_list[0], item, rating, timestamp]) + '\n')
         fin.close()
         fout.close()
+
 
 class MINDLargeDevDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -4958,31 +5074,31 @@ class MINDLargeDevDataset(BaseDataset):
         self.sep = '\t'
 
         # input file
-        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\','/')
-        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\','/')
-        
+        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\', '/')
+        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\', '/')
+
         # output file
-        self.output_item_file = os.path.join(self.output_path, 'mind_large_dev.item').replace('\\','/')
-        self.output_inter_file = os.path.join(self.output_path, 'mind_large_dev.inter').replace('\\','/')
-        
+        self.output_item_file = os.path.join(self.output_path, 'mind_large_dev.item').replace('\\', '/')
+        self.output_inter_file = os.path.join(self.output_path, 'mind_large_dev.inter').replace('\\', '/')
+
         # fields
         self.item_fields = {
-                             0: 'item_id:token',
-                             1: 'category:token_seq',
-                             2: 'sub_category:token_seq',
-                             3: 'title:token_seq',
-                             4: 'abstract:token_seq',
-                             5: 'url:token_seq',
-                             6: 'title_entities:token_seq',
-                             7: 'abstract_entities:token_seq'
-                             }
+            0: 'item_id:token',
+            1: 'category:token_seq',
+            2: 'sub_category:token_seq',
+            3: 'title:token_seq',
+            4: 'abstract:token_seq',
+            5: 'url:token_seq',
+            6: 'title_entities:token_seq',
+            7: 'abstract_entities:token_seq'
+        }
         self.inter_fields = {
-                             0: 'user_id:token',
-                             1: 'item_id:token',
-                             2: 'label:float',
-                             3: 'timestamp:float'
-                             }
-    
+            0: 'user_id:token',
+            1: 'item_id:token',
+            2: 'label:float',
+            3: 'timestamp:float'
+        }
+
     def convert_item(self):
         fin = open(self.item_file, 'r')
         fout = open(self.output_item_file, "w")
@@ -5014,7 +5130,7 @@ class MINDLargeDevDataset(BaseDataset):
 
         fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
-        current_list = [0,0,0,0]
+        current_list = [0, 0, 0, 0]
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             line_list = line.split('\t')
@@ -5029,9 +5145,10 @@ class MINDLargeDevDataset(BaseDataset):
                 item, rating = rate.split('-')
                 item = item.strip('N')
 
-                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+                fout.write('\t'.join([current_list[0], item, rating, timestamp]) + '\n')
         fin.close()
         fout.close()
+
 
 class MINDSmallTrainDataset(BaseDataset):
     def __init__(self, input_path, output_path):
@@ -5040,31 +5157,31 @@ class MINDSmallTrainDataset(BaseDataset):
         self.sep = '\t'
 
         # input file
-        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\','/')
-        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\','/')
-        
+        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\', '/')
+        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\', '/')
+
         # output file
-        self.output_item_file = os.path.join(self.output_path, 'mind_small_train.item').replace('\\','/')
-        self.output_inter_file = os.path.join(self.output_path, 'mind_small_train.inter').replace('\\','/')
-        
+        self.output_item_file = os.path.join(self.output_path, 'mind_small_train.item').replace('\\', '/')
+        self.output_inter_file = os.path.join(self.output_path, 'mind_small_train.inter').replace('\\', '/')
+
         # fields
         self.item_fields = {
-                             0: 'item_id:token',
-                             1: 'category:token_seq',
-                             2: 'sub_category:token_seq',
-                             3: 'title:token_seq',
-                             4: 'abstract:token_seq',
-                             5: 'url:token_seq',
-                             6: 'title_entities:token_seq',
-                             7: 'abstract_entities:token_seq'
-                             }
+            0: 'item_id:token',
+            1: 'category:token_seq',
+            2: 'sub_category:token_seq',
+            3: 'title:token_seq',
+            4: 'abstract:token_seq',
+            5: 'url:token_seq',
+            6: 'title_entities:token_seq',
+            7: 'abstract_entities:token_seq'
+        }
         self.inter_fields = {
-                             0: 'user_id:token',
-                             1: 'item_id:token',
-                             2: 'label:float',
-                             3: 'timestamp:float'
-                             }
-    
+            0: 'user_id:token',
+            1: 'item_id:token',
+            2: 'label:float',
+            3: 'timestamp:float'
+        }
+
     def convert_item(self):
         fin = open(self.item_file, 'r')
         fout = open(self.output_item_file, "w")
@@ -5096,7 +5213,7 @@ class MINDSmallTrainDataset(BaseDataset):
 
         fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
-        current_list = [0,0,0,0]
+        current_list = [0, 0, 0, 0]
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             line_list = line.split('\t')
@@ -5111,42 +5228,43 @@ class MINDSmallTrainDataset(BaseDataset):
                 item, rating = rate.split('-')
                 item = item.strip('N')
 
-                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+                fout.write('\t'.join([current_list[0], item, rating, timestamp]) + '\n')
         fin.close()
         fout.close()
+
 
 class MINDSmallDevDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(MINDSmallDevDataset, self).__init__(input_path, output_path)
         self.dataset_name = 'mind_small_dev'
         self.sep = '\t'
-        
+
         # input file
-        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\','/')
-        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\','/')
-        
+        self.item_file = os.path.join(self.input_path, 'news.tsv').replace('\\', '/')
+        self.inter_file = os.path.join(self.input_path, 'behaviors.tsv').replace('\\', '/')
+
         # output file
-        self.output_item_file = os.path.join(self.output_path, 'mind_small_dev.item').replace('\\','/')
-        self.output_inter_file = os.path.join(self.output_path, 'mind_small_dev.inter').replace('\\','/')
-        
+        self.output_item_file = os.path.join(self.output_path, 'mind_small_dev.item').replace('\\', '/')
+        self.output_inter_file = os.path.join(self.output_path, 'mind_small_dev.inter').replace('\\', '/')
+
         # fields
         self.item_fields = {
-                             0: 'item_id:token',
-                             1: 'category:token_seq',
-                             2: 'sub_category:token_seq',
-                             3: 'title:token_seq',
-                             4: 'abstract:token_seq',
-                             5: 'url:token_seq',
-                             6: 'title_entities:token_seq',
-                             7: 'abstract_entities:token_seq'
-                             }
+            0: 'item_id:token',
+            1: 'category:token_seq',
+            2: 'sub_category:token_seq',
+            3: 'title:token_seq',
+            4: 'abstract:token_seq',
+            5: 'url:token_seq',
+            6: 'title_entities:token_seq',
+            7: 'abstract_entities:token_seq'
+        }
         self.inter_fields = {
-                             0: 'user_id:token',
-                             1: 'item_id:token',
-                             2: 'label:float',
-                             3: 'timestamp:float'
-                             }
-    
+            0: 'user_id:token',
+            1: 'item_id:token',
+            2: 'label:float',
+            3: 'timestamp:float'
+        }
+
     def convert_item(self):
         fin = open(self.item_file, 'r')
         fout = open(self.output_item_file, "w")
@@ -5178,7 +5296,7 @@ class MINDSmallDevDataset(BaseDataset):
 
         fout.write('\t'.join([self.inter_fields[column] for column in self.inter_fields.keys()]) + '\n')
 
-        current_list = [0,0,0,0]
+        current_list = [0, 0, 0, 0]
         for i in tqdm(range(lines_count)):
             line = fin.readline()
             line_list = line.split('\t')
@@ -5193,6 +5311,6 @@ class MINDSmallDevDataset(BaseDataset):
                 item, rating = rate.split('-')
                 item = item.strip('N')
 
-                fout.write('\t'.join([current_list[0], item, rating, timestamp ])+'\n')
+                fout.write('\t'.join([current_list[0], item, rating, timestamp]) + '\n')
         fin.close()
         fout.close()

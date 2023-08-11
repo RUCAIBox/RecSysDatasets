@@ -4,6 +4,7 @@
 
 
 dataset2class = {
+    'onion': 'Music4AllOnion',
     'ml-100k': 'ML100KDataset',
     'ml-1m': 'ML1MDataset',
     'ml-10m': 'ML10MDataset',
@@ -79,10 +80,15 @@ click_dataset = {
 }
 
 multiple_dataset = {
+    'Music4AllOnion',
     'YOOCHOOSEDataset',
     'RETAILROCKETDataset',
     'TAFENGDataset',
     'TMALLDataset',
     'IPINYOUDataset',
     'LFM1bDataset'
+}
+
+multiple_item_features = {
+    'Music4AllOnion',
 }
