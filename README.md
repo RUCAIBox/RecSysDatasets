@@ -174,6 +174,9 @@ These datasets contain measurements of clothing fit from ModCloth.
 * [RentTheRunway](https://cseweb.ucsd.edu/~jmcauley/datasets.html#clothing_fit):
 These datasets contain measurements of clothing fit from [RentTheRunway](https://www.renttherunway.com).
 
+### Android Applications
+- [Myket](https://github.com/erfanloghmani/myket-android-application-market-dataset):
+This dataset contains information on application install interactions of users in the [Myket](https://myket.ir/) Android application market. The dataset contains 694,121 install interactions for 10,000 anonymized users and 7,988 applications. It also has application features like an approximate number of installs, average ratings, and category.
 
 ## Datasets information statistics
 
@@ -215,6 +218,7 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 | 32 | RateBeer                                  | 29,265     | 110,369    | 2,924,163  | 99\.9095% | Overall Rating<br/> \[0,20\] | √ | | √ | √ |
 | 33 | RentTheRunway                              | 105,571    | 5,850      | 192,544   | 99\.9688% | Rating<br/> \[0,10\] | √ | √ | √ | √ |
 | 34 | [Twitch](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Twitch)  | 15,524,309 | 6,161,666 | 474,676,929  | 99\.9995% | Click | | |  | √ |
+| 35 | [Myket](https://github.com/erfanloghmani/myket-android-application-market-dataset)  | 10,000 | 7,988 | 694121 | 99\.1312% | Install | √ | | √ | |
 
 
 ### CTR Datasets
