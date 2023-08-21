@@ -1857,6 +1857,43 @@ class PINTERESTDataset(BaseDataset):
         return pd.read_csv(self.inter_file, delimiter=self.sep, header=None, engine='python')
 
 
+class MyketDataset(BaseDataset):
+    def __init__(self, input_path, output_path):
+        super(MyketDataset, self).__init__(input_path, output_path)
+        self.dataset_name = 'myket'
+
+        # input path
+        self.inter_file = os.path.join(self.input_path, 'myket.csv')
+        self.item_file = os.path.join(self.input_path, 'app_info_sample.csv')
+
+        self.sep = ','
+
+        # output path
+        self.output_inter_file, self.output_item_file, self.output_user_file = self.get_output_files()
+
+        # selected feature fields
+        self.inter_fields = {
+            0: 'user_id:token',
+            1: 'item_id:token',
+            2: 'timestamp:float',
+        }
+
+        self.item_fields = {
+            0: 'item_id:token',
+            1: 'installs:float',
+            2: 'rating:float',
+            3: 'rating_count:float',
+            5: 'category:token_seq',
+        }
+
+    def load_inter_data(self):
+        return pd.read_csv(self.inter_file, delimiter=self.sep, engine='python', index_col=False)
+
+    def load_item_data(self):
+        return pd.read_csv(self.item_file, delimiter=self.sep, engine='python', index_col=False)
+
+
+
 class JESTERDataset(BaseDataset):
     def __init__(self, input_path, output_path):
         super(JESTERDataset, self).__init__(input_path, output_path)

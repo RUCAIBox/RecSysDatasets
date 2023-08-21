@@ -63,7 +63,8 @@ dataset2class = {
     'mind_large_dev': 'MINDLargeDevDataset',
     'mind_small_train': 'MINDSmallTrainDataset',
     'mind_small_dev': 'MINDSmallDevDataset',
-    'cosmetics': 'CosmeticsDataset'
+    'cosmetics': 'CosmeticsDataset',
+    'myket': 'MyketDataset',
 }
 
 click_dataset = {
