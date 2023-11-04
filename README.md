@@ -30,6 +30,8 @@ We provide two ways to convert these datasets into atomic files:
   Our processed datasets are detailed [here](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Amazon).
   - [Amazon 2014](http://jmcauley.ucsd.edu/data/amazon/): This dataset contains product reviews and metadata from Amazon, including 24 categories and 142.8 million reviews spanning May 1996 - July 2014. 
   - [Amazon 2018](https://nijianmo.github.io/amazon/index.html): This Dataset is an updated version of the [Amazon review dataset](http://jmcauley.ucsd.edu/data/amazon/index_2014.html) released in 2014. The total number of reviews is 233.1 million and the number of categories is 29 (142.8 million and 24 in 2014) and current data includes reviews in the range May 1996 - Oct 2018. 
+- [Amazon_M2](https://www.aicrowd.com/challenges/amazon-kdd-cup-23-multilingual-recommendation-challenge):
+This dataset is a collection of anonymized customer sessions containing products from six different locales: English, German, Japanese, French, Italian, and Spanish.
 - [Alibaba-iFashion](https://github.com/wenyuer/POG):
   This dataset is a fashion outfit dataset collected from [Alibaba]([https://www.alibaba.com/) online shopping systems in the paper [POG](https://dl.acm.org/doi/10.1145/3292500.3330652). The items from each outfit are viewed as the items being recommended to users, where each item consists of attributes such as category and title.
 - [Epinions](https://cseweb.ucsd.edu/~jmcauley/datasets.html#social_data):
@@ -102,6 +104,7 @@ This dataset represents a snapshot of the Yahoo! Music community's preferences f
   Music and Sound Recommendation with Knowledge Graphs are two different datasets with users, items, implicit feedback interactions between users and items, item tags, and item text descriptions are provided, one for Music Recommendation (KGRec-music), and other for Sound Recommendation (KGRec-sound). 
   - KGRec-music: All the data comes from `songfacts.com` and `last.fm` websites. Items are songs, which are described in terms of textual description extracted from `songfacts.com`, and tags from `last.fm`.
   - KGRec-sound: All the data comes from `Freesound.org`. Items are sounds, which are described in terms of textual description and tags created by the sound creator at uploading time.
+- [Music4All-Onion](http://www.cp.jku.at/datasets/Music4All-Onion/) : The dataset expands the Music4All dataset by including 26 additional audio, video, and metadata characteristics for 109,269 music pieces.
 
 ### Books
 * [Book-Crossing](http://www2.informatik.uni-freiburg.de/~cziegler/BX/):
@@ -215,7 +218,8 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 | 32 | RateBeer                                  | 29,265     | 110,369    | 2,924,163  | 99\.9095% | Overall Rating<br/> \[0,20\] | √ | | √ | √ |
 | 33 | RentTheRunway                              | 105,571    | 5,850      | 192,544   | 99\.9688% | Rating<br/> \[0,10\] | √ | √ | √ | √ |
 | 34 | [Twitch](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Twitch)  | 15,524,309 | 6,161,666 | 474,676,929  | 99\.9995% | Click | | |  | √ |
-
+| 35 | Amazon_M2 | 3,606,349 | 1,410,675 | 15,306,183  | \- | Click | | | √ | √ |
+| 36 | Music4All-Onion  | 119,140 | 109,269 | 252,984,396 | \- | Click | √ | | √ | √ |
 
 ### CTR Datasets
 
