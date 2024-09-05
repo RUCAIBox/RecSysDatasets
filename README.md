@@ -30,6 +30,7 @@ We provide two ways to convert these datasets into atomic files:
   Our processed datasets are detailed [here](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Amazon).
   - [Amazon 2014](http://jmcauley.ucsd.edu/data/amazon/): This dataset contains product reviews and metadata from Amazon, including 24 categories and 142.8 million reviews spanning May 1996 - July 2014. 
   - [Amazon 2018](https://nijianmo.github.io/amazon/index.html): This Dataset is an updated version of the [Amazon review dataset](http://jmcauley.ucsd.edu/data/amazon/index_2014.html) released in 2014. The total number of reviews is 233.1 million and the number of categories is 29 (142.8 million and 24 in 2014) and current data includes reviews in the range May 1996 - Oct 2018. 
+  - [Amazon 2023](https://amazon-reviews-2023.github.io/): This Dataset is the latest version of the [Amazon review dataset](http://jmcauley.ucsd.edu/data/amazon/index_2014.html) released in 2014. The total number of reviews is 571.54 million and the number of categories is 33 and current data includes reviews in the range May 1996 - Sep 2023. 
 - [Amazon_M2](https://www.aicrowd.com/challenges/amazon-kdd-cup-23-multilingual-recommendation-challenge):
 This dataset is a collection of anonymized customer sessions containing products from six different locales: English, German, Japanese, French, Italian, and Spanish.
 - [Alibaba-iFashion](https://github.com/wenyuer/POG):
