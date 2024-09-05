@@ -61,3 +61,41 @@
 | 27   | Amazon_Tools_and_Home_Improvement  | 4,704,014  | 559,775   | 9,015,203     | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
 | 28   | Amazon_Toys_and_Games              | 4,204,994  | 624,792   | 8,201,231     | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
 | 29   | Amazon_Video_Games                 | 1,540,618  | 71,982    | 2,565,349     | 99.9977%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+
+## Amazon (2023)
+
+| SN | Dataset                            | #Users     | #Items    | #Interactions | #Sparsity | Interaction Type   | TimeStamp | User Context | Item Context | Interaction Context |
+|----|------------------------------------|------------|-----------|---------------|-----------| ------------------ | --------- | ------------ | ------------ | ------------------- |
+| 1  | Amazon_All_Beauty                  | 631,986    | 112,565   | 693,929       | 99.9990%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 2  | Amazon_Fashion                     | 2,035,490  | 825,869   | 2,474,375     | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 3  | Amazon_Appliances                  | 1,755,732  | 94,319    | 2,103,990     | 99.9987%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 4  | Amazon_Arts_Crafts_and_Sewing      | 4,624,798  | 801,277   | 8,841,661     | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 5  | Amazon_Automotive                  | 8,019,747  | 2,003,039 | 19,692,836    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 6  | Amazon_Baby_Products               | 3,386,206  | 217,654   | 5,953,891     | 99.9992%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 7  | Amazon_Beauty_and_Personal_Care    | 11,325,787 | 1,028,731 | 23,591,312    | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 8  | Amazon_Books                       | 10,297,355 | 4,446,065 | 29,139,329    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 9  | Amazon_CDs_and_Vinyl               | 1,754,118  | 701,673   | 4,772,071     | 99.9996%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 10 | Amazon_Cell_Phones_and_Accessories | 11,598,197 | 1,288,441 | 20,560,480    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 11 | Amazon_Clothing_Shoes_and_Jewelry  | 22,553,370 | 7,216,886 | 65,179,586    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 12 | Amazon_Digital_Music               | 100,952    | 70,511    | 128,763       | 99.9982%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 13 | Amazon_Electronics                 | 18,286,191 | 1,609,860 | 43,365,426    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 14 | Amazon_Gift_Cards                  | 132,732    | 1,137     | 149,886       | 99.9007%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 15 | Amazon_Grocery_and_Gourmet_Food    | 7,034,393  | 603,182   | 14,081,170    | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 16 | Amazon_Handmade                    | 586,613    | 164,728   | 656,096       | 99.9993%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 17 | Amazon_Health_and_Household        | 12,496,820 | 797,393   | 25,269,798    | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 18 | Amazon_Health_and_Personal_Care    | 461,656    | 60,274    | 488,188       | 99.9982%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 19 | Amazon_Home_and_Kitchen            | 23,235,852 | 3,734,414 | 66,623,880    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 20 | Amazon_Industrial_and_Scientific   | 3,435,544  | 427,508   | 5,116,105     | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 21 | Amazon_Kindle_Store                | 5,646,991  | 1,590,697 | 25,302,305    | 99.9997%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 22 | Amazon_Magazine_Subscriptions      | 60,144     | 3,391     | 70,922        | 99.9652%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 23 | Amazon_Movies_and_TV               | 6,503,429  | 747,764   | 17,158,519    | 99.9996%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 24 | Amazon_Musical_Instruments         | 1,762,679  | 213,571   | 2,975,551     | 99.9992%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 25 | Amazon_Office_Products             | 7,613,158  | 710,403   | 12,689,349    | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 26 | Amazon_Patio_Lawn_and_Garden       | 8,599,548  | 851,749   | 16,292,310    | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 27 | Amazon_Pet_Supplies                | 7,778,407  | 492,726   | 16,597,408    | 99.9996%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 28 | Amazon_Software                    | 2,589,466  | 89,246    | 4,828,480     | 99.9979%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 29 | Amazon_Sports_and_Outdoors         | 10,331,141 | 1,587,219 | 19,349,403    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 30 | Amazon_Subscription_Boxes          | 15,237     | 641       | 15,953        | 99.8367%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 31 | Amazon_Tools_and_Home_Improvement  | 12,245,613 | 1,473,605 | 26,647,468    | 99.9999%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 32 | Amazon_Toys_and_Games              | 8,116,226  | 890,667   | 16,052,440    | 99.9998%  | rating<br/>\[0,5\] | √         |              | √            |                     |
+| 33 | Amazon_Video_Games                 | 2,766,656  | 137,249   | 4,555,500     | 99.9988%  | rating<br/>\[0,5\] | √         |              | √            |                     |
