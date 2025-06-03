@@ -94,6 +94,8 @@ This dataset contains more than 2 million short comments of 28 movies in Douban 
   - Twitch-full: See the [Google Drive folder](https://www.google.com/url?q=https://drive.google.com/drive/folders/1BD8m7a8m7onaifZay05yYjaLxyVV40si?usp%3Dsharing&source=gmail-html&ust=1629428377164000&usg=AFQjCNFXimN1hHftvhgIu5iKUTZiOsep8A) containing all Twitch files. Twitch-full contains the full dataset while Twitch-100k is a subset.
 
 ### Music
+- [Yambda-5B](https://huggingface.co/datasets/yandex/yambda):
+This dataset contains 4.8B user-item interactions for 1M users and 9.4M music tracks, both explicit (likes, dislikes) and implicit (music listening events). Each event is characterized by album and artist identifiers, includes a timestamp and is_organic flag that indicates whether the event was organic. Also, each listening event includes track duration and played ratio (0–100%). Additionally, neural audio embeddings are available for >80% of tracks.
 - [Last.FM](https://grouplens.org/datasets/hetrec-2011/):
 This dataset contains social networking, tagging, and music artist listening information from a set of 2K users from Last.fm online music system.
 - [LFM-1b](http://www.cp.jku.at/datasets/LFM-1b/):
@@ -221,6 +223,9 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 | 34 | [Twitch](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Twitch)  | 15,524,309 | 6,161,666 | 474,676,929  | 99\.9995% | Click | | |  | √ |
 | 35 | Amazon_M2 | 3,606,349 | 1,410,675 | 15,306,183  | \- | Click | | | √ | √ |
 | 36 | Music4All-Onion  | 119,140 | 109,269 | 252,984,396 | \- | Click | √ | | √ | √ |
+| 37 | [Yambda-5B](https://huggingface.co/datasets/yandex/yambda) | 1,000,000 | 9,390,623 | 4,785,859,887 | \- | Listen, Like, Dislike | √ |  | √ | √ |
+| 38 | [Yambda-500M](https://huggingface.co/datasets/yandex/yambda) | 100,000 | 3,004,578 | 480,255,564 | \- | Listen, Like, Dislike | √ |  | √ | √ |
+| 39 | [Yambda-50M](https://huggingface.co/datasets/yandex/yambda) | 10,000 | 934,057 | 47,790,449 | \- | Listen, Like, Dislike | √ |  | √ | √ |
 
 ### CTR Datasets
 
