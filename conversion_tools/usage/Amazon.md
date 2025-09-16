@@ -44,5 +44,5 @@ python run.py --dataset amazon_video_games \
 
  `convert_inter` Amazon_Video_Games can be converted to '*.inter' atomic file
 
- `convert_item` Amazon_Video_Games can be converted to '*.inter' atomic file
+ `convert_item` Amazon_Video_Games can be converted to '*.item' atomic file
 
