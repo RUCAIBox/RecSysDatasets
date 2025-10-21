@@ -1,6 +1,6 @@
 ## Retailrocket
 
-| SN | Dataset                                               | \#User    | \#Item  | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset                                               | \#User    | \#Item  | \#Interaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
 |----|-------------------------------------------------------|-----------|---------|--------------|----------|------------------|-----------|--------------|--------------|---------------------|
 | 1  | Retailrocket\_View                                    | 1,404,179 | 234,838 | 2,664,312    | 99\.99%  | View             | √         |              |              |                     |
 | 2  | Retailrocket\_View  <br> \(duplicate removal\)        | 1,404,179 | 234,838 | 2,132,127    | 99\.99%  | View             | √         |              |              |                     |

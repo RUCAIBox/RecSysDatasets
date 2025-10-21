@@ -1,6 +1,6 @@
 ## Foursquare
 
-| SN   | Dataset                                     | \#User | \#Item | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
+| SN   | Dataset                                     | \#User | \#Item | \#Interaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
 | ---- | ------------------------------------------- | ------ | ------ | ------------ | -------- | ---------------- | --------- | ------------ | ------------ | ------------------- |
 | 1    | Foursquare\_NYC                             | 1083   | 38333  | 227428       | 99.45%   | Check\-in        | √         |              | √            |                     |
 | 2    | Foursquare\_NYC  <br> \(duplicate removal\) | 1083   | 38333  | 91024        | 99.78%   | Check\-in        | √         |              | √            |                     |

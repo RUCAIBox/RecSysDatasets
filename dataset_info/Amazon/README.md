@@ -1,6 +1,6 @@
 ## Amazon (2014)
 
-| SN   | Dataset                                | \#User    | \#Item    | \#Inteaction | Sparsity  | Interaction Type   | TimeStamp | User Context | Item Context | Interaction Context |
+| SN   | Dataset                                | \#User    | \#Item    | \#Interaction | Sparsity  | Interaction Type   | TimeStamp | User Context | Item Context | Interaction Context |
 | ---- | -------------------------------------- | --------- | --------- | ------------ | --------- | ------------------ | --------- | ------------ | ------------ | ------------------- |
 | 1    | Amazon\_Apps\_for\_Andorid             | 1,323,884 | 61,275    | 2,638,172    | 99\.9967% | rating<br/>\[0,5\] | √         |              | √            |                     |
 | 2    | Amazon\_Beauty                         | 1,210,271 | 249,274   | 2,023,070    | 99\.9993% | rating<br/>\[0,5\] | √         |              | √            |                     |

@@ -1,6 +1,6 @@
 ## YOOCHOOSE
 
-| SN | Dataset                                      | \#User    | \#Item | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset                                      | \#User    | \#Item | \#Interaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
 |----|----------------------------------------------|-----------|--------|--------------|----------|------------------|-----------|--------------|--------------|---------------------|
 | 1  | YOOCHOOSE\_Buy                               | 509,696   | 19,949 | 1,150,753    | 99\.99%  | Buy              | √         |              |              | √                   |
 | 2  | YOOCHOOSE\_Buy  <br> \(duplicate removal\)   | 509,696   | 19,949 | 1,102,955    | 99\.99%  | Buy              | √         |              |              | √                   |
