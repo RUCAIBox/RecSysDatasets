@@ -48,6 +48,8 @@ This dataset is a collection of anonymized customer sessions containing products
   - Yelp-full: This is a combination dataset including four versions of yelp datasets mentioned above, where the duplicates are dropped and the number of total reviews is 28,908,240.
 - [Tmall](https://tianchi.aliyun.com/dataset/dataDetail?dataId=53):
   This dataset is provided by Ant Financial Services, using in the IJCAI16 contest.
+- [Tmall2014](https://tianchi.aliyun.com/dataset/140281):
+  This is a large-scale e-commerce dataset from Tmall.com containing user behavior logs from 2013. The dataset includes multiple types of user-item interactions: clicks, add-to-cart, favorites (collect), and purchases (alipay).
 - [DIGINETICA](https://competitions.codalab.org/competitions/11161):
   The dataset includes user sessions extracted from an e-commerce search engine logs, with anonymized user ids,
   hashed queries, hashed query terms, hashed product descriptions and meta-data, log-scaled prices, clicks, and purchases.
@@ -204,23 +206,24 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 | 17 | [Ta Feng](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/TaFeng)           | 32,266    | 23,812    | 817,741      | 99\.89%  | Click                      | √         | √            | √            | √                   |
 | 18 | [Foursquare](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Foursquare)      | \-        | \-        | \-           | \-       | Check-in                   | √         |              | √            |                     |
 | 19 | [Tmall](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Tmall)             | 963,923 | 2,353,207 | 44,528,127 | 99.99% | Click/Buy                  | √         |              |              | √                   |
-| 20 | [YOOCHOOSE](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/YOOCHOOSE)         | 9,249,729  | 52,739    | 34,154,697    | 99.99%   | Click/Buy                  | √         |              |              | √                   |
-| 21 | [Retailrocket](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Retailrocket)      | 1,407,580  | 247,085   | 2,756,101     | 99.99%   | View/Addtocart/Transaction | √         |              |              |                     |
-| 22 | [LFM-1b](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/LFM-1b)            | 120,322   | 3,123,496 | 1,088,161,692   | 99\.71%  | Click                      | √         | √            | √            | √                   |
-| 23 | [MIND](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/MIND) | - | - | - | - | Click | √ | |  |  |
-| 24 | BeerAdvocate      | 33,388     | 66,055 | 1,586,614    | 99\.9281% | Rating<br/> \[0,5\] | √ | | √ |  |
-| 25 | Behance                                      | 63,497     | 178,788 | 1,000,000   | 99\.9912% | Likes | √ | | √ |  |
-| 26 | DianPing                                     | 542,706    | 243,247 | 4,422,473   | 99\.9967% | Rating<br/> \[0,5\] | √ | | √ | √ |
-| 27 | EndoMondo                                     | 1,104      | 253,020  | 253,020  | 99\.9094% | Workout Logs | √ | √ |  | √ |
-| 28 | Food                                        | 226,570    | 231,637   | 1,132,367 | 99\.9978% | Rating<br/> \[0,5\] | √ |  | √ |  |
-| 29 | GoodReads                               | 876,145    | 2,360,650    | 228,648,342 | 99\.9889% | Rating<br/> \[0,5\] | √ |  | √ |  |
-| 30 | [KGRec](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/KGRec) | - | - | - | - | Click | | | √ |  |
-| 31 | ModCloth                                      | 47,958     | 1,378      | 82,790 | 99\.8747% | Rating<br/> \[0,5\] | | √ | √ | √ |
-| 32 | RateBeer                                  | 29,265     | 110,369    | 2,924,163  | 99\.9095% | Overall Rating<br/> \[0,20\] | √ | | √ | √ |
-| 33 | RentTheRunway                              | 105,571    | 5,850      | 192,544   | 99\.9688% | Rating<br/> \[0,10\] | √ | √ | √ | √ |
-| 34 | [Twitch](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Twitch)  | 15,524,309 | 6,161,666 | 474,676,929  | 99\.9995% | Click | | |  | √ |
-| 35 | Amazon_M2 | 3,606,349 | 1,410,675 | 15,306,183  | \- | Click | | | √ | √ |
-| 36 | Music4All-Onion  | 119,140 | 109,269 | 252,984,396 | \- | Click | √ | | √ | √ |
+| 20 | [Tmall2014](dataset_info/Tmall2014)       | ~1,500,000 | ~8,000,000 | ~22,400,000 (click) | 99.99% | Click/Cart/Collect/Alipay | √         |              |              |                     |
+| 21 | [YOOCHOOSE](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/YOOCHOOSE)         | 9,249,729  | 52,739    | 34,154,697    | 99.99%   | Click/Buy                  | √         |              |              | √                   |
+| 22 | [Retailrocket](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Retailrocket)      | 1,407,580  | 247,085   | 2,756,101     | 99.99%   | View/Addtocart/Transaction | √         |              |              |                     |
+| 23 | [LFM-1b](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/LFM-1b)            | 120,322   | 3,123,496 | 1,088,161,692   | 99\.71%  | Click                      | √         | √            | √            | √                   |
+| 24 | [MIND](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/MIND) | - | - | - | - | Click | √ | |  |  |
+| 25 | BeerAdvocate      | 33,388     | 66,055 | 1,586,614    | 99\.9281% | Rating<br/> \[0,5\] | √ | | √ |  |
+| 26 | Behance                                      | 63,497     | 178,788 | 1,000,000   | 99\.9912% | Likes | √ | | √ |  |
+| 27 | DianPing                                     | 542,706    | 243,247 | 4,422,473   | 99\.9967% | Rating<br/> \[0,5\] | √ | | √ | √ |
+| 28 | EndoMondo                                     | 1,104      | 253,020  | 253,020  | 99\.9094% | Workout Logs | √ | √ |  | √ |
+| 29 | Food                                        | 226,570    | 231,637   | 1,132,367 | 99\.9978% | Rating<br/> \[0,5\] | √ |  | √ |  |
+| 30 | GoodReads                               | 876,145    | 2,360,650    | 228,648,342 | 99\.9889% | Rating<br/> \[0,5\] | √ |  | √ |  |
+| 31 | [KGRec](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/KGRec) | - | - | - | - | Click | | | √ |  |
+| 32 | ModCloth                                      | 47,958     | 1,378      | 82,790 | 99\.8747% | Rating<br/> \[0,5\] | | √ | √ | √ |
+| 33 | RateBeer                                  | 29,265     | 110,369    | 2,924,163  | 99\.9095% | Overall Rating<br/> \[0,20\] | √ | | √ | √ |
+| 34 | RentTheRunway                              | 105,571    | 5,850      | 192,544   | 99\.9688% | Rating<br/> \[0,10\] | √ | √ | √ | √ |
+| 35 | [Twitch](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/Twitch)  | 15,524,309 | 6,161,666 | 474,676,929  | 99\.9995% | Click | | |  | √ |
+| 36 | Amazon_M2 | 3,606,349 | 1,410,675 | 15,306,183  | \- | Click | | | √ | √ |
+| 37 | Music4All-Onion  | 119,140 | 109,269 | 252,984,396 | \- | Click | √ | | √ | √ |
 
 ### CTR Datasets
 

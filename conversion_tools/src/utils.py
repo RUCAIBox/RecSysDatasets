@@ -12,6 +12,7 @@ dataset2class = {
     'avazu': 'AVAZUDataset',
     'adult': 'ADULTDataset',
     'tmall': 'TMALLDataset',
+    'tmall_2014': 'TMALL2014Dataset',
     'netflix': 'NETFLIXDataset',
     'criteo': 'CRITEODataset',
     'foursquare': 'FOURSQUAREDataset',
@@ -63,20 +64,23 @@ dataset2class = {
     'mind_large_dev': 'MINDLargeDevDataset',
     'mind_small_train': 'MINDSmallTrainDataset',
     'mind_small_dev': 'MINDSmallDevDataset',
-    'cosmetics': 'CosmeticsDataset'
+    'cosmetics': 'CosmeticsDataset',
+    'taobao': 'TaobaoDataset'
 }
 
 click_dataset = {
     'YOOCHOOSEDataset',
     'RETAILROCKETDataset',
     'TMALLDataset',
+    'TMALL2014Dataset',
     'IPINYOUDataset',
     'TAFENGDataset',
     'LFM1bDataset',
     'GOWALLADataset',
     'DIGINETICADataset',
     'FOURSQUAREDataset',
-    'STEAMDataset'
+    'STEAMDataset',
+    'TaobaoDataset'
 }
 
 multiple_dataset = {
@@ -85,8 +89,10 @@ multiple_dataset = {
     'RETAILROCKETDataset',
     'TAFENGDataset',
     'TMALLDataset',
+    'TMALL2014Dataset',
     'IPINYOUDataset',
-    'LFM1bDataset'
+    'LFM1bDataset',
+    'TaobaoDataset'
 }
 
 multiple_item_features = {

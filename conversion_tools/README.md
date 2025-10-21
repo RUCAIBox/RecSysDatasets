@@ -22,11 +22,12 @@
 | 17 | Ta Feng        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/TaFeng.md)|
 | 18 | Foursquare     |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Foursquare.md)|
 | 19 | Tmall          |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Tmall.md)|
-| 20 | YOOCHOOSE      |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/YOOCHOOSE.md)|
-| 21 | Retailrocket   |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Retailrocket.md)|
-| 22 | LFM\-1b        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LFM-1b.md)|
-| 23 | MIND           |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/MIND.md)|
-| 24 | Music4All_Onion         |[Link](https://github.com/RUCAIBox/RecSysDatasets/blob/master/conversion_tools/usage/Onion.md)|
+| 20 | Tmall2014      |[Link](usage/Tmall2014.md)|
+| 21 | YOOCHOOSE      |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/YOOCHOOSE.md)|
+| 22 | Retailrocket   |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/Retailrocket.md)|
+| 23 | LFM\-1b        |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/LFM-1b.md)|
+| 24 | MIND           |[Link](https://github.com/RUCAIBox/RecDatasets/blob/master/conversion_tools/usage/MIND.md)|
+| 25 | Music4All_Onion         |[Link](https://github.com/RUCAIBox/RecSysDatasets/blob/master/conversion_tools/usage/Onion.md)|
 
 
 ### CTR Datasets
