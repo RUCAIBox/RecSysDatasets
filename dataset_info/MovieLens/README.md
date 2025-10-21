@@ -1,6 +1,6 @@
 ## MovieLens 
 
-| SN | Dataset  | \#User  | \#Item | \#Inteaction | Sparsity | Interaction Type                    | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset  | \#User  | \#Item | \#Interaction | Sparsity | Interaction Type                    | TimeStamp | User Context | Item Context | Interaction Context |
 |----|----------|---------|--------|--------------|----------|-------------------------------------|-----------|--------------|--------------|---------------------|
 | 1  | ml\-100k | 943     | 1,682  | 100,000      | 93\.70%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     |
 | 2  | ml\-1m   | 6,040   | 3,952  | 1,000,209    | 95\.81%  | Rating <br> \[1\-5\]                | √         | √            | √            |                     |

@@ -1,6 +1,6 @@
 ## LFM-1b
 
-| SN | Dataset                                    | \#User | \#Item   | \#Inteaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset                                    | \#User | \#Item   | \#Interaction | Sparsity | Interaction Type | TimeStamp | User Context | Item Context | Interaction Context |
 |----|--------------------------------------------|--------|----------|--------------|----------|------------------|-----------|--------------|--------------|---------------------|
 | 1  | lfm1b\_artists                             | 120,322 | 3,123,496 | 1,088,161,692| 99\.71%  | Click            | √         | √            | √            | √                   |
 | 2  | lfm1b\_artists  <br> \(duplicate removal\) | 120,322 | 3,123,496 | 65,133,026   | 99\.98%  | Click            | √         | √            | √            | √                   |

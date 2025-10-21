@@ -183,7 +183,7 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 
 ### General Datasets
 
-| SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset           | \#User    | \#Item    | \#Interaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
 |----|-------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | [MovieLens](https://github.com/RUCAIBox/RecommenderSystems-Datasets/tree/master/dataset_info/MovieLens)         | \-        | \-        | \-           | \-       | Rating                     | √         | √            | √            |                     |
 | 2  | Anime             | 73,515    | 11,200    | 7,813,737    | 99\.05%  | Rating <br> \[\-1, 1\-10\] |           |              | √            |                     |
@@ -224,7 +224,7 @@ These datasets contain measurements of clothing fit from [RentTheRunway](https:/
 
 ### CTR Datasets
 
-| SN | Dataset           | \#User    | \#Item    | \#Inteaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
+| SN | Dataset           | \#User    | \#Item    | \#Interaction | Sparsity | Interaction Type           | TimeStamp | User Context | Item Context | Interaction Context |
 |----|:------------------|-----------|-----------|--------------|----------|----------------------------|-----------|--------------|--------------|---------------------|
 | 1  | Criteo            | \-        | \-        | 45,850,617   | \-       | Click                      |           |              |              | √                   |
 | 2  | Avazu             | \-        | \-        | 40,428,967   | \-       | Click <br> \[0, 1\]        | √         |              |              | √                   |
