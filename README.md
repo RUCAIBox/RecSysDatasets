@@ -119,6 +119,9 @@ This dataset contain reviews from the [Goodreads](https://www.goodreads.com) boo
 * [Steam](https://github.com/kang205/SASRec):
 This dataset is reviews and game information from Steam, which contains 7,793,069 reviews, 2,567,538 users, and 32,135 games. 
 In addition to the review text, the data also includes the users' play hours in each review.
+* [GVG Explainable Game Similarity](https://gamevgame.com/en/data):
+This dataset contains 50 human-reviewed pairs of similar PC games (82 games) with bilingual (EN/ZH) explanations of why they are similar, what differs and who each suits, and official Steam store sources per row. Small and editorial rather than behavioural; useful for explainable recommendation and pair-level similarity evaluation. CC BY 4.0, DOI 10.5281/zenodo.22250985.
+
 
 ### Anime
 - [Anime](https://www.kaggle.com/CooperUnion/anime-recommendations-database):
